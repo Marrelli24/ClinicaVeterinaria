@@ -90,7 +90,7 @@ public class ClienteData {
         }
     }
 
-    public ArrayList<Cliente> listarAlumnos() {
+    public ArrayList<Cliente> listarClientes() {
         ArrayList<Cliente> lista = new ArrayList<>();
         Cliente cliente = null;
         String sql = "SELECT idCliente, dni, nombre, apellido, telefono, direccion, contactoAlternativo FROM cliente";
@@ -117,7 +117,7 @@ public class ClienteData {
         return lista;
     }
 
-    public Cliente buscarAlumnoPorId(int id) {
+    public Cliente buscarClientePorId(int id) {
         Cliente cliente = null;
         String sql = ("SELECT idCliente, dni, nombre, apellido, telefono, direccion, contactoAlternativo FROM cliente WHERE idCliente=?");
         PreparedStatement ps;
@@ -143,7 +143,7 @@ public class ClienteData {
         return cliente;
     }
 
-    public Cliente buscarAlumnoPorDni(int dni) {
+    public Cliente buscarClientePorDni(int dni) {
         Cliente cliente = null;
         String sql = ("SELECT idCliente, dni, nombre, apellido, telefono, direccion, contactoAlternativo FROM cliente WHERE dni=?");
         PreparedStatement ps;

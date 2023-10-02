@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -36,7 +37,9 @@ public class ClienteData {
 
             if (rs.next()) {
                 cliente.setIdCliente(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Alumno guardado");
+                JOptionPane.showMessageDialog(null, "Cliente guardado");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo guardar el cliente");
             }
             ps.close();
 
@@ -67,5 +70,102 @@ public class ClienteData {
         } catch (SQLException ex) {
             Logger.getLogger(ClienteData.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void eliminarCliente(int id) {
+        String sql = "DELETE FROM cliente WHERE idclient=?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int rs = ps.executeUpdate();
+            if (rs == 1) {
+                JOptionPane.showMessageDialog(null, "Se elimino los datos del cliente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se elimino los datos del cliente");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList<Cliente> listarAlumnos() {
+        ArrayList<Cliente> lista = new ArrayList<>();
+        Cliente cliente = null;
+        String sql = "SELECT idCliente, dni, nombre, apellido, telefono, direccion, contactoAlternativo FROM cliente";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("idCliente"));
+                cliente.setDni(rs.getInt("dni"));
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setApellido(rs.getString("apellido"));
+                cliente.setTelefono(rs.getInt("telefono"));
+                cliente.setDireccion(rs.getString("direccion"));
+                cliente.setContactoAlter(rs.getInt("contactoAlternativo"));
+                lista.add(cliente);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en cargar la lista de clientes");
+        }
+
+        return lista;
+    }
+
+    public Cliente buscarAlumnoPorId(int id) {
+        Cliente cliente = null;
+        String sql = ("SELECT idCliente, dni, nombre, apellido, telefono, direccion, contactoAlternativo FROM cliente WHERE idCliente=?");
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("idCliente"));
+                cliente.setDni(rs.getInt("dni"));
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setApellido(rs.getString("apellido"));
+                cliente.setTelefono(rs.getInt("telefono"));
+                cliente.setDireccion(rs.getString("direccion"));
+                cliente.setContactoAlter(rs.getInt("contactoAlternativo"));
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en cargar del cliente");
+        }
+
+        return cliente;
+    }
+
+    public Cliente buscarAlumnoPorDni(int dni) {
+        Cliente cliente = null;
+        String sql = ("SELECT idCliente, dni, nombre, apellido, telefono, direccion, contactoAlternativo FROM cliente WHERE dni=?");
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, dni);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("idCliente"));
+                cliente.setDni(rs.getInt("dni"));
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setApellido(rs.getString("apellido"));
+                cliente.setTelefono(rs.getInt("telefono"));
+                cliente.setDireccion(rs.getString("direccion"));
+                cliente.setContactoAlter(rs.getInt("contactoAlternativo"));
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en cargar del cliente");
+        }
+
+        return cliente;
     }
 }

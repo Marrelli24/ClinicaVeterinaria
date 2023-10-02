@@ -9,9 +9,8 @@ public class Cliente {
     private int telefono;
     private String direccion;
     private int contactoAlter;
-    private boolean activo;
 
-    public Cliente(int idCliente, int dni, String nombre, String apellido, int telefono, String direccion, int contactoAlter, boolean activo) {
+    public Cliente(int idCliente, int dni, String nombre, String apellido, int telefono, String direccion, int contactoAlter) {
         this.idCliente = idCliente;
         this.dni = dni;
         this.nombre = nombre;
@@ -19,17 +18,15 @@ public class Cliente {
         this.telefono = telefono;
         this.direccion = direccion;
         this.contactoAlter = contactoAlter;
-        this.activo = activo;
     }
 
-    public Cliente(int dni, String nombre, String apellido, int telefono, String direccion, int contactoAlter, boolean activo) {
+    public Cliente(int dni, String nombre, String apellido, int telefono, String direccion, int contactoAlter) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.direccion = direccion;
         this.contactoAlter = contactoAlter;
-        this.activo = activo;
     }
 
     public Cliente() {
@@ -91,19 +88,9 @@ public class Cliente {
         this.contactoAlter = contactoAlter;
     }
 
-    public boolean isActivo() {
-        return activo;
-    }
-
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
-
     @Override
     public String toString() {
-        return "Cliente{" + "idCliente=" + idCliente + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", direccion=" + direccion + ", contactoAlter=" + contactoAlter + ", activo=" + activo + '}';
+        return "Cliente{" + "idCliente=" + idCliente + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", direccion=" + direccion + ", contactoAlter=" + contactoAlter + '}';
     }
-    
-    
-    
+
 }

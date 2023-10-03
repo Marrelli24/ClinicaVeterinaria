@@ -20,7 +20,7 @@ public class ClienteData {
     }
 
     public void guardarCliente(Cliente cliente) {
-        String sql = "INSERT INTO cliente(dni, nombre, apellido, telefono, direccion, contactoAlternativo) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO cliente(dni, nombre, apellido, telefono, direccion, contactoAlternativo) VALUES (?,?,?,?,?,?)";
         PreparedStatement ps;
 
         try {
@@ -44,7 +44,7 @@ public class ClienteData {
             ps.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error en base de datos");
         }
 
     }
@@ -60,6 +60,7 @@ public class ClienteData {
             ps.setInt(4, cliente.getTelefono());
             ps.setString(5, cliente.getDireccion());
             ps.setInt(6, cliente.getContactoAlter());
+            ps.setInt(7, cliente.getIdCliente());
             int rs = ps.executeUpdate();
             if (rs == 1) {
                 JOptionPane.showMessageDialog(null, "Se actualizo los dato del Cliente correctamente");
@@ -73,7 +74,7 @@ public class ClienteData {
     }
 
     public void eliminarCliente(int id) {
-        String sql = "DELETE FROM cliente WHERE idclient=?";
+        String sql = "DELETE FROM cliente WHERE idcliente=?";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -86,7 +87,7 @@ public class ClienteData {
             }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error en base de datos");
         }
     }
 
@@ -111,7 +112,7 @@ public class ClienteData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en cargar la lista de clientes");
+            JOptionPane.showMessageDialog(null, "Error en base de datos");
         }
 
         return lista;
@@ -137,7 +138,7 @@ public class ClienteData {
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en cargar del cliente");
+            JOptionPane.showMessageDialog(null, "Error en base de datos");
         }
 
         return cliente;
@@ -163,7 +164,7 @@ public class ClienteData {
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en cargar del cliente");
+            JOptionPane.showMessageDialog(null, "Error en base de datos");
         }
 
         return cliente;

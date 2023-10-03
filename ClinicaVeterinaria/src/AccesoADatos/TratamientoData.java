@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -35,7 +37,7 @@ public class TratamientoData {
                 boolean act = rs.getBoolean("activo");
                 tratamiento = new Tratamiento(tipoDeTratamiento, desc, med, precio, act);
             }
-            
+            ps.close();
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Ocurrio un error en la base de datos");
         }
@@ -45,26 +47,72 @@ public class TratamientoData {
     public void guardarTratamiento(Tratamiento trat){
         PreparedStatement ps;
         String sql = "INSERT INTO tratamiento(tipoDeTratamiento, descripcion, medicina, importe, activo) VALUES (?,?,?,?,?)";
-        
-        
-        
         try{
             ps = con.prepareStatement(sql);
             ps.setString(1, trat.getTipoDeTratamiento());
-            
-            
+            ps.setString(2, trat.getDescripcion());
+            ps.setString(3, trat.getMedicamento());
+            ps.setDouble(4, trat.getPrecio());
+            ps.setBoolean(5, true);
+            int rs = ps.executeUpdate();
+            if (rs == 1) {
+                JOptionPane.showMessageDialog(null, "Se guardo el tratamiento correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se guardo el tratamiento");
+            }
+            ps.close();
             
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error en la base de datos");
         }
-        
+    }
+    
+    public void editarTratamiento(Tratamiento trat){
+        PreparedStatement ps;
+        String sql = "UPDATE tratamiento SET tipoDeTratamiento = ?, descripcion = ?, medicina = ?, importe = ? WHERE idTratamiento=?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, trat.getTipoDeTratamiento());
+            ps.setString(2, trat.getDescripcion());
+            ps.setString(3, trat.getMedicamento());
+            ps.setDouble(4, trat.getPrecio());
+            ps.setInt(5, trat.getIdTratamiento());
+     
+            int rs = ps.executeUpdate();
+            if (rs == 1) {
+                JOptionPane.showMessageDialog(null, "Se actualizo el tratamiento correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se actualizo el tratamiento");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+           JOptionPane.showConfirmDialog(null, "Error en la base de datos");
+        }
         
     }
     
-    public void editarTratamiento(){
-    }
-    
-    public void altaOBajaTratamiento(){
+    public void altaOBajaTratamiento(int id, boolean act){
+        PreparedStatement ps;
+        String sql = "UPDATE tratamiento SET activo = ? WHERE idTratamiento=?";
+        try{
+             ps = con.prepareStatement(sql);
+             if(act){
+                ps.setInt(1, 0);
+             }else{
+                ps.setInt(1, 1);
+             }
+             ps.setInt(2, id);
+             int rs = ps.executeUpdate();
+             
+            if (rs == 1) {
+                JOptionPane.showMessageDialog(null, "Se actualizo el tratamiento correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se actualizo el tratamiento");
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error en la base de datos");
+        }
     }
     
      public ArrayList<Tratamiento> listarTratamiento() {

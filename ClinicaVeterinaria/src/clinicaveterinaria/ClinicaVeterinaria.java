@@ -15,8 +15,6 @@ public class ClinicaVeterinaria {
         
         System.out.println(trat.buscarTratamiento(1));
         
-        
-        
         ClienteData clientedata= new ClienteData();
         Cliente cliente = new Cliente(38299859, "Ezequiel", "Marrelli", 44, "Calle solari", 1);
     }

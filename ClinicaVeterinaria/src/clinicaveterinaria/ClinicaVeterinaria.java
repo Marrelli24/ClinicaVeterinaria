@@ -5,6 +5,9 @@
  */
 package clinicaveterinaria;
 
+import AccesoADatos.ClienteData;
+import Entidades.Cliente;
+
 /**
  *
  * @author Ezequiel
@@ -15,7 +18,8 @@ public class ClinicaVeterinaria {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        ClienteData clientedata= new ClienteData();
+        Cliente cliente = new Cliente(38299859, "Ezequiel", "Marrelli", 44, "Calle solari", 1);
     }
     
 }

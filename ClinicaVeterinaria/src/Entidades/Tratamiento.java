@@ -2,7 +2,7 @@ package Entidades;
 
 public class Tratamiento {
     
-    private int idTRatamiento;
+    private int idTratamiento;
     private String tipoDeTratamiento;
     private String descripcion;
     private String medicamento;
@@ -12,8 +12,8 @@ public class Tratamiento {
     public Tratamiento() {
     }
 
-    public Tratamiento(int idTRatamiento, String tipoDeTratamiento, String descripcion, String medicamento, double precio, boolean activo) {
-        this.idTRatamiento = idTRatamiento;
+    public Tratamiento(int idTratamiento, String tipoDeTratamiento, String descripcion, String medicamento, double precio, boolean activo) {
+        this.idTratamiento = idTratamiento;
         this.tipoDeTratamiento = tipoDeTratamiento;
         this.descripcion = descripcion;
         this.medicamento = medicamento;
@@ -29,12 +29,12 @@ public class Tratamiento {
         this.activo = activo;
     }
 
-    public int getIdTRatamiento() {
-        return idTRatamiento;
+    public int getIdTratamiento() {
+        return idTratamiento;
     }
 
     public void setIdTratamiento(int idTRatamiento) {
-        this.idTRatamiento = idTRatamiento;
+        this.idTratamiento = idTRatamiento;
     }
 
     public String getTipoDeTratamiento() {

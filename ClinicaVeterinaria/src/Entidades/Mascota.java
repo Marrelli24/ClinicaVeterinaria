@@ -14,11 +14,12 @@ public class Mascota {
     private String colorPelo;
     private double pesoPromedio;
     private LocalDate fechaNac;
+    private Cliente cliente;
 
     public Mascota() {
     }
 
-    public Mascota(String alias, String sexo, String especie, String raza, String colorPelo, double pesoPromedio, LocalDate fechaNac) {
+    public Mascota(String alias, String sexo, String especie, String raza, String colorPelo, double pesoPromedio, LocalDate fechaNac, Cliente cliente) {
         this.alias = alias;
         this.sexo = sexo;
         this.especie = especie;
@@ -26,9 +27,10 @@ public class Mascota {
         this.colorPelo = colorPelo;
         this.pesoPromedio = pesoPromedio;
         this.fechaNac = fechaNac;
+        this.cliente = cliente;
     }
 
-    public Mascota(int idMascota, String alias, String sexo, String especie, String raza, String colorPelo, double pesoPromedio, LocalDate fechaNac) {
+    public Mascota(int idMascota, String alias, String sexo, String especie, String raza, String colorPelo, double pesoPromedio, LocalDate fechaNac, Cliente cliente) {
         this.idMascota = idMascota;
         this.alias = alias;
         this.sexo = sexo;
@@ -37,6 +39,7 @@ public class Mascota {
         this.colorPelo = colorPelo;
         this.pesoPromedio = pesoPromedio;
         this.fechaNac = fechaNac;
+        this.cliente = cliente;
     }
 
     public int getIdMascota() {
@@ -103,9 +106,18 @@ public class Mascota {
         this.fechaNac = fechaNac;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     @Override
     public String toString() {
-        return "Mascota{" + "idMascota=" + idMascota + ", alias=" + alias + ", sexo=" + sexo + ", especie=" + especie + ", raza=" + raza + ", colorPelo=" + colorPelo + ", pesoPromedio=" + pesoPromedio + ", fechaNac=" + fechaNac + '}';
+        return "Mascota{" + "idMascota=" + idMascota + ", alias=" + alias + ", sexo=" + sexo + ", especie=" + especie + ", raza=" + raza + ", colorPelo=" + colorPelo + ", pesoPromedio=" + pesoPromedio + ", fechaNac=" + fechaNac + ", cliente=" + cliente + '}';
     }
+
     
 }

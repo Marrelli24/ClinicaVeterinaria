@@ -1,17 +1,16 @@
-
 package Entidades;
 
 import java.time.LocalDate;
 
-
 public class Mascota {
-    
+
     private int idMascota;
     private String alias;
     private String sexo;
     private String especie;
     private String raza;
     private String colorPelo;
+    private double pesoActual;
     private double pesoPromedio;
     private LocalDate fechaNac;
     private Cliente cliente;
@@ -19,24 +18,26 @@ public class Mascota {
     public Mascota() {
     }
 
-    public Mascota(String alias, String sexo, String especie, String raza, String colorPelo, double pesoPromedio, LocalDate fechaNac, Cliente cliente) {
+    public Mascota(String alias, String sexo, String especie, String raza, String colorPelo, double pesoActual, double pesoPromedio, LocalDate fechaNac, Cliente cliente) {
         this.alias = alias;
         this.sexo = sexo;
         this.especie = especie;
         this.raza = raza;
         this.colorPelo = colorPelo;
+        this.pesoActual = pesoActual;
         this.pesoPromedio = pesoPromedio;
         this.fechaNac = fechaNac;
         this.cliente = cliente;
     }
 
-    public Mascota(int idMascota, String alias, String sexo, String especie, String raza, String colorPelo, double pesoPromedio, LocalDate fechaNac, Cliente cliente) {
+    public Mascota(int idMascota, String alias, String sexo, String especie, String raza, String colorPelo, double pesoActual, double pesoPromedio, LocalDate fechaNac, Cliente cliente) {
         this.idMascota = idMascota;
         this.alias = alias;
         this.sexo = sexo;
         this.especie = especie;
         this.raza = raza;
         this.colorPelo = colorPelo;
+        this.pesoActual = pesoActual;
         this.pesoPromedio = pesoPromedio;
         this.fechaNac = fechaNac;
         this.cliente = cliente;
@@ -89,7 +90,13 @@ public class Mascota {
     public void setColorPelo(String colorPelo) {
         this.colorPelo = colorPelo;
     }
+   public double getPesoActual() {
+        return pesoActual;
+    }
 
+    public void setPesoActual (double pesoActual) {
+        this.pesoActual = pesoActual;
+    }
     public double getPesoPromedio() {
         return pesoPromedio;
     }
@@ -116,8 +123,7 @@ public class Mascota {
 
     @Override
     public String toString() {
-        return "Mascota{" + "idMascota=" + idMascota + ", alias=" + alias + ", sexo=" + sexo + ", especie=" + especie + ", raza=" + raza + ", colorPelo=" + colorPelo + ", pesoPromedio=" + pesoPromedio + ", fechaNac=" + fechaNac + ", cliente=" + cliente + '}';
+        return "Mascota{" + "idMascota=" + idMascota + ", alias=" + alias + ", sexo=" + sexo + ", especie=" + especie + ", raza=" + raza + ", colorPelo=" + colorPelo + ", pesoActual=" + pesoActual + ", pesoPromedio=" + pesoPromedio + ", fechaNac=" + fechaNac + ", cliente=" + cliente + '}';
     }
 
-    
 }

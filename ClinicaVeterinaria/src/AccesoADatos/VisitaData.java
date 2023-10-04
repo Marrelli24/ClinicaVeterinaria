@@ -170,7 +170,7 @@ public class VisitaData {
     public ArrayList<Visita> buscarVisitaPorMascota(int id) {
         ArrayList<Visita> lista = new ArrayList<>();
         Visita visita = null;
-        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita WHERE idMascota = ?";
+        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita WHERE idMascota = ? ";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -192,5 +192,54 @@ public class VisitaData {
         }
 
         return lista;
+    }
+
+    public ArrayList<Visita> buscarVisitaPorTratamiento(int id) {
+        ArrayList<Visita> lista = new ArrayList<>();
+        Visita visita = null;
+        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita WHERE idTratamiento = ?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                visita = new Visita();
+                visita.setIdVisita(rs.getInt("idVisita"));
+                visita.setMascota(mascotaData.buscarMascotaPorId(rs.getInt("idMascota")));
+                visita.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
+                visita.setDetalle(rs.getString("detalle"));
+                visita.setPeso(rs.getDouble("peso"));
+                visita.setTratamiento(tratamientoData.buscarTratamiento(rs.getInt("idTratamiento")));
+                lista.add(visita);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en base de datos");
+        }
+
+        return lista;
+    }
+
+    
+    public double pesoPromedio(int id) {
+        double pesoPromedio = 0;
+        int x=0;
+        String sql = "SELECT COUNT(fechaVisita) AS cantidad, SUM(peso) AS total FROM ( SELECT fechaVisita, peso FROM visita WHERE idMascota = 1 ORDER BY fechaVisita DESC LIMIT 3 ) subquery;";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();        
+            while (rs.next()) {
+                x= rs.getInt("cantidad");
+                pesoPromedio = (rs.getDouble("total"))/x;
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en base de datos");
+            System.out.println(ex);
+        }
+        return pesoPromedio;
     }
 }

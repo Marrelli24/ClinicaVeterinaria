@@ -1,6 +1,5 @@
 package AccesoADatos;
 
-import Entidades.Cliente;
 import Entidades.Mascota;
 import java.sql.Connection;
 import java.sql.Date;
@@ -22,7 +21,7 @@ public class MascotaData {
     }
 
     public void guardarMascota(Mascota mascota) {
-        String sql = "INSERT INTO cliente(alias, sexo, especie, raza, colorPelo, pesoPromedio, fechaNac, idCliente) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO cliente(alias, sexo, especie, raza, colorPelo,peso, pesoPromedio, fechaNac, idCliente) VALUES (?,?,?,?,?,?,?,?)";
         PreparedStatement ps;
 
         try {
@@ -32,9 +31,10 @@ public class MascotaData {
             ps.setString(3, mascota.getEspecie());
             ps.setString(4, mascota.getRaza());
             ps.setString(5, mascota.getColorPelo());
-            ps.setDouble(6, mascota.getPesoPromedio());
-            ps.setDate(7, Date.valueOf(mascota.getFechaNac()));
-            ps.setInt(8, mascota.getCliente().getIdCliente());
+            ps.setDouble(6, mascota.getPesoActual());
+            ps.setDouble(7, mascota.getPesoPromedio());
+            ps.setDate(8, Date.valueOf(mascota.getFechaNac()));
+            ps.setInt(9, mascota.getCliente().getIdCliente());
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -51,7 +51,7 @@ public class MascotaData {
     }
 
     public void editarMascota(Mascota mascota) {
-        String sql = "UPDATE cliente SET alias = ?, sexo = ?, especie = ?, raza = ?, colorPelo = ?, pesoPromedio = ?, fechaNac = ?, idCliente = ? WHERE idMascota = ?";
+        String sql = "UPDATE mascota SET alias = ?, sexo = ?, especie = ?, raza = ?, colorPelo = ?, peso = ?, pesoPromedio = ?, fechaNac = ?, idCliente = ? WHERE idMascota = ?";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -60,9 +60,12 @@ public class MascotaData {
             ps.setString(3, mascota.getEspecie());
             ps.setString(4, mascota.getRaza());
             ps.setString(5, mascota.getColorPelo());
-            ps.setDouble(6, mascota.getPesoPromedio());
-            ps.setDate(7, Date.valueOf(mascota.getFechaNac()));
-            ps.setInt(8, mascota.getCliente().getIdCliente());
+            System.out.println(mascota.getPesoActual());
+            ps.setDouble(6, mascota.getPesoActual());
+            ps.setDouble(7, mascota.getPesoPromedio());
+            ps.setDate(8, Date.valueOf(mascota.getFechaNac()));
+            ps.setInt(9, mascota.getCliente().getIdCliente());
+            ps.setInt(10, mascota.getIdMascota());
 
             int rs = ps.executeUpdate();
             if (rs == 1) {
@@ -72,14 +75,14 @@ public class MascotaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se pudieron los datos de la mascota");
+            JOptionPane.showMessageDialog(null, "No se pudieron los datos de la mascota" + ex);
         }
     }
 
     public ArrayList<Mascota> listarMascotas() {
         ArrayList<Mascota> lista = new ArrayList<>();
         Mascota mascota = null;
-        String sql = "SELECT alias, sexo, especie, raza, colorPelo, pesoPromedio, fechaNac, idCliente FROM mascota";
+        String sql = "SELECT alias, sexo, especie, raza, colorPelo, peso, pesoPromedio, fechaNac, idCliente FROM mascota";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -91,6 +94,7 @@ public class MascotaData {
                 mascota.setEspecie(rs.getString("especie"));
                 mascota.setRaza(rs.getString("raza"));
                 mascota.setColorPelo(rs.getString("colorPelo"));
+                mascota.setPesoActual(rs.getDouble("peso"));
                 mascota.setPesoPromedio(rs.getDouble("pesoPromedio"));
                 mascota.setFechaNac(rs.getDate("fechaNac").toLocalDate());
                 mascota.setCliente(clienteData.buscarClientePorId(rs.getInt("idCliente")));
@@ -106,18 +110,21 @@ public class MascotaData {
 
     public Mascota buscarMascotaPorId(int id) {
         Mascota mascota = null;
-        String sql = ("SELECT alias, sexo, especie, raza, colorPelo, pesoPromedio, fechaNac, idCliente FROM mascota WHERE idMascota=?");
+        String sql = ("SELECT idMascota, alias, sexo, especie, raza, colorPelo, peso, pesoPromedio, fechaNac, idCliente FROM mascota WHERE idMascota=?");
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
+                mascota = new Mascota();
+                mascota.setIdMascota(rs.getInt("idMascota"));
                 mascota.setAlias(rs.getString("alias"));
                 mascota.setSexo(rs.getString("sexo"));
                 mascota.setEspecie(rs.getString("especie"));
                 mascota.setRaza(rs.getString("raza"));
                 mascota.setColorPelo(rs.getString("colorPelo"));
+                mascota.setPesoActual(rs.getDouble("peso"));
                 mascota.setPesoPromedio(rs.getDouble("pesoPromedio"));
                 mascota.setFechaNac(rs.getDate("fechaNac").toLocalDate());
                 mascota.setCliente(clienteData.buscarClientePorId(rs.getInt("idCliente")));
@@ -132,7 +139,7 @@ public class MascotaData {
 
     public Mascota buscarMascotaPorCliente(int id) {
         Mascota mascota = null;
-        String sql = ("SELECT alias, sexo, especie, raza, colorPelo, pesoPromedio, fechaNac, idCliente FROM mascota WHERE idCliente=?");
+        String sql = ("SELECT alias, sexo, especie, raza, colorPelo, peso, pesoPromedio, fechaNac, idCliente FROM mascota WHERE idCliente=?");
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -144,6 +151,7 @@ public class MascotaData {
                 mascota.setEspecie(rs.getString("especie"));
                 mascota.setRaza(rs.getString("raza"));
                 mascota.setColorPelo(rs.getString("colorPelo"));
+                mascota.setPesoActual(rs.getDouble("peso"));
                 mascota.setPesoPromedio(rs.getDouble("pesoPromedio"));
                 mascota.setFechaNac(rs.getDate("fechaNac").toLocalDate());
                 mascota.setCliente(clienteData.buscarClientePorId(rs.getInt("idCliente")));

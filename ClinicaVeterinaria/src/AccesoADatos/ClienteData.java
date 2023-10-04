@@ -20,7 +20,7 @@ public class ClienteData {
     }
 
     public void guardarCliente(Cliente cliente) {
-        String sql = "INSERT INTO cliente(dni, nombre, apellido, telefono, direccion, contactoAlternativo) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO cliente(dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo) VALUES (?,?,?,?,?,?)";
         PreparedStatement ps;
 
         try {
@@ -30,7 +30,8 @@ public class ClienteData {
             ps.setString(3, cliente.getApellido());
             ps.setInt(4, cliente.getTelefono());
             ps.setString(5, cliente.getDireccion());
-            ps.setInt(6, cliente.getContactoAlter());
+            ps.setString(6, cliente.getNombreAlterno());
+            ps.setInt(7, cliente.getContactoAlter());
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -50,7 +51,7 @@ public class ClienteData {
     }
 
     public void editarCliente(Cliente cliente) {
-        String sql = "UPDATE cliente SET dni = ?, nombre = ?, apellido = ?, telefono = ?, direccion = ?, contactoAlternativo = ? WHERE idCliente=?";
+        String sql = "UPDATE cliente SET dni = ?, nombre = ?, apellido = ?, telefono = ?, direccion = ?, nombreAlterno = ?, contactoAlternativo = ? WHERE idCliente=?";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -59,8 +60,9 @@ public class ClienteData {
             ps.setString(3, cliente.getApellido());
             ps.setInt(4, cliente.getTelefono());
             ps.setString(5, cliente.getDireccion());
-            ps.setInt(6, cliente.getContactoAlter());
-            ps.setInt(7, cliente.getIdCliente());
+            ps.setString(6, cliente.getNombreAlterno());
+            ps.setInt(7, cliente.getContactoAlter());
+            ps.setInt(8, cliente.getIdCliente());
             int rs = ps.executeUpdate();
             if (rs == 1) {
                 JOptionPane.showMessageDialog(null, "Se actualizo los dato del Cliente correctamente");
@@ -94,7 +96,7 @@ public class ClienteData {
     public ArrayList<Cliente> listarClientes() {
         ArrayList<Cliente> lista = new ArrayList<>();
         Cliente cliente = null;
-        String sql = "SELECT idCliente, dni, nombre, apellido, telefono, direccion, contactoAlternativo FROM cliente";
+        String sql = "SELECT idCliente, dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo FROM cliente";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -107,6 +109,7 @@ public class ClienteData {
                 cliente.setApellido(rs.getString("apellido"));
                 cliente.setTelefono(rs.getInt("telefono"));
                 cliente.setDireccion(rs.getString("direccion"));
+                cliente.setNombreAlterno(rs.getString("nombreAlterno"));
                 cliente.setContactoAlter(rs.getInt("contactoAlternativo"));
                 lista.add(cliente);
             }
@@ -120,7 +123,7 @@ public class ClienteData {
 
     public Cliente buscarClientePorId(int id) {
         Cliente cliente = null;
-        String sql = ("SELECT idCliente, dni, nombre, apellido, telefono, direccion, contactoAlternativo FROM cliente WHERE idCliente=?");
+        String sql = ("SELECT idCliente, dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo FROM cliente WHERE idCliente=?");
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -134,6 +137,7 @@ public class ClienteData {
                 cliente.setApellido(rs.getString("apellido"));
                 cliente.setTelefono(rs.getInt("telefono"));
                 cliente.setDireccion(rs.getString("direccion"));
+                   cliente.setNombreAlterno(rs.getString("nombreAlterno"));
                 cliente.setContactoAlter(rs.getInt("contactoAlternativo"));
             }
 
@@ -146,7 +150,7 @@ public class ClienteData {
 
     public Cliente buscarClientePorDni(int dni) {
         Cliente cliente = null;
-        String sql = ("SELECT idCliente, dni, nombre, apellido, telefono, direccion, contactoAlternativo FROM cliente WHERE dni=?");
+        String sql = ("SELECT idCliente, dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo FROM cliente WHERE dni=?");
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -160,6 +164,7 @@ public class ClienteData {
                 cliente.setApellido(rs.getString("apellido"));
                 cliente.setTelefono(rs.getInt("telefono"));
                 cliente.setDireccion(rs.getString("direccion"));
+                   cliente.setNombreAlterno(rs.getString("nombreAlterno"));
                 cliente.setContactoAlter(rs.getInt("contactoAlternativo"));
             }
 

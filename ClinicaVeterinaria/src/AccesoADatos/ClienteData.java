@@ -20,7 +20,7 @@ public class ClienteData {
     }
 
     public void guardarCliente(Cliente cliente) {
-        String sql = "INSERT INTO cliente(dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO cliente(dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo) VALUES (?,?,?,?,?,?,?)";
         PreparedStatement ps;
 
         try {
@@ -45,7 +45,7 @@ public class ClienteData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en base de datos");
+            JOptionPane.showMessageDialog(null, "Error en base de datos"+ ex);
         }
 
     }
@@ -137,7 +137,7 @@ public class ClienteData {
                 cliente.setApellido(rs.getString("apellido"));
                 cliente.setTelefono(rs.getInt("telefono"));
                 cliente.setDireccion(rs.getString("direccion"));
-                   cliente.setNombreAlterno(rs.getString("nombreAlterno"));
+                cliente.setNombreAlterno(rs.getString("nombreAlterno"));
                 cliente.setContactoAlter(rs.getInt("contactoAlternativo"));
             }
 
@@ -164,7 +164,7 @@ public class ClienteData {
                 cliente.setApellido(rs.getString("apellido"));
                 cliente.setTelefono(rs.getInt("telefono"));
                 cliente.setDireccion(rs.getString("direccion"));
-                   cliente.setNombreAlterno(rs.getString("nombreAlterno"));
+                cliente.setNombreAlterno(rs.getString("nombreAlterno"));
                 cliente.setContactoAlter(rs.getInt("contactoAlternativo"));
             }
 

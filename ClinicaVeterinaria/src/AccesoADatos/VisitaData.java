@@ -39,15 +39,20 @@ public class VisitaData {
             if (rs.next()) {
                 visita.setIdVisita(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Registro Guardado");
+                visita.getMascota().setPesoActual(visita.getPeso());
+                visita.getMascota().setPesoPromedio(pesoPromedio(visita.getMascota().getIdMascota()));
+                mascotaData.editarMascota(visita.getMascota());
             } else {
                 JOptionPane.showConfirmDialog(null, "No se pudo guardar el registro");
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en la base de datos");
+            JOptionPane.showMessageDialog(null, "Error en la base de datos" + ex);
         }
+
     }
 
     public void editarVisita(Visita visita) {
+        boolean ultima = true;
         String sql = "UPDATE visita SET idMascota = ?, fechaVisita = ?, detalle = ?, peso = ?, idTratamiento = ? WHERE idVisita = ?";
         PreparedStatement ps;
         try {
@@ -61,13 +66,22 @@ public class VisitaData {
             int rs = ps.executeUpdate();
             if (rs == 1) {
                 JOptionPane.showMessageDialog(null, "Se actualizo los datos de la Visita correctamente");
+                for (Visita visita1 : listarVisita()) {
+                    if (visita.getFechaVisita().isAfter(visita1.getFechaVisita())){
+                        ultima = false;
+                    }
+                    if (ultima) {
+                        visita.getMascota().setPesoActual(visita.getPeso());
+                    }
+                }
+                visita.getMascota().setPesoPromedio(pesoPromedio(visita.getMascota().getIdMascota()));
+                mascotaData.editarMascota(visita.getMascota());
             } else {
                 JOptionPane.showMessageDialog(null, "No se actualizo los datos de la Visita");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la base de datos");
         }
-
     }
 
     public void eliminarVisita(int id) {
@@ -113,8 +127,7 @@ public class VisitaData {
         return lista;
     }
 
-    public ArrayList<Visita> buscarVisitaPorId(int id) {
-        ArrayList<Visita> lista = new ArrayList<>();
+    public Visita buscarVisitaPorId(int id) {
         Visita visita = null;
         String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita WHERE idVisita = ?";
         PreparedStatement ps;
@@ -122,7 +135,7 @@ public class VisitaData {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 visita = new Visita();
                 visita.setIdVisita(rs.getInt("idVisita"));
                 visita.setMascota(mascotaData.buscarMascotaPorId(rs.getInt("idMascota")));
@@ -130,14 +143,13 @@ public class VisitaData {
                 visita.setDetalle(rs.getString("detalle"));
                 visita.setPeso(rs.getDouble("peso"));
                 visita.setTratamiento(tratamientoData.buscarTratamiento(rs.getInt("idTratamiento")));
-                lista.add(visita);
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en base de datos");
         }
 
-        return lista;
+        return visita;
     }
 
     public ArrayList<Visita> buscarVisitaPorCliente(int id) {
@@ -221,19 +233,18 @@ public class VisitaData {
         return lista;
     }
 
-    
     public double pesoPromedio(int id) {
         double pesoPromedio = 0;
-        int x=0;
-        String sql = "SELECT COUNT(fechaVisita) AS cantidad, SUM(peso) AS total FROM ( SELECT fechaVisita, peso FROM visita WHERE idMascota = 1 ORDER BY fechaVisita DESC LIMIT 3 ) subquery;";
+        int x = 0;
+        String sql = "SELECT COUNT(fechaVisita) AS cantidad, SUM(peso) AS total FROM ( SELECT fechaVisita, peso FROM visita WHERE idMascota = ? ORDER BY fechaVisita DESC LIMIT 3 ) subquery;";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();        
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                x= rs.getInt("cantidad");
-                pesoPromedio = (rs.getDouble("total"))/x;
+                x = rs.getInt("cantidad");
+                pesoPromedio = (rs.getDouble("total")) / x;
             }
             ps.close();
         } catch (SQLException ex) {

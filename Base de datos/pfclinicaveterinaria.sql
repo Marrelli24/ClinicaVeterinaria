@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-10-2023 a las 17:12:45
+-- Tiempo de generación: 04-10-2023 a las 17:40:01
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -34,6 +34,7 @@ CREATE TABLE `cliente` (
   `apellido` varchar(30) NOT NULL,
   `telefono` bigint(20) NOT NULL,
   `direccion` varchar(50) NOT NULL,
+  `nombreAlterno` varchar(30) NOT NULL,
   `contactoAlternativo` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -41,17 +42,17 @@ CREATE TABLE `cliente` (
 -- Volcado de datos para la tabla `cliente`
 --
 
-INSERT INTO `cliente` (`idCliente`, `dni`, `nombre`, `apellido`, `telefono`, `direccion`, `contactoAlternativo`) VALUES
-(1, 30100100, 'Mariano', 'Alvarez', 154100010, 'Av Sarmiento', 155202020),
-(2, 30100100, 'Mariano', 'Alvarez', 154100010, 'Av Sarmiento', 155202020),
-(3, 40123456, 'Juan', 'Martinez', 154999999, 'Av San Martin', 154888888),
-(4, 40123456, 'Juan', 'Martinez', 154999999, 'Av San Martin', 154888888),
-(5, 28888999, 'Julia', 'Marquez', 154222333, 'Av Belgrano', 154100200),
-(6, 28888999, 'Julia', 'Marquez', 154222333, 'Av Belgrano', 154100200),
-(7, 19100100, 'Pedro', 'Lopez', 154151515, 'nose', 154987654),
-(8, 19100100, 'Pedro', 'Lopez', 154151515, 'nose', 154987654),
-(9, 26000000, 'Juan', 'Alvarez', 11111111, 'Av Sarmiento', 2222222),
-(10, 1123234, 'Julia', 'Alvarez', 11111111, 'Av San Martin', 2222222);
+INSERT INTO `cliente` (`idCliente`, `dni`, `nombre`, `apellido`, `telefono`, `direccion`, `nombreAlterno`, `contactoAlternativo`) VALUES
+(1, 30100100, 'Mariano', 'Alvarez', 154100010, 'Av Sarmiento', '', 155202020),
+(2, 31100100, 'Mauro', 'Alvarez', 154100010, 'Av Sarmiento', '', 155202020),
+(3, 40123456, 'Juan', 'Martinez', 154999999, 'Av San Martin', '', 154888888),
+(4, 41123456, 'Marcelo', 'Martinez', 154999999, 'Av San Martin', '', 154888888),
+(5, 28888999, 'Julia', 'Marquez', 154222333, 'Av Belgrano', '', 154100200),
+(6, 29888999, 'Julieta', 'Marquez', 154222333, 'Av Belgrano', '', 154100200),
+(7, 18100100, 'Ezequiel', 'Lopez', 154151515, 'nose', '', 154987654),
+(8, 19100100, 'Pedro', 'Lopez', 154151515, 'nose', '', 154987654),
+(9, 26000000, 'Juan', 'Alvarez', 11111111, 'Av Sarmiento', '', 2222222),
+(10, 1123234, 'Julia', 'Alvarez', 11111111, 'Av San Martin', '', 2222222);
 
 -- --------------------------------------------------------
 
@@ -141,7 +142,8 @@ INSERT INTO `visita` (`idVisita`, `idMascota`, `fechaVisita`, `detalle`, `peso`,
 -- Indices de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  ADD PRIMARY KEY (`idCliente`);
+  ADD PRIMARY KEY (`idCliente`),
+  ADD UNIQUE KEY `dni` (`dni`);
 
 --
 -- Indices de la tabla `mascota`

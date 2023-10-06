@@ -8,24 +8,27 @@ public class Cliente {
     private String apellido;
     private int telefono;
     private String direccion;
+    private String nombreAlterno;
     private int contactoAlter;
 
-    public Cliente(int idCliente, int dni, String nombre, String apellido, int telefono, String direccion, int contactoAlter) {
+    public Cliente(int idCliente, int dni, String nombre, String apellido, int telefono, String direccion,String nombreAlterno, int contactoAlter) {
         this.idCliente = idCliente;
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.direccion = direccion;
+        this.nombreAlterno = nombreAlterno;
         this.contactoAlter = contactoAlter;
     }
 
-    public Cliente(int dni, String nombre, String apellido, int telefono, String direccion, int contactoAlter) {
+    public Cliente(int dni, String nombre, String apellido, int telefono, String direccion,String nombreAlterno, int contactoAlter) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.direccion = direccion;
+        this.nombreAlterno = nombreAlterno;
         this.contactoAlter = contactoAlter;
     }
 
@@ -80,6 +83,14 @@ public class Cliente {
         this.direccion = direccion;
     }
 
+    public String getNombreAlterno() {
+        return nombreAlterno;
+    }
+
+    public void setNombreAlterno(String nombreAlterno) {
+        this.nombreAlterno = nombreAlterno;
+    }
+
     public int getContactoAlter() {
         return contactoAlter;
     }
@@ -90,7 +101,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "idCliente=" + idCliente + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", direccion=" + direccion + ", contactoAlter=" + contactoAlter + '}';
-    }
+        return "Cliente{" + "idCliente=" + idCliente + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", direccion=" + direccion + ", nombreAlterno=" + nombreAlterno + ", contactoAlter=" + contactoAlter + '}';
+    }  
 
 }

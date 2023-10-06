@@ -43,6 +43,16 @@ public class Mascota {
         this.cliente = cliente;
     }
 
+    public Mascota(String alias, String sexo, String especie, String raza, String colorPelo, LocalDate fechaNac, Cliente cliente) {
+        this.alias = alias;
+        this.sexo = sexo;
+        this.especie = especie;
+        this.raza = raza;
+        this.colorPelo = colorPelo;
+        this.fechaNac = fechaNac;
+        this.cliente = cliente;
+    }
+
     public int getIdMascota() {
         return idMascota;
     }
@@ -123,7 +133,7 @@ public class Mascota {
 
     @Override
     public String toString() {
-        return "Mascota{" + "idMascota=" + idMascota + ", alias=" + alias + ", sexo=" + sexo + ", especie=" + especie + ", raza=" + raza + ", colorPelo=" + colorPelo + ", pesoActual=" + pesoActual + ", pesoPromedio=" + pesoPromedio + ", fechaNac=" + fechaNac + ", cliente=" + cliente + '}';
+        return "Mascota{" + "idMascota=" + idMascota + ", alias=" + alias + ", sexo=" + sexo + ", especie=" + especie + ", raza=" + raza + ", colorPelo=" + colorPelo + ", pesoActual=" + pesoActual + ", pesoPromedio=" + pesoPromedio + ", fechaNac=" + fechaNac + ", cliente=" + cliente.getNombre() + '}';
     }
 
 }

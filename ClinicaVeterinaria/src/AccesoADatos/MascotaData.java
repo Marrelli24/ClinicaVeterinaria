@@ -162,7 +162,7 @@ public class MascotaData {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                mascota= new Mascota();
+                mascota = new Mascota();
                 mascota.setIdMascota(rs.getInt("idMascota"));
                 mascota.setAlias(rs.getString("alias"));
                 mascota.setSexo(rs.getString("sexo"));
@@ -183,4 +183,45 @@ public class MascotaData {
         return lista;
     }
 
+    public ArrayList<Mascota> listarMascotasPorTratamiento(int id) {
+        ArrayList<Mascota> lista = new ArrayList<>();
+        Mascota mascota = null;
+        String sql = "SELECT DISTINCT m.*\n"
+                + "FROM mascota AS m\n"
+                + "JOIN visita AS v ON m.idMascota = v.idMascota\n"
+                + "WHERE v.idTratamiento = ?\n"
+                + "AND m.idMascota NOT IN (\n"
+                + "    SELECT m2.idMascota\n"
+                + "    FROM mascota AS m2\n"
+                + "    JOIN visita AS v2 ON m2.idMascota = v2.idMascota\n"
+                + "    WHERE v2.idTratamiento = ?\n"
+                + "    AND m2.idMascota <> m.idMascota\n"
+                + ")";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.setInt(2, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                mascota = new Mascota();
+                mascota.setIdMascota(rs.getInt("idMascota"));
+                mascota.setAlias(rs.getString("alias"));
+                mascota.setSexo(rs.getString("sexo"));
+                mascota.setEspecie(rs.getString("especie"));
+                mascota.setRaza(rs.getString("raza"));
+                mascota.setColorPelo(rs.getString("colorPelo"));
+                mascota.setPesoActual(rs.getDouble("peso"));
+                mascota.setPesoPromedio(rs.getDouble("pesoPromedio"));
+                mascota.setFechaNac(rs.getDate("fechaNac").toLocalDate());
+                mascota.setCliente(clienteData.buscarClientePorId(rs.getInt("idCliente")));
+                lista.add(mascota);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en cargar la lista de mascotas");
+        }
+
+        return lista;
+    }
 }

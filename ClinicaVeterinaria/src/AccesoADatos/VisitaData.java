@@ -232,7 +232,7 @@ public class VisitaData {
 
         return lista;
     }
-
+    
     public double pesoPromedio(int id) {
         double pesoPromedio = 0;
         int x = 0;

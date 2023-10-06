@@ -77,15 +77,18 @@ public class ClinicaVeterinaria {
 //        trata.editarTratamiento(tratamiento);
 //        trata.altaOBajaTratamiento(tratamiento);
 //Visita
-        Visita visita = new Visita();
-        visita = visitadata.buscarVisitaPorId(7);
-//        visita.setPeso(7.500);
-//        visitadata.editarVisita(visita);
-//        System.out.println(visita)
-      
-
-        
-
+//        Visita visita = new Visita();
+//        visita = visitadata.buscarVisitaPorId(7);
+////        visita.setPeso(7.500);
+////        visitadata.editarVisita(visita);
+////        System.out.println(visita)
+//      
+//
+//        for( Visita visita1 : visitadata.buscarVisitaPorTratamiento(2)){
+//            System.out.println(visita1.toString());}
+//    for(Mascota mascota:mascotaData.listarMascotasPorTratamiento(1)){
+//        System.out.println(mascota.toString());
+//        }
 //        System.out.println(mascota.toString());
 //        mascota = mascotaData.buscarMascotaPorId(1);
 //        mascota.setPesoPromedio(visitadata.pesoPromedio(mascota.getIdMascota()));

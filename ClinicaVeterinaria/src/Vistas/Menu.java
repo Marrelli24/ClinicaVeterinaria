@@ -1,4 +1,3 @@
-
 package Vistas;
 
 import AccesoADatos.ClienteData;
@@ -9,11 +8,11 @@ import javax.swing.JInternalFrame;
 
 public class Menu extends javax.swing.JFrame {
 
-     public static ClienteData clienteData;
+    public static ClienteData clienteData;
     public static MascotaData mascotaData;
     public static TratamientoData tratamientoData;
     public static VisitaData visitaData;
-            
+
     public Menu() {
         initComponents();
         this.clienteData = new ClienteData();
@@ -26,20 +25,26 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        JMIGestCliente = new javax.swing.JMenuItem();
+        JMIListCliente = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        JMIGestMascota = new javax.swing.JMenuItem();
+        JMIListMascota = new javax.swing.JMenuItem();
+        JMenuTratamiento = new javax.swing.JMenu();
+        JMIGestTratamiento = new javax.swing.JMenuItem();
+        JMIListTratamiento = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        JMIGestVisita = new javax.swing.JMenuItem();
+        JMIListVisita = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        JMIAboutUs = new javax.swing.JMenuItem();
+        JMIManual = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,58 +61,103 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu1.setText("Clientes");
 
-        jMenuItem1.setText("Gestion de Clientes");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        JMIGestCliente.setText("Gestion de Clientes");
+        JMIGestCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                JMIGestClienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(JMIGestCliente);
 
-        jMenuItem2.setText("Listado de Clientes");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        JMIListCliente.setText("Listado de Clientes");
+        JMIListCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                JMIListClienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(JMIListCliente);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Mascotas");
 
-        jMenuItem3.setText("Gestion de Mascotas");
-        jMenu2.add(jMenuItem3);
+        JMIGestMascota.setText("Gestion de Mascotas");
+        JMIGestMascota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIGestMascotaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(JMIGestMascota);
 
-        jMenuItem4.setText("Listado de Mascotas");
-        jMenu2.add(jMenuItem4);
+        JMIListMascota.setText("Listado de Mascotas");
+        JMIListMascota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIListMascotaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(JMIListMascota);
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Tratamientos");
+        JMenuTratamiento.setText("Tratamientos");
 
-        jMenuItem5.setText("Gestion de Tratamientos");
-        jMenu3.add(jMenuItem5);
+        JMIGestTratamiento.setText("Gestion de Tratamientos");
+        JMIGestTratamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIGestTratamientoActionPerformed(evt);
+            }
+        });
+        JMenuTratamiento.add(JMIGestTratamiento);
 
-        jMenuItem6.setText("Lista de Tratamientos");
-        jMenu3.add(jMenuItem6);
+        JMIListTratamiento.setText("Lista de Tratamientos");
+        JMIListTratamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIListTratamientoActionPerformed(evt);
+            }
+        });
+        JMenuTratamiento.add(JMIListTratamiento);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(JMenuTratamiento);
 
         jMenu4.setText("Visita");
 
-        jMenuItem7.setText("Gestion de Visitas");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        JMIGestVisita.setText("Gestion de Visitas");
+        JMIGestVisita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                JMIGestVisitaActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem7);
+        jMenu4.add(JMIGestVisita);
 
-        jMenuItem8.setText("Listar Visitas");
-        jMenu4.add(jMenuItem8);
+        JMIListVisita.setText("Listar Visitas");
+        JMIListVisita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIListVisitaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(JMIListVisita);
 
         jMenuBar1.add(jMenu4);
+
+        jMenu3.setText("Ayuda");
+
+        JMIAboutUs.setText("Sobre nosotros");
+        JMIAboutUs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIAboutUsActionPerformed(evt);
+            }
+        });
+        jMenu3.add(JMIAboutUs);
+
+        JMIManual.setText("Manual de usuario");
+        JMIManual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIManualActionPerformed(evt);
+            }
+        });
+        jMenu3.add(JMIManual);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -125,22 +175,56 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void JMIGestClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIGestClienteActionPerformed
+        GestionCliente gest = new GestionCliente();
+        generarVentana(gest);
+    }//GEN-LAST:event_JMIGestClienteActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void JMIListClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIListClienteActionPerformed
+        ListarClientes list = new ListarClientes();
+        generarVentana(list);
+    }//GEN-LAST:event_JMIListClienteActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        GestionDeVisitas gestionDeVisita= new GestionDeVisitas();
-        generarVentana(gestionDeVisita);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    private void JMIGestMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIGestMascotaActionPerformed
+        GestionMascota gest = new GestionMascota();
+        generarVentana(gest);
+    }//GEN-LAST:event_JMIGestMascotaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void JMIGestTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIGestTratamientoActionPerformed
+        GestionTratamiento gest = new GestionTratamiento();
+        generarVentana(gest);
+    }//GEN-LAST:event_JMIGestTratamientoActionPerformed
+
+    private void JMIAboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIAboutUsActionPerformed
+        AboutUs ab = new AboutUs();
+        generarVentana(ab);
+    }//GEN-LAST:event_JMIAboutUsActionPerformed
+
+    private void JMIListMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIListMascotaActionPerformed
+        ListarMascotas list = new ListarMascotas();
+        generarVentana(list);
+    }//GEN-LAST:event_JMIListMascotaActionPerformed
+
+    private void JMIListTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIListTratamientoActionPerformed
+        ListarTratamiento list = new ListarTratamiento();
+        generarVentana(list);
+    }//GEN-LAST:event_JMIListTratamientoActionPerformed
+
+    private void JMIGestVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIGestVisitaActionPerformed
+        GestionDeVisitas gest = new GestionDeVisitas();
+        generarVentana(gest);
+    }//GEN-LAST:event_JMIGestVisitaActionPerformed
+
+    private void JMIListVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIListVisitaActionPerformed
+        ListarVisitas list = new ListarVisitas();
+        generarVentana(list);
+    }//GEN-LAST:event_JMIListVisitaActionPerformed
+
+    private void JMIManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIManualActionPerformed
+        Help help = new Help();
+        generarVentana(help);
+    }//GEN-LAST:event_JMIManualActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -181,19 +265,23 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     // End of variables declaration//GEN-END:variables
- private void generarVentana(JInternalFrame panel) {
+    private javax.swing.JMenuItem JMIAboutUs;
+    private javax.swing.JMenuItem JMIGestCliente;
+    private javax.swing.JMenuItem JMIGestMascota;
+    private javax.swing.JMenuItem JMIGestTratamiento;
+    private javax.swing.JMenuItem JMIGestVisita;
+    private javax.swing.JMenuItem JMIListCliente;
+    private javax.swing.JMenuItem JMIListMascota;
+    private javax.swing.JMenuItem JMIListTratamiento;
+    private javax.swing.JMenuItem JMIListVisita;
+    private javax.swing.JMenuItem JMIManual;
+    private javax.swing.JMenu JMenuTratamiento;
+
+    public void generarVentana(JInternalFrame panel) {
         escritorio.removeAll();
         escritorio.repaint();
         panel.setVisible(true);
         escritorio.add(panel);
-        escritorio.moveToFront(panel);        
-}
+    }
 }

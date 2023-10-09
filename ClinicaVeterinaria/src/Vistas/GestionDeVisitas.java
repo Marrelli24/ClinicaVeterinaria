@@ -4,6 +4,7 @@ import AccesoADatos.ClienteData;
 import Entidades.Cliente;
 import Entidades.Mascota;
 import Entidades.Tratamiento;
+import Entidades.Visita;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Calendar;
@@ -36,7 +37,7 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
         jcbListaMascotas = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jbHistorialDeVisitas = new javax.swing.JButton();
         jdcFecha = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -77,10 +78,10 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
 
         jButton4.setText("Nuevo");
 
-        jButton5.setText("Historial de visitas");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jbHistorialDeVisitas.setText("Historial de visitas");
+        jbHistorialDeVisitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jbHistorialDeVisitasActionPerformed(evt);
             }
         });
 
@@ -109,6 +110,11 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
         jbEliminar.setText("Eliminar");
 
         jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -163,7 +169,7 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
                                 .addComponent(jButton3)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton4))
-                            .addComponent(jButton5)))
+                            .addComponent(jbHistorialDeVisitas)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
@@ -192,7 +198,7 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jButton5)
+                    .addComponent(jbHistorialDeVisitas)
                     .addComponent(jcbListaMascotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -223,22 +229,28 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtDniKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDniKeyPressed
-        jtDni.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                buscarDni();
-            }
+        char c = evt.getKeyChar();
+        String validar = jtDni.getText();
+        if (Character.isDigit(c)) {
+            jtDni.getDocument().addDocumentListener(new DocumentListener() {
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    buscarDni();
+                }
 
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                buscarDni();
-            }
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    buscarDni();
+                }
 
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                buscarDni();
-            }
-        });
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    buscarDni();
+                }
+            });
+        } else {
+
+        }
     }//GEN-LAST:event_jtDniKeyPressed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -249,9 +261,15 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtDniActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void jbHistorialDeVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHistorialDeVisitasActionPerformed
+        int dni = Integer.parseInt(jtDni.getText());
+        String[] comboBox = jcbListaMascotas.getSelectedItem().toString().split(",");
+        int idMascota = Integer.parseInt(comboBox[0].trim());
+        ListaDeVisitas listaDeVisitas = new ListaDeVisitas(dni, idMascota);
+        listaDeVisitas.setVisible(true);
+        listaDeVisitas.moveToFront();
+
+    }//GEN-LAST:event_jbHistorialDeVisitasActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         // TODO add your handling code here:
@@ -261,11 +279,14 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbNuevaActionPerformed
 
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -276,6 +297,7 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
+    private javax.swing.JButton jbHistorialDeVisitas;
     private javax.swing.JButton jbNueva;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<String> jcbListaMascotas;
@@ -341,6 +363,63 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
                         if (cliente.getIdCliente() == idCliente) {
                             jtDni.setText(cliente.getDni() + "");
                             buscarDni();
+                            frame.setVisible(false);
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+        frame.setVisible(true);
+    }
+
+    public void listaVisitas() {
+        for (int i = 0; i < jcbListaMascotas.getItemCount(); i++) {
+            String item = (String) jcbListaMascotas.getItemAt(i);
+            String[] partes = item.split(", ");
+            int codigo = Integer.parseInt(partes[0]);
+        }
+        JFrame frame = new JFrame("Lista de Visitas");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
+
+        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+
+        model.addColumn("ID Visita");
+        model.addColumn("ID Mascota");
+        model.addColumn("Mascota");
+        model.addColumn("Fecha de Visita");
+        model.addColumn("Detalle");
+        model.addColumn("Peso");
+        model.addColumn("Tratamiento");       
+
+        JTable table = new JTable(model);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
+        table.getColumnModel().getColumn(0).setPreferredWidth(30);
+
+        for (Visita visita : Menu.visitaData.buscarVisitaPorMascota(WIDTH)) {
+            model.addRow(new Object[]{visita.getIdVisita(),
+                visita.getMascota().getIdMascota(),
+                visita.getMascota().getAlias(),
+                visita.getFechaVisita(),
+                visita.getDetalle(),
+                visita.getPeso(),
+                visita.getTratamiento().getTipoDeTratamiento()});
+        }
+
+        frame.add(new JScrollPane(table));
+        table.addMouseListener(new MouseAdapter() {
+
+            public void mouseClicked(MouseEvent e) {
+                int filaSeleccionada = table.getSelectedRow();
+                if (filaSeleccionada >= 0) {
+                    int idvisita = (int) table.getValueAt(filaSeleccionada, 0);
+                    for (Visita visita : Menu.visitaData.listarVisita()) {
+                        if (visita.getIdVisita()== idvisita) {
+                            AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                             frame.setVisible(false);
                             break;
                         }

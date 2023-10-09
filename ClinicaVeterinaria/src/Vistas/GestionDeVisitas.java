@@ -5,11 +5,15 @@ import Entidades.Cliente;
 import Entidades.Mascota;
 import Entidades.Tratamiento;
 import Entidades.Visita;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -65,6 +69,9 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jtDniKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtDniKeyTyped(evt);
+            }
         });
 
         jLabel3.setText("Mascotas:");
@@ -90,6 +97,12 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
         jLabel5.setText("Detalles:");
 
         jLabel6.setText("Peso:");
+
+        jtPeso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtPesoKeyTyped(evt);
+            }
+        });
 
         jLabel7.setText("Tratamiento:");
 
@@ -262,12 +275,7 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtDniActionPerformed
 
     private void jbHistorialDeVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHistorialDeVisitasActionPerformed
-        int dni = Integer.parseInt(jtDni.getText());
-        String[] comboBox = jcbListaMascotas.getSelectedItem().toString().split(",");
-        int idMascota = Integer.parseInt(comboBox[0].trim());
-        ListaDeVisitas listaDeVisitas = new ListaDeVisitas(dni, idMascota);
-        listaDeVisitas.setVisible(true);
-        listaDeVisitas.moveToFront();
+        listaVisitas();
 
     }//GEN-LAST:event_jbHistorialDeVisitasActionPerformed
 
@@ -282,6 +290,24 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDniKeyTyped
+        if (Character.isLetter(evt.getKeyChar())) {
+            evt.consume();
+            if (evt.getKeyChar() == KeyEvent.VK_SPACE) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_jtDniKeyTyped
+
+    private void jtPesoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPesoKeyTyped
+         if (Character.isLetter(evt.getKeyChar())) {
+            evt.consume();
+            if (evt.getKeyChar() == KeyEvent.VK_SPACE) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_jtPesoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -309,19 +335,21 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void buscarDni() {
-        if (!jtDni.getText().isEmpty()) {
-            jcbListaMascotas.removeAllItems();
-            Cliente cliente = new Cliente();
-            cliente = Menu.clienteData.buscarClientePorDni(Integer.parseInt(jtDni.getText()));
-            if (cliente != null) {
-                for (Mascota mascota : Menu.mascotaData.buscarMascotaPorCliente(cliente.getIdCliente())) {
-                    jcbListaMascotas.addItem(mascota.getIdMascota() + ", " + mascota.getAlias());
+        try {
+            if (!jtDni.getText().isEmpty()) {
+                jcbListaMascotas.removeAllItems();
+                Cliente cliente = new Cliente();
+                cliente = Menu.clienteData.buscarClientePorDni(Integer.parseInt(jtDni.getText()));
+                if (cliente != null) {
+                    for (Mascota mascota : Menu.mascotaData.buscarMascotaPorCliente(cliente.getIdCliente())) {
+                        jcbListaMascotas.addItem(mascota.getIdMascota() + ", " + mascota.getAlias());
+                    }
                 }
+            } else {
+                jcbListaMascotas.removeAllItems();
             }
-        } else {
-            jcbListaMascotas.removeAllItems();
+        } catch (NumberFormatException e) {
         }
-
     }
 
     public void listaClientes() {
@@ -329,7 +357,12 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
 
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int f, int c) {
+                return false;
+            }
+        };
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
 
@@ -374,16 +407,18 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
     }
 
     public void listaVisitas() {
-        for (int i = 0; i < jcbListaMascotas.getItemCount(); i++) {
-            String item = (String) jcbListaMascotas.getItemAt(i);
-            String[] partes = item.split(", ");
-            int codigo = Integer.parseInt(partes[0]);
-        }
+        String[] partesM = jcbListaMascotas.getSelectedItem().toString().split(",");
+        int codigoM = Integer.parseInt(partesM[0]);
         JFrame frame = new JFrame("Lista de Visitas");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
 
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int f, int c) {
+                return false;
+            }
+        };
+
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
 
@@ -393,14 +428,14 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
         model.addColumn("Fecha de Visita");
         model.addColumn("Detalle");
         model.addColumn("Peso");
-        model.addColumn("Tratamiento");       
+        model.addColumn("Tratamiento");
 
         JTable table = new JTable(model);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
         table.getColumnModel().getColumn(0).setPreferredWidth(30);
 
-        for (Visita visita : Menu.visitaData.buscarVisitaPorMascota(WIDTH)) {
+        for (Visita visita : Menu.visitaData.buscarVisitaPorMascota(codigoM)) {
             model.addRow(new Object[]{visita.getIdVisita(),
                 visita.getMascota().getIdMascota(),
                 visita.getMascota().getAlias(),
@@ -414,20 +449,33 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
         table.addMouseListener(new MouseAdapter() {
 
             public void mouseClicked(MouseEvent e) {
+                String[] partesM = jcbListaMascotas.getSelectedItem().toString().split(",");
+                int codigoM = Integer.parseInt(partesM[0]);
                 int filaSeleccionada = table.getSelectedRow();
                 if (filaSeleccionada >= 0) {
                     int idvisita = (int) table.getValueAt(filaSeleccionada, 0);
-                    for (Visita visita : Menu.visitaData.listarVisita()) {
-                        if (visita.getIdVisita()== idvisita) {
-                            AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                            frame.setVisible(false);
-                            break;
+                    for (Visita visita : Menu.visitaData.buscarVisitaPorMascota(codigoM)) {
+                        if (visita.getIdVisita() == idvisita) {
+                            jdcFecha.setDate(Date.from(visita.getFechaVisita().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+                            jtDetalles.setText(visita.getDetalle());
+                            jtPeso.setText(visita.getPeso() + "");
+                            for (int i = 0; i < jcbTratamiento.getItemCount(); i++) {
+                                String[] partesT = jcbTratamiento.getItemAt(i).toString().split(",");
+                                int codigoT = Integer.parseInt(partesT[0]);
+                                if (visita.getTratamiento().getIdTratamiento() == codigoT) {
+                                    jcbTratamiento.setSelectedIndex(i);
+                                    frame.setVisible(false);
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
             }
-        });
-        frame.setVisible(true);
+        }
+        );
+        frame.setVisible(
+                true);
     }
 
     public void datos() {

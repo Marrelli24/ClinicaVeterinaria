@@ -13,7 +13,7 @@ import java.time.Month;
 import java.time.ZoneId;
 
 public class ClinicaVeterinaria {
-
+/*
     public static void main(String[] args) {
         ClienteData clientedata = new ClienteData();
         MascotaData mascotaData = new MascotaData();
@@ -21,21 +21,21 @@ public class ClinicaVeterinaria {
         TratamientoData trata = new TratamientoData();
 
         //Pruebas de Tratamiento
-//        TratamientoData trat = new TratamientoData();
-//
-//        System.out.println(trat.buscarTratamiento(1));
-//
-//1) CLIENTE Y CLIENTE DATA
-//        Cliente cliente = new Cliente(38299859, "Ezequiel", "Marrelli", 44, "Calle solari","Matias", 55);
-//        clientedata.guardarCliente(cliente);
-//        System.out.println(clientedata.buscarClientePorDni(cliente.getDni()));
-//        System.out.println(clientedata.buscarClientePorId(cliente.getIdCliente()));
-//        cliente.setTelefono(445445);
-//        clientedata.editarCliente(cliente);
-//        for (Cliente cliente2 : clientedata.listarClientes()) {
-//            System.out.println(cliente2.toString());
-//        }
-//        clientedata.eliminarCliente(cliente.getIdCliente());
+        TratamientoData trat = new TratamientoData();
+
+       // System.out.println(trat.buscarTratamiento(1));
+
+// 1) CLIENTE Y CLIENTE DATA
+       // Cliente cliente = new Cliente();
+       //clientedata.guardarCliente(cliente);
+   //    cliente = clientedata.buscarClientePorDni(8584598);
+    //    System.out.println(clientedata.buscarClientePorId(cliente.getIdCliente()));
+    //    cliente.setNombre("Albert");
+      //  clientedata.editarCliente(cliente);
+       for (Cliente cliente2 : clientedata.listarClientes()) {
+            System.out.println(cliente2.toString());
+        }
+      //  clientedata.eliminarCliente(cliente.getIdCliente());
 //
 //
 //
@@ -95,5 +95,5 @@ public class ClinicaVeterinaria {
 //        System.out.println(mascota.toString());
 //        mascotaData.editarMascota(mascota);
     }
-
+*/
 }

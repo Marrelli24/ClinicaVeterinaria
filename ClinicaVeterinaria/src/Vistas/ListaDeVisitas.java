@@ -2,6 +2,8 @@ package Vistas;
 
 import Entidades.Cliente;
 import Entidades.Mascota;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 public class ListaDeVisitas extends javax.swing.JInternalFrame {
@@ -13,11 +15,10 @@ public class ListaDeVisitas extends javax.swing.JInternalFrame {
         armarCabecera();
     }
 
-    public ListaDeVisitas(int dni, int idMascotaa) {
+    public ListaDeVisitas(int dni, int idMascota) {
         initComponents();
         armarCabecera();
-       jtDni.setText(dni+"");
-      
+        generarBusqueda(dni, idMascota);
     }
 
     @SuppressWarnings("unchecked")
@@ -50,6 +51,11 @@ public class ListaDeVisitas extends javax.swing.JInternalFrame {
         jtDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtDniActionPerformed(evt);
+            }
+        });
+        jtDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtDniKeyPressed(evt);
             }
         });
 
@@ -140,6 +146,25 @@ public class ListaDeVisitas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtDniActionPerformed
 
+    private void jtDniKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDniKeyPressed
+        jtDni.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                buscarDni();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                buscarDni();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                buscarDni();
+            }
+        });
+    }//GEN-LAST:event_jtDniKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -155,15 +180,15 @@ public class ListaDeVisitas extends javax.swing.JInternalFrame {
 
     public void armarCabecera() {
         model.addColumn("ID Visita");
+        model.addColumn("ID Mascota");
         model.addColumn("Mascota");
         model.addColumn("Fecha de Visita");
         model.addColumn("Detalle");
         model.addColumn("Peso");
         model.addColumn("Tratamiento");
-        model.addColumn("ID Mascota");
-        model.addColumn("Alias");
     }
-     private void buscarDni() {
+
+    private void buscarDni() {
         if (!jtDni.getText().isEmpty()) {
             jcbListaMascotas.removeAllItems();
             Cliente cliente = new Cliente();
@@ -176,7 +201,20 @@ public class ListaDeVisitas extends javax.swing.JInternalFrame {
         } else {
             jcbListaMascotas.removeAllItems();
         }
-
     }
- 
+
+    public void generarBusqueda(int dni, int idMascota) {
+        jtDni.setText(dni + "");
+        buscarDni();
+        for (int i = 0; i < jcbListaMascotas.getItemCount(); i++) {
+            String item = (String) jcbListaMascotas.getItemAt(i);
+            String[] partes = item.split(", ");
+            int codigo = Integer.parseInt(partes[0]);
+            if (codigo == idMascota) {
+                jcbListaMascotas.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
+
 }

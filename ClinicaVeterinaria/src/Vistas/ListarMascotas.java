@@ -20,6 +20,7 @@ public class ListarMascotas extends javax.swing.JInternalFrame {
     public ListarMascotas() {
         initComponents();
         armarCabecera();
+        cargarTabla();
     }
 
     @SuppressWarnings("unchecked")
@@ -90,7 +91,7 @@ public class ListarMascotas extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTdniCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTdniCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jBnuevo))))))
                 .addContainerGap(32, Short.MAX_VALUE))
@@ -125,6 +126,7 @@ public class ListarMascotas extends javax.swing.JInternalFrame {
         Cliente clienteEncontrado = Menu.clienteData.buscarClientePorDni(dniCliente);
 
         if (clienteEncontrado != null) {
+            borrarFilas();
             for (Mascota mascota : Menu.mascotaData.buscarMascotaPorCliente(clienteEncontrado.getIdCliente())) {
                 modelo.addRow(new Object[]{mascota.getIdMascota(), mascota.getAlias(), mascota.getEspecie(), mascota.getRaza(), mascota.getSexo()});
             }
@@ -149,7 +151,7 @@ public class ListarMascotas extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void armarCabecera() {
-        modelo.addColumn("Id");
+        modelo.addColumn("Identificación");
         modelo.addColumn("Alias");
         modelo.addColumn("Especie");
         modelo.addColumn("Raza");
@@ -158,6 +160,7 @@ public class ListarMascotas extends javax.swing.JInternalFrame {
     }
 
     private void cargarTabla() {
+        borrarFilas();
         for (Mascota mascota : Menu.mascotaData.listarMascotas()) {
             modelo.addRow(new Object[]{
                 mascota.getIdMascota(),
@@ -166,6 +169,13 @@ public class ListarMascotas extends javax.swing.JInternalFrame {
                 mascota.getRaza(),
                 mascota.getSexo(),
             });
+        }
+    }
+    
+     private void borrarFilas() {
+        int f = jTable1.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modelo.removeRow(f);
         }
     }
     

@@ -419,7 +419,7 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
                     int idvisita = (int) table.getValueAt(filaSeleccionada, 0);
                     for (Visita visita : Menu.visitaData.listarVisita()) {
                         if (visita.getIdVisita()== idvisita) {
-                            AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                   //         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                             frame.setVisible(false);
                             break;
                         }

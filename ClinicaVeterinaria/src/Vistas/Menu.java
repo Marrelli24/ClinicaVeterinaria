@@ -48,15 +48,17 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        escritorio.setPreferredSize(new java.awt.Dimension(900, 700));
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 900, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 477, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Clientes");
@@ -165,11 +167,11 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio)
+            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio)
+            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -211,7 +213,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_JMIListTratamientoActionPerformed
 
     private void JMIGestVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIGestVisitaActionPerformed
-        GestionDeVisitas gest = new GestionDeVisitas();
+        GestionVisitas gest = new GestionVisitas(escritorio);
         generarVentana(gest);
     }//GEN-LAST:event_JMIGestVisitaActionPerformed
 
@@ -258,14 +260,6 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane escritorio;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    // End of variables declaration//GEN-END:variables
     private javax.swing.JMenuItem JMIAboutUs;
     private javax.swing.JMenuItem JMIGestCliente;
     private javax.swing.JMenuItem JMIGestMascota;
@@ -277,11 +271,20 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem JMIListVisita;
     private javax.swing.JMenuItem JMIManual;
     private javax.swing.JMenu JMenuTratamiento;
-
+    private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    // End of variables declaration//GEN-END:variables
+ 
     public void generarVentana(JInternalFrame panel) {
         escritorio.removeAll();
         escritorio.repaint();
         panel.setVisible(true);
         escritorio.add(panel);
+        escritorio.moveToFront(panel);
     }
 }

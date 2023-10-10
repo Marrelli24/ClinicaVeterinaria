@@ -12,6 +12,7 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -23,12 +24,21 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-public class GestionDeVisitas extends javax.swing.JInternalFrame {
+public class GestionVisitas extends javax.swing.JInternalFrame {
 
-    public GestionDeVisitas() {
+    private JDesktopPane escritorio;
+
+    public GestionVisitas() {
         initComponents();
         datos();
         cargarComboTratamiento();
+    }
+
+    public GestionVisitas(JDesktopPane escritorio) {
+        initComponents();
+        datos();
+        cargarComboTratamiento();
+        this.escritorio = escritorio;
     }
 
     @SuppressWarnings("unchecked")
@@ -40,7 +50,7 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jcbListaMascotas = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jbNuevoCliente = new javax.swing.JButton();
         jbHistorialDeVisitas = new javax.swing.JButton();
         jdcFecha = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
@@ -60,11 +70,6 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText("Dni Cliente:");
 
-        jtDni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtDniActionPerformed(evt);
-            }
-        });
         jtDni.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jtDniKeyPressed(evt);
@@ -83,7 +88,12 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton4.setText("Nuevo");
+        jbNuevoCliente.setText("Nuevo");
+        jbNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNuevoClienteActionPerformed(evt);
+            }
+        });
 
         jbHistorialDeVisitas.setText("Historial de visitas");
         jbHistorialDeVisitas.addActionListener(new java.awt.event.ActionListener() {
@@ -181,7 +191,7 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton3)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton4))
+                                .addComponent(jbNuevoCliente))
                             .addComponent(jbHistorialDeVisitas)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -207,7 +217,7 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(jbNuevoCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -243,7 +253,6 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
 
     private void jtDniKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDniKeyPressed
         char c = evt.getKeyChar();
-        String validar = jtDni.getText();
         if (Character.isDigit(c)) {
             jtDni.getDocument().addDocumentListener(new DocumentListener() {
                 @Override
@@ -270,10 +279,6 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
         listaClientes();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtDniActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtDniActionPerformed
-
     private void jbHistorialDeVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHistorialDeVisitasActionPerformed
         listaVisitas();
 
@@ -292,27 +297,29 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDniKeyTyped
-        if (Character.isLetter(evt.getKeyChar())) {
+        if (Character.isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_SPACE || !Character.isLetterOrDigit(evt.getKeyChar())) {
             evt.consume();
-            if (evt.getKeyChar() == KeyEvent.VK_SPACE) {
-                evt.consume();
-            }
         }
     }//GEN-LAST:event_jtDniKeyTyped
 
     private void jtPesoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPesoKeyTyped
-         if (Character.isLetter(evt.getKeyChar())) {
+        if (Character.isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_SPACE || !Character.isLetterOrDigit(evt.getKeyChar())) {
             evt.consume();
-            if (evt.getKeyChar() == KeyEvent.VK_SPACE) {
-                evt.consume();
-            }
         }
     }//GEN-LAST:event_jtPesoKeyTyped
+
+    private void jbNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoClienteActionPerformed
+        GestionCliente gest = new GestionCliente();
+        escritorio.repaint();
+        gest.setVisible(true);
+        escritorio.add(gest);
+        escritorio.moveToFront(gest);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbNuevoClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -325,6 +332,7 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbHistorialDeVisitas;
     private javax.swing.JButton jbNueva;
+    private javax.swing.JButton jbNuevoCliente;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<String> jcbListaMascotas;
     private javax.swing.JComboBox<String> jcbTratamiento;
@@ -454,7 +462,6 @@ public class GestionDeVisitas extends javax.swing.JInternalFrame {
                 int filaSeleccionada = table.getSelectedRow();
                 if (filaSeleccionada >= 0) {
                     int idvisita = (int) table.getValueAt(filaSeleccionada, 0);
-
 
                     for (Visita visita : Menu.visitaData.buscarVisitaPorMascota(codigoM)) {
                         if (visita.getIdVisita() == idvisita) {

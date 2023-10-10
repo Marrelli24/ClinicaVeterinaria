@@ -149,7 +149,7 @@ public class ListarMascotas extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void armarCabecera() {
-        modelo.addColumn("idMascota");
+        modelo.addColumn("Id");
         modelo.addColumn("Alias");
         modelo.addColumn("Especie");
         modelo.addColumn("Raza");
@@ -157,4 +157,16 @@ public class ListarMascotas extends javax.swing.JInternalFrame {
         jTable1.setModel(modelo);
     }
 
+    private void cargarTabla() {
+        for (Mascota mascota : Menu.mascotaData.listarMascotas()) {
+            modelo.addRow(new Object[]{
+                mascota.getIdMascota(),
+                mascota.getAlias(),
+                mascota.getEspecie(),
+                mascota.getRaza(),
+                mascota.getSexo(),
+            });
+        }
+    }
+    
 }

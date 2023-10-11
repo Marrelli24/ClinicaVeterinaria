@@ -1,6 +1,5 @@
 package Vistas;
 
-import AccesoADatos.ClienteData;
 import Entidades.Cliente;
 import Entidades.Mascota;
 import Entidades.Tratamiento;
@@ -8,6 +7,9 @@ import Entidades.Visita;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,18 +29,18 @@ import javax.swing.table.DefaultTableModel;
 public class GestionVisitas extends javax.swing.JInternalFrame {
 
     private JDesktopPane escritorio;
-    private int idVisita;
+    private int idVisita = 0;
 
     public GestionVisitas() {
         initComponents();
-        datos();
+        fechaHoy();
         cargarComboTratamiento();
         desactivarCampos();
     }
 
     public GestionVisitas(JDesktopPane escritorio) {
         initComponents();
-        datos();
+        fechaHoy();
         cargarComboTratamiento();
         desactivarCampos();
         this.escritorio = escritorio;
@@ -61,7 +63,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         jtDni = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jcbListaMascotas = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
+        jbBuscar = new javax.swing.JButton();
         jbNuevoCliente = new javax.swing.JButton();
         jbHistorialDeVisitas = new javax.swing.JButton();
         jdcFecha = new com.toedter.calendar.JDateChooser();
@@ -96,10 +98,10 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Mascotas:");
 
-        jButton3.setText("Buscar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jbBuscarActionPerformed(evt);
             }
         });
 
@@ -206,13 +208,13 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(40, 40, 40)
-                                .addComponent(jButton3)
+                                .addComponent(jbBuscar)
                                 .addGap(18, 18, 18)
                                 .addComponent(jbNuevoCliente))
                             .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jbNuevaMascota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jbNuevaMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbHistorialDeVisitas))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -237,7 +239,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3)
+                    .addComponent(jbBuscar)
                     .addComponent(jbNuevoCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,9 +300,9 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jtDniKeyPressed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         listaClientes();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbHistorialDeVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHistorialDeVisitasActionPerformed
         listaVisitas();
@@ -308,7 +310,35 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbHistorialDeVisitasActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-
+        if (jdcFecha.toString().isEmpty() || jtDetalles.getText().isEmpty() || jtPeso.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Llene los campos correctamente");
+        } else {
+            try {
+                LocalDate fechaV = jdcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                NumberFormat numberFormat = NumberFormat.getInstance();
+                double peso = numberFormat.parse(jtPeso.getText()).doubleValue();
+                String detalles = jtDetalles.getText().toString();
+                String[] comboBoxM = jcbListaMascotas.getSelectedItem().toString().split(",");
+                int idMascota = Integer.parseInt(comboBoxM[0].trim());
+                Mascota mascota = new Mascota();
+                mascota = Menu.mascotaData.buscarMascotaPorId(idMascota);
+                String[] comboBoxT = jcbListaMascotas.getSelectedItem().toString().split(",");
+                int idTratamiento = Integer.parseInt(comboBoxT[0].trim());
+                Tratamiento tratamiento = new Tratamiento();
+                tratamiento = Menu.tratamientoData.buscarTratamiento(idTratamiento);
+                Visita visita = new Visita(mascota, fechaV, detalles, peso, tratamiento);
+                if (idVisita == 0) {
+                    Menu.visitaData.guardarVisita(visita);
+                    limpiar();
+                } else {
+                    visita.setIdVisita(idVisita);
+                    Menu.visitaData.editarVisita(visita);
+                    limpiar();
+                }
+            } catch (NumberFormatException ex) {
+            } catch (ParseException ex) {
+            }
+        }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevaActionPerformed
@@ -326,7 +356,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtDniKeyTyped
 
     private void jtPesoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPesoKeyTyped
-        if (Character.isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_SPACE || !Character.isLetterOrDigit(evt.getKeyChar())) {
+     if ((Character.isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_SPACE || !Character.isLetterOrDigit(evt.getKeyChar()))&& (evt.getKeyChar() != ',')){
             evt.consume();
         }
     }//GEN-LAST:event_jtPesoKeyTyped
@@ -343,7 +373,6 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -352,6 +381,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbHistorialDeVisitas;
@@ -384,7 +414,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
             } else {
                 jcbListaMascotas.removeAllItems();
             }
-            if (jcbListaMascotas.getItemAt(0)==null) {
+            if (jcbListaMascotas.getItemAt(0) == null) {
                 desactivarCampos();
                 jbNuevaMascota.setEnabled(true);
             }
@@ -394,7 +424,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
 
     public void listaClientes() {
         JFrame frame = new JFrame("Lista de Clientes");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(400, 300);
 
         DefaultTableModel model = new DefaultTableModel() {
@@ -521,7 +551,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                 true);
     }
 
-    public void datos() {
+    public void fechaHoy() {
         Calendar calendar = new GregorianCalendar();
         jdcFecha.setDate(calendar.getTime());
     }
@@ -548,5 +578,15 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         jtPeso.setEnabled(true);
         jcbTratamiento.setEnabled(true);
         jbNuevaMascota.setEnabled(true);
+    }
+
+    public void limpiar() {
+        jtDni.setText("");
+        jcbListaMascotas.removeAllItems();
+        jtDetalles.setText("");
+        jtPeso.setText("");
+        fechaHoy();
+        jcbTratamiento.setSelectedIndex(0);
+        desactivarCampos();
     }
 }

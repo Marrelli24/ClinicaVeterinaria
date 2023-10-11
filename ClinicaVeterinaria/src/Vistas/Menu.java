@@ -4,6 +4,7 @@ import AccesoADatos.ClienteData;
 import AccesoADatos.MascotaData;
 import AccesoADatos.TratamientoData;
 import AccesoADatos.VisitaData;
+import java.util.Locale;
 import javax.swing.JInternalFrame;
 
 public class Menu extends javax.swing.JFrame {
@@ -19,6 +20,7 @@ public class Menu extends javax.swing.JFrame {
         this.mascotaData = new MascotaData();
         this.tratamientoData = new TratamientoData();
         this.visitaData = new VisitaData();
+        Locale.setDefault(new Locale("es", "ES"));
     }
 
     @SuppressWarnings("unchecked")

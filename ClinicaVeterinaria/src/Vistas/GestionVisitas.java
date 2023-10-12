@@ -63,7 +63,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         jtDni = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jcbListaMascotas = new javax.swing.JComboBox<>();
-        jbBuscar = new javax.swing.JButton();
+        jbListaClientes = new javax.swing.JButton();
         jbNuevoCliente = new javax.swing.JButton();
         jbHistorialDeVisitas = new javax.swing.JButton();
         jdcFecha = new com.toedter.calendar.JDateChooser();
@@ -81,6 +81,8 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jbNuevaMascota = new javax.swing.JButton();
+        jbBuscar = new javax.swing.JButton();
+        jbLimpiar = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -98,14 +100,14 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Mascotas:");
 
-        jbBuscar.setText("Buscar");
-        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+        jbListaClientes.setText("Lista Clientes");
+        jbListaClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbBuscarActionPerformed(evt);
+                jbListaClientesActionPerformed(evt);
             }
         });
 
-        jbNuevoCliente.setText("Nuevo");
+        jbNuevoCliente.setText("+");
         jbNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNuevoClienteActionPerformed(evt);
@@ -148,6 +150,11 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         });
 
         jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -181,6 +188,15 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
 
         jbNuevaMascota.setText("+");
 
+        jbBuscar.setText("Buscar");
+
+        jbLimpiar.setText("Limpiar");
+        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -190,41 +206,42 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jdcFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jtDni)
-                            .addComponent(jcbListaMascotas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jtDetalles)
-                            .addComponent(jtPeso)
+                            .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbListaMascotas, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jcbTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbNuevaMascota)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(jbBuscar)
-                                .addGap(18, 18, 18)
-                                .addComponent(jbNuevoCliente))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jbNuevaMascota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jbHistorialDeVisitas))))
+                                .addComponent(jbNuevoCliente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbBuscar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbListaClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbHistorialDeVisitas, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbLimpiar)
+                        .addGap(26, 26, 26)
                         .addComponent(jbNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
+                        .addGap(28, 28, 28)
                         .addComponent(jbGuardar)
-                        .addGap(50, 50, 50)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbEliminar)
-                        .addGap(50, 50, 50)
+                        .addGap(18, 18, 18)
                         .addComponent(jbSalir)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,13 +251,16 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbBuscar)
-                    .addComponent(jbNuevoCliente))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbListaClientes)
+                            .addComponent(jbNuevoCliente)))
+                    .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -269,7 +289,8 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                     .addComponent(jbNueva)
                     .addComponent(jbGuardar)
                     .addComponent(jbEliminar)
-                    .addComponent(jbSalir))
+                    .addComponent(jbSalir)
+                    .addComponent(jbLimpiar))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -300,9 +321,9 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jtDniKeyPressed
 
-    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+    private void jbListaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbListaClientesActionPerformed
         listaClientes();
-    }//GEN-LAST:event_jbBuscarActionPerformed
+    }//GEN-LAST:event_jbListaClientesActionPerformed
 
     private void jbHistorialDeVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHistorialDeVisitasActionPerformed
         listaVisitas();
@@ -315,16 +336,16 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         } else {
             try {
                 LocalDate fechaV = jdcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                NumberFormat numberFormat = NumberFormat.getInstance();
-                double peso = numberFormat.parse(jtPeso.getText()).doubleValue();
+                double peso = Double.parseDouble(jtPeso.getText().toString());
                 String detalles = jtDetalles.getText().toString();
                 String[] comboBoxM = jcbListaMascotas.getSelectedItem().toString().split(",");
                 int idMascota = Integer.parseInt(comboBoxM[0].trim());
                 Mascota mascota = new Mascota();
                 mascota = Menu.mascotaData.buscarMascotaPorId(idMascota);
-                String[] comboBoxT = jcbListaMascotas.getSelectedItem().toString().split(",");
+                String[] comboBoxT = jcbTratamiento.getSelectedItem().toString().split(",");
                 int idTratamiento = Integer.parseInt(comboBoxT[0].trim());
                 Tratamiento tratamiento = new Tratamiento();
+                System.out.println(idTratamiento);
                 tratamiento = Menu.tratamientoData.buscarTratamiento(idTratamiento);
                 Visita visita = new Visita(mascota, fechaV, detalles, peso, tratamiento);
                 if (idVisita == 0) {
@@ -335,14 +356,19 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                     Menu.visitaData.editarVisita(visita);
                     limpiar();
                 }
-            } catch (NumberFormatException ex) {
-            } catch (ParseException ex) {
+            } catch (NumberFormatException ex) {//            
             }
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevaActionPerformed
-        // TODO add your handling code here:
+        this.idVisita = 0;
+        jtDetalles.setText("");
+        jtPeso.setText("");
+        fechaHoy();
+        jcbTratamiento.setSelectedIndex(0);
+        jbEliminar.setEnabled(false);
+
     }//GEN-LAST:event_jbNuevaActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -356,8 +382,14 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtDniKeyTyped
 
     private void jtPesoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPesoKeyTyped
-     if ((Character.isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_SPACE || !Character.isLetterOrDigit(evt.getKeyChar()))&& (evt.getKeyChar() != ',')){
+        if ((Character.isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_SPACE || !Character.isLetterOrDigit(evt.getKeyChar())) && (evt.getKeyChar() != '.')) {
             evt.consume();
+        }
+        String regex = "^([^,]*,){0,1}(\\d{0,3}(\\.\\d{0,3})?){0,1}$"; //CHEQUEA QUE SOLO ESTE UNA COMA Y QUE ESTE LIMITADO EL NUMERO A INGRESAR POR 3numeros COMA Y 3 DECIMALES
+
+        if (!(jtPeso.getText() + evt.getKeyChar()).matches(regex)) {
+            evt.consume();
+
         }
     }//GEN-LAST:event_jtPesoKeyTyped
 
@@ -369,6 +401,27 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         escritorio.add(gest);
         escritorio.moveToFront(gest);
     }//GEN-LAST:event_jbNuevoClienteActionPerformed
+
+    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
+        limpiar();
+    }//GEN-LAST:event_jbLimpiarActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        if (idVisita != 0) {
+            int response;
+            response = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar esta visita?", "Eliminar", JOptionPane.YES_NO_OPTION);
+
+            if (response == JOptionPane.YES_OPTION) {
+                Menu.visitaData.eliminarVisita(idVisita);
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se elimino la visita");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No selecciono ninguna visita");
+
+        }
+    }//GEN-LAST:event_jbEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -385,6 +438,8 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbHistorialDeVisitas;
+    private javax.swing.JButton jbLimpiar;
+    private javax.swing.JButton jbListaClientes;
     private javax.swing.JButton jbNueva;
     private javax.swing.JButton jbNuevaMascota;
     private javax.swing.JButton jbNuevoCliente;
@@ -531,6 +586,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                             jdcFecha.setDate(Date.from(visita.getFechaVisita().atStartOfDay(ZoneId.systemDefault()).toInstant()));
                             jtDetalles.setText(visita.getDetalle());
                             jtPeso.setText(visita.getPeso() + "");
+                            jbEliminar.setEnabled(true);
                             for (int i = 0; i < jcbTratamiento.getItemCount(); i++) {
                                 String[] partesT = jcbTratamiento.getItemAt(i).toString().split(",");
                                 int codigoT = Integer.parseInt(partesT[0]);
@@ -566,21 +622,25 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         jcbListaMascotas.setEnabled(false);
         jbHistorialDeVisitas.setEnabled(false);
         jdcFecha.setEnabled(false);
+        jtDetalles.setEnabled(false);
         jtPeso.setEnabled(false);
         jcbTratamiento.setEnabled(false);
         jbNuevaMascota.setEnabled(false);
+        jbEliminar.setEnabled(false);
     }
 
     public void activarCampos() {
         jcbListaMascotas.setEnabled(true);
         jbHistorialDeVisitas.setEnabled(true);
         jdcFecha.setEnabled(true);
+        jtDetalles.setEnabled(true);
         jtPeso.setEnabled(true);
         jcbTratamiento.setEnabled(true);
         jbNuevaMascota.setEnabled(true);
     }
 
     public void limpiar() {
+        this.idVisita = 0;
         jtDni.setText("");
         jcbListaMascotas.removeAllItems();
         jtDetalles.setText("");

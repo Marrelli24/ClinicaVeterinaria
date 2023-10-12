@@ -1,5 +1,6 @@
 package AccesoADatos;
 
+import Entidades.Mascota;
 import Entidades.Visita;
 import java.sql.Connection;
 import java.sql.Date;
@@ -39,9 +40,7 @@ public class VisitaData {
             if (rs.next()) {
                 visita.setIdVisita(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Registro Guardado");
-                visita.getMascota().setPesoActual(visita.getPeso());
-                visita.getMascota().setPesoPromedio(pesoPromedio(visita.getMascota().getIdMascota()));
-                mascotaData.editarMascota(visita.getMascota());
+                chequeoUVisita(visita.getMascota().getIdMascota());
             } else {
                 JOptionPane.showConfirmDialog(null, "No se pudo guardar el registro");
             }
@@ -52,7 +51,6 @@ public class VisitaData {
     }
 
     public void editarVisita(Visita visita) {
-        boolean ultima = true;
         String sql = "UPDATE visita SET idMascota = ?, fechaVisita = ?, detalle = ?, peso = ?, idTratamiento = ? WHERE idVisita = ?";
         PreparedStatement ps;
         try {
@@ -66,16 +64,7 @@ public class VisitaData {
             int rs = ps.executeUpdate();
             if (rs == 1) {
                 JOptionPane.showMessageDialog(null, "Se actualizo los datos de la Visita correctamente");
-                for (Visita visita1 : listarVisita()) {
-                    if (visita.getFechaVisita().isAfter(visita1.getFechaVisita())){
-                        ultima = false;
-                    }
-                    if (ultima) {
-                        visita.getMascota().setPesoActual(visita.getPeso());
-                    }
-                }
-                visita.getMascota().setPesoPromedio(pesoPromedio(visita.getMascota().getIdMascota()));
-                mascotaData.editarMascota(visita.getMascota());
+                chequeoUVisita(visita.getMascota().getIdMascota());
             } else {
                 JOptionPane.showMessageDialog(null, "No se actualizo los datos de la Visita");
             }
@@ -85,6 +74,7 @@ public class VisitaData {
     }
 
     public void eliminarVisita(int id) {
+        int idMascota = buscarVisitaPorId(id).getMascota().getIdMascota();
         String sql = "DELETE FROM visita WHERE idVisita=?";
         PreparedStatement ps;
         try {
@@ -92,11 +82,12 @@ public class VisitaData {
             ps.setInt(1, id);
             int rs = ps.executeUpdate();
             if (rs == 1) {
-                JOptionPane.showMessageDialog(null, "Se elimino el registro de la visita");
+                JOptionPane.showMessageDialog(null, "Se elimino el registro de la visita");                
             } else {
                 JOptionPane.showMessageDialog(null, "No se elimino el registro de la visita");
             }
             ps.close();
+            chequeoUVisita(idMascota);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en base de datos");
         }
@@ -232,7 +223,7 @@ public class VisitaData {
 
         return lista;
     }
-    
+
     public double pesoPromedio(int id) {
         double pesoPromedio = 0;
         int x = 0;
@@ -253,4 +244,41 @@ public class VisitaData {
         }
         return pesoPromedio;
     }
+
+    public Visita ultimaVisita(int id) {
+        Visita visita = null;
+        String sql = "SELECT * FROM visita WHERE idMascota = ? AND fechaVisita = (SELECT MAX(fechaVisita) FROM visita)";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                visita = new Visita();
+                visita.setIdVisita(rs.getInt("idVisita"));
+                visita.setMascota(mascotaData.buscarMascotaPorId(rs.getInt("idMascota")));
+                visita.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
+                visita.setDetalle(rs.getString("detalle"));
+                visita.setPeso(rs.getDouble("peso"));
+                visita.setTratamiento(tratamientoData.buscarTratamiento(rs.getInt("idTratamiento")));
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en base de datos");
+        }
+
+        return visita;
+    }
+
+    public void chequeoUVisita(int idMascota) {
+        
+        Visita visitaUltima = new Visita();
+        visitaUltima = ultimaVisita(idMascota);
+        Mascota mascota = new Mascota();
+        mascota = mascotaData.buscarMascotaPorId(idMascota);
+        mascota.setPesoActual(visitaUltima.getPeso());
+        mascota.setPesoPromedio(pesoPromedio(idMascota));
+        mascotaData.editarMascota(mascota);
+    }
+
 }

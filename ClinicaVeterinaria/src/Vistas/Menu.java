@@ -20,7 +20,6 @@ public class Menu extends javax.swing.JFrame {
         this.mascotaData = new MascotaData();
         this.tratamientoData = new TratamientoData();
         this.visitaData = new VisitaData();
-        Locale.setDefault(new Locale("es", "ES"));
     }
 
     @SuppressWarnings("unchecked")

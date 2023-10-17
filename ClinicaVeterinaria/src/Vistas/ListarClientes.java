@@ -18,6 +18,7 @@ public class ListarClientes extends javax.swing.JInternalFrame {
     public ListarClientes() {
         initComponents();
         armarCabecera();
+        cargarTabla();
     }
 
     @SuppressWarnings("unchecked")

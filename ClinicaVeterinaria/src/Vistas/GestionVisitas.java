@@ -497,9 +497,9 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
 
         model.addColumn("ID");
-        model.addColumn("DNI");
-        model.addColumn("Nombre");
         model.addColumn("Apellido");
+        model.addColumn("Nombre");
+        model.addColumn("DNI");
         model.addColumn("Nombre Alternativo");
 
         JTable table = new JTable(model);
@@ -509,9 +509,9 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
 
         for (Cliente cliente : Menu.clienteData.listarClientes()) {
             model.addRow(new Object[]{cliente.getIdCliente(),
-                cliente.getDni(),
-                cliente.getNombre(),
                 cliente.getApellido(),
+                cliente.getNombre(),
+                cliente.getDni(),
                 cliente.getNombreAlterno()});
         }
 
@@ -540,7 +540,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         String[] partesM = jcbListaMascotas.getSelectedItem().toString().split(",");
         int codigoM = Integer.parseInt(partesM[0]);
         JFrame frame = new JFrame("Lista de Visitas");
-        frame.setSize(400, 300);
+        frame.setSize(600, 500);
 
         DefaultTableModel model = new DefaultTableModel() {
             @Override
@@ -564,6 +564,8 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
         table.getColumnModel().getColumn(0).setPreferredWidth(30);
+        table.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
+        table.getColumnModel().getColumn(1).setPreferredWidth(30);
 
         for (Visita visita : Menu.visitaData.buscarVisitaPorMascota(codigoM)) {
             model.addRow(new Object[]{visita.getIdVisita(),

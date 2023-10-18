@@ -96,7 +96,7 @@ public class VisitaData {
     public ArrayList<Visita> listarVisita() {
         ArrayList<Visita> lista = new ArrayList<>();
         Visita visita = null;
-        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita";
+        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita ORDER BY fechaVisita DESC;";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -146,7 +146,7 @@ public class VisitaData {
     public ArrayList<Visita> buscarVisitaPorCliente(int id) {
         ArrayList<Visita> lista = new ArrayList<>();
         Visita visita = null;
-        String sql = "SELECT idVisita, visita.idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita, mascota WHERE visita.idMascota=mascota.idMascota and mascota.idCliente=?";
+        String sql = "SELECT idVisita, visita.idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita, mascota WHERE visita.idMascota=mascota.idMascota and mascota.idCliente=?  ORDER BY fechaVisita DESC";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -173,7 +173,7 @@ public class VisitaData {
     public ArrayList<Visita> buscarVisitaPorMascota(int id) {
         ArrayList<Visita> lista = new ArrayList<>();
         Visita visita = null;
-        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita WHERE idMascota = ? ";
+        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita WHERE idMascota = ?  ORDER BY fechaVisita DESC";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -200,7 +200,7 @@ public class VisitaData {
     public ArrayList<Visita> buscarVisitaPorTratamiento(int id) {
         ArrayList<Visita> lista = new ArrayList<>();
         Visita visita = null;
-        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita WHERE idTratamiento = ?";
+        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita WHERE idTratamiento = ? ORDER BY fechaVisita DESC";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);

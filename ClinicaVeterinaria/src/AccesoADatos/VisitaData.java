@@ -82,7 +82,7 @@ public class VisitaData {
             ps.setInt(1, id);
             int rs = ps.executeUpdate();
             if (rs == 1) {
-                JOptionPane.showMessageDialog(null, "Se elimino el registro de la visita");                
+                JOptionPane.showMessageDialog(null, "Se elimino el registro de la visita");
             } else {
                 JOptionPane.showMessageDialog(null, "No se elimino el registro de la visita");
             }
@@ -247,7 +247,8 @@ public class VisitaData {
 
     public Visita ultimaVisita(int id) {
         Visita visita = null;
-        String sql = "SELECT * FROM visita WHERE idMascota = ? AND fechaVisita = (SELECT MAX(fechaVisita) FROM visita)";
+//        String sql = "SELECT * FROM visita WHERE idMascota = ? AND fechaVisita = (SELECT MAX(fechaVisita) FROM visita)";
+        String sql = "SELECT * FROM visita WHERE idMascota = ? ORDER BY fechaVisita DESC, idVisita DESC LIMIT 1;";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -271,7 +272,7 @@ public class VisitaData {
     }
 
     public void chequeoUVisita(int idMascota) {
-        
+
         Visita visitaUltima = new Visita();
         visitaUltima = ultimaVisita(idMascota);
         Mascota mascota = new Mascota();

@@ -4,21 +4,24 @@ import Entidades.Cliente;
 import Entidades.Mascota;
 import Entidades.Tratamiento;
 import Entidades.Visita;
+import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
@@ -30,6 +33,23 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
 
     private JDesktopPane escritorio;
     private int idVisita = 0;
+
+ 
+//   class MascotaRenderer extends JLabel implements ListCellRenderer<Mascota> {
+//    public MascotaRenderer() {
+//        setOpaque(true); // Esto permite resaltar la selección
+//    }
+//
+//    @Override
+//    public Component getListCellRendererComponent(JList<? extends Mascota> list, Mascota value, int index, boolean isSelected, boolean cellHasFocus) {
+//        if (value != null) {
+//            setText(value.getAlias() + " - " + value.getEspecie());
+//        }
+//               
+//        return this;
+//    }
+//}
+
 
     public GestionVisitas() {
         initComponents();
@@ -650,4 +670,24 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         jcbTratamiento.setSelectedIndex(0);
         desactivarCampos();
     }
+
+//    public void combo() {
+//        MascotaComboBoxModel modelo = new MascotaComboBoxModel();
+//        Cliente cliente = new Cliente();
+//        cliente = Menu.clienteData.buscarClientePorDni(Integer.parseInt(jtDni.getText()));
+//        for (Mascota mascota : Menu.mascotaData.buscarMascotaPorCliente(cliente.getIdCliente())) {
+//
+//            modelo.addElement(new Mascota(mascota.getIdMascota(), mascota.getAlias(),
+//                    mascota.getSexo(),
+//                    mascota.getEspecie(),
+//                    mascota.getRaza(),
+//                    mascota.getColorPelo(),
+//                    mascota.getPesoActual(),
+//                    mascota.getPesoPromedio(),
+//                    mascota.getFechaNac(),
+//                    mascota.getCliente()
+//            ));
+//        }
+//        jcbListaMascotas.setRenderer(new MascotaRenderer());
+//    }
 }

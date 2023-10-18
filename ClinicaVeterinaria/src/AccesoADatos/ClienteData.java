@@ -174,4 +174,13 @@ public class ClienteData {
 
         return cliente;
     }
+    
+    public void altaBaja(){
+        
+        
+        
+    }
+    
+    
+    
 }

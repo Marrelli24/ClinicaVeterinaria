@@ -1,6 +1,8 @@
 package Vistas;
 
 import Entidades.Tratamiento;
+import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ListarTratamiento extends javax.swing.JInternalFrame {
@@ -12,12 +14,20 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
             return false;
         }
     };
+    private JDesktopPane escritorio;
     
+    public ListarTratamiento(JDesktopPane escritorio) {
+        initComponents();
+        armarCabecera();
+        cargarTabla();
+        this.escritorio = escritorio;
+    }
     public ListarTratamiento() {
         initComponents();
         armarCabecera();
         cargarTabla();
     }
+
 
 
     @SuppressWarnings("unchecked")
@@ -28,6 +38,7 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTratamientos = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        JBEditTratamiento = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -45,12 +56,24 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableTratamientos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableTratamientosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableTratamientos);
 
         jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        JBEditTratamiento.setText("Editar");
+        JBEditTratamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBEditTratamientoActionPerformed(evt);
             }
         });
 
@@ -64,12 +87,16 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(290, 290, 290)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(265, 265, 265)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(290, 290, 290)
+                        .addComponent(jButton1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(282, 282, 282)
+                .addComponent(JBEditTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,7 +105,9 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(62, 62, 62)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(JBEditTratamiento)
+                .addGap(35, 35, 35)
                 .addComponent(jButton1)
                 .addGap(19, 19, 19))
         );
@@ -90,8 +119,17 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void JBEditTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEditTratamientoActionPerformed
+        seleccion();
+    }//GEN-LAST:event_JBEditTratamientoActionPerformed
+
+    private void jTableTratamientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTratamientosMouseClicked
+        seleccion();
+    }//GEN-LAST:event_jTableTratamientosMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBEditTratamiento;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -103,8 +141,9 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
    private void armarCabecera() {
         modelo.addColumn("ID");
         modelo.addColumn("Tipo de tratamiento");
-        modelo.addColumn("Medicamento");
         modelo.addColumn("Precio");
+        modelo.addColumn("Medicamento");
+        modelo.addColumn("Precio Med");
         modelo.addColumn("Descripcion");
         modelo.addColumn("Activo");
         jTableTratamientos.setModel(modelo);
@@ -116,11 +155,36 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
            modelo.addRow(new Object[]{
                trat.getIdTratamiento(),
                trat.getTipoDeTratamiento(),
-               trat.getMedicamento(),
                trat.getPrecio(),
+               trat.getMedicamento().getNombre(),
+               trat.getMedicamento().getPrecio(),
                trat.getDescripcion(),
                trat.isActivo()
            });
        }
+   }
+   
+   private void seleccion(){
+       try{
+       //Selecciono el tratamiento
+       int filaSeleccionada = jTableTratamientos.getSelectedRow();
+       int columnaId = 0;
+       int idTratamiento = (int) jTableTratamientos.getValueAt(filaSeleccionada, columnaId);
+       
+       Tratamiento tratamiento = Menu.tratamientoData.buscarTratamiento(idTratamiento);
+       
+       //Genero la ventana de gestion pasandole el tratamiento
+       GestionTratamiento trata = new GestionTratamiento(tratamiento);
+        escritorio.repaint();
+        trata.setVisible(true);
+        trata.isFocusable();
+        escritorio.add(trata);
+        escritorio.moveToFront(trata);
+        
+       }catch(Exception ex){
+           JOptionPane.showMessageDialog(null, "Debes seleccionar un tratamiento primero");
+       }
+       
+       
    }
 }

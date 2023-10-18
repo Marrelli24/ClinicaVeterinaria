@@ -247,7 +247,6 @@ public class VisitaData {
 
     public Visita ultimaVisita(int id) {
         Visita visita = null;
-//        String sql = "SELECT * FROM visita WHERE idMascota = ? AND fechaVisita = (SELECT MAX(fechaVisita) FROM visita)";
         String sql = "SELECT * FROM visita WHERE idMascota = ? ORDER BY fechaVisita DESC, idVisita DESC LIMIT 1;";
         PreparedStatement ps;
         try {

@@ -34,23 +34,6 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
     private JDesktopPane escritorio;
     private int idVisita = 0;
 
- 
-//   class MascotaRenderer extends JLabel implements ListCellRenderer<Mascota> {
-//    public MascotaRenderer() {
-//        setOpaque(true); // Esto permite resaltar la selección
-//    }
-//
-//    @Override
-//    public Component getListCellRendererComponent(JList<? extends Mascota> list, Mascota value, int index, boolean isSelected, boolean cellHasFocus) {
-//        if (value != null) {
-//            setText(value.getAlias() + " - " + value.getEspecie());
-//        }
-//               
-//        return this;
-//    }
-//}
-
-
     public GestionVisitas() {
         initComponents();
         fechaHoy();
@@ -147,6 +130,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Peso:");
 
+        jtPeso.setToolTipText("Utiliza punto \".\"");
         jtPeso.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtPesoKeyTyped(evt);
@@ -670,24 +654,4 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         jcbTratamiento.setSelectedIndex(0);
         desactivarCampos();
     }
-
-//    public void combo() {
-//        MascotaComboBoxModel modelo = new MascotaComboBoxModel();
-//        Cliente cliente = new Cliente();
-//        cliente = Menu.clienteData.buscarClientePorDni(Integer.parseInt(jtDni.getText()));
-//        for (Mascota mascota : Menu.mascotaData.buscarMascotaPorCliente(cliente.getIdCliente())) {
-//
-//            modelo.addElement(new Mascota(mascota.getIdMascota(), mascota.getAlias(),
-//                    mascota.getSexo(),
-//                    mascota.getEspecie(),
-//                    mascota.getRaza(),
-//                    mascota.getColorPelo(),
-//                    mascota.getPesoActual(),
-//                    mascota.getPesoPromedio(),
-//                    mascota.getFechaNac(),
-//                    mascota.getCliente()
-//            ));
-//        }
-//        jcbListaMascotas.setRenderer(new MascotaRenderer());
-//    }
 }

@@ -2,6 +2,7 @@ package Vistas;
 
 import AccesoADatos.ClienteData;
 import AccesoADatos.MascotaData;
+import AccesoADatos.MedicamentoData;
 import AccesoADatos.TratamientoData;
 import AccesoADatos.VisitaData;
 import java.util.Locale;
@@ -13,6 +14,7 @@ public class Menu extends javax.swing.JFrame {
     public static MascotaData mascotaData;
     public static TratamientoData tratamientoData;
     public static VisitaData visitaData;
+    public static MedicamentoData medicamentoData;
 
     public Menu() {
         initComponents();
@@ -20,6 +22,7 @@ public class Menu extends javax.swing.JFrame {
         this.mascotaData = new MascotaData();
         this.tratamientoData = new TratamientoData();
         this.visitaData = new VisitaData();
+        this.medicamentoData= new MedicamentoData();
     }
 
     @SuppressWarnings("unchecked")
@@ -209,7 +212,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_JMIListMascotaActionPerformed
 
     private void JMIListTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIListTratamientoActionPerformed
-        ListarTratamiento list = new ListarTratamiento();
+        ListarTratamiento list = new ListarTratamiento(escritorio);
         generarVentana(list);
     }//GEN-LAST:event_JMIListTratamientoActionPerformed
 

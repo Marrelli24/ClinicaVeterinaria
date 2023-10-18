@@ -1,6 +1,7 @@
 package AccesoADatos;
 
 import Entidades.Tratamiento;
+import Vistas.Menu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +18,7 @@ public class TratamientoData {
     }
 
     public Tratamiento buscarTratamiento(int id) {
-        String sql = "SELECT idTratamiento, tipoDeTratamiento, descripcion, medicamento, importe, activo FROM tratamiento WHERE idTratamiento = ?";
+        String sql = "SELECT idTratamiento, tipoDeTratamiento, descripcion, idMedicamento, importe, activo FROM tratamiento WHERE idTratamiento = ?";
         PreparedStatement ps;
         Tratamiento tratamiento = null;
         try {
@@ -29,7 +30,7 @@ public class TratamientoData {
                 tratamiento.setIdTratamiento(rs.getInt("idTratamiento"));
                 tratamiento.setTipoDeTratamiento(rs.getString("tipoDeTratamiento"));
                 tratamiento.setDescripcion(rs.getString("descripcion"));
-                tratamiento.setMedicamento(rs.getString("medicamento"));
+                tratamiento.setMedicamento(Menu.medicamentoData.buscarMedicamento(rs.getInt("idMedicamento")));
                 tratamiento.setPrecio(rs.getDouble("importe"));
                 tratamiento.setActivo(rs.getBoolean("activo"));
             }
@@ -47,7 +48,7 @@ public class TratamientoData {
             ps = con.prepareStatement(sql);
             ps.setString(1, trat.getTipoDeTratamiento());
             ps.setString(2, trat.getDescripcion());
-            ps.setString(3, trat.getMedicamento());
+            ps.setInt(3, trat.getMedicamento().getId());
             ps.setDouble(4, trat.getPrecio());
             ps.setBoolean(5, true);
             int rs = ps.executeUpdate();
@@ -65,12 +66,12 @@ public class TratamientoData {
 
     public void editarTratamiento(Tratamiento trat) {
         PreparedStatement ps;
-        String sql = "UPDATE tratamiento SET tipoDeTratamiento = ?, descripcion = ?, medicamento = ?, importe = ? WHERE idTratamiento=?";
+        String sql = "UPDATE tratamiento SET tipoDeTratamiento = ?, descripcion = ?, idMedicamento = ?, importe = ? WHERE idTratamiento=?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, trat.getTipoDeTratamiento());
             ps.setString(2, trat.getDescripcion());
-            ps.setString(3, trat.getMedicamento());
+            ps.setInt(3, trat.getMedicamento().getId());
             ps.setDouble(4, trat.getPrecio());
             ps.setInt(5, trat.getIdTratamiento());
 
@@ -117,7 +118,7 @@ public class TratamientoData {
         ArrayList<Tratamiento> lista = new ArrayList<>();
         Tratamiento tratamiento = null;
 
-        String sql = "SELECT idTratamiento, tipoDeTratamiento, descripcion, medicamento, importe, activo FROM tratamiento";
+        String sql = "SELECT idTratamiento, tipoDeTratamiento, descripcion, idMedicamento, importe, activo FROM tratamiento";
         PreparedStatement ps;
 
         try {
@@ -129,7 +130,7 @@ public class TratamientoData {
                 tratamiento.setIdTratamiento(rs.getInt("idTratamiento"));
                 tratamiento.setTipoDeTratamiento(rs.getString("tipoDeTratamiento"));
                 tratamiento.setDescripcion(rs.getString("descripcion"));
-                tratamiento.setMedicamento(rs.getString("medicamento"));
+                tratamiento.setMedicamento(Menu.medicamentoData.buscarMedicamento(rs.getInt("idMedicamento")));
                 tratamiento.setPrecio(rs.getDouble("importe"));
                 tratamiento.setActivo(rs.getBoolean("activo"));
 
@@ -137,7 +138,7 @@ public class TratamientoData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en cargar la lista de clientes");
+            JOptionPane.showMessageDialog(null, "Error en cargar la lista de tratamientos");
         }
 
         return lista;

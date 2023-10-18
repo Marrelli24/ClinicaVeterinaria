@@ -96,7 +96,7 @@ public class ClienteData {
     public ArrayList<Cliente> listarClientes() {
         ArrayList<Cliente> lista = new ArrayList<>();
         Cliente cliente = null;
-        String sql = "SELECT idCliente, dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo FROM cliente";
+        String sql = "SELECT idCliente, dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo FROM cliente ORDER BY apellido, nombre;";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);

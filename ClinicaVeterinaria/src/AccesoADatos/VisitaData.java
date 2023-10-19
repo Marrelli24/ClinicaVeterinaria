@@ -146,7 +146,7 @@ public class VisitaData {
     public ArrayList<Visita> buscarVisitaPorCliente(int id) {
         ArrayList<Visita> lista = new ArrayList<>();
         Visita visita = null;
-        String sql = "SELECT idVisita, visita.idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita, mascota WHERE visita.idMascota=mascota.idMascota and mascota.idCliente=?  ORDER BY fechaVisita DESC";
+        String sql = "SELECT idVisita, visita.idMascota, fechaVisita, detalle, visita.peso, idTratamiento FROM visita, mascota WHERE visita.idMascota=mascota.idMascota and mascota.idCliente=?  ORDER BY fechaVisita DESC";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -239,8 +239,7 @@ public class VisitaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en base de datos");
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Error en base de datos");          
         }
         return pesoPromedio;
     }

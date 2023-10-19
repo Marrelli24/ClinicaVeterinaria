@@ -11,6 +11,11 @@ public class Medicamento {
 
     public Medicamento() {
     }
+    
+    public Medicamento(String nombre, double precio) {
+        this.nombre = nombre;
+        this.precio = precio;
+    }
 
     public Medicamento(int idMedicamento, String nombre, double precio) {
         this.idMedicamento = idMedicamento;

@@ -197,7 +197,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_JMIGestMascotaActionPerformed
 
     private void JMIGestTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIGestTratamientoActionPerformed
-        GestionTratamiento gest = new GestionTratamiento();
+        GestionTratamiento gest = new GestionTratamiento(escritorio);
         generarVentana(gest);
     }//GEN-LAST:event_JMIGestTratamientoActionPerformed
 

@@ -174,7 +174,7 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
        Tratamiento tratamiento = Menu.tratamientoData.buscarTratamiento(idTratamiento);
        
        //Genero la ventana de gestion pasandole el tratamiento
-       GestionTratamiento trata = new GestionTratamiento(tratamiento);
+       GestionTratamiento trata = new GestionTratamiento(tratamiento, escritorio);
         escritorio.repaint();
         trata.setVisible(true);
         trata.isFocusable();

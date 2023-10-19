@@ -1,31 +1,32 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vistas;
 
 import Entidades.Tratamiento;
-
+import java.awt.event.KeyEvent;
+import javax.swing.JDesktopPane;
 
 public class GestionTratamiento extends javax.swing.JInternalFrame {
 
     Tratamiento save;
-    
-    public GestionTratamiento() {
+    private JDesktopPane escritorio;
+
+    public GestionTratamiento(JDesktopPane escritorio) {
         initComponents();
+        this.escritorio = escritorio;
     }
-    public GestionTratamiento(Tratamiento trat){
+
+    public GestionTratamiento(Tratamiento trat, JDesktopPane escritorio) {
         initComponents();
         this.save = trat;
+        this.escritorio = escritorio;
         //Falta agregar medicina al comboBox
         double precioFinal = trat.getMedicamento().getPrecio() + trat.getPrecio();
-        
+
         JTDescripcionTratamiento.setText(trat.getDescripcion());
         JTPrecioTratamiento.setText(String.format("%.2f", trat.getPrecio()));
         JTTituloTratamiento.setText(trat.getTipoDeTratamiento());
         JLPrecioMed.setText(String.format("%.2f", trat.getMedicamento().getPrecio()));
         JLPrecioTotal.setText(String.format("%.2f", precioFinal));
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -49,6 +50,8 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         JLPrecioMed = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         JLPrecioTotal = new javax.swing.JLabel();
+
+        setClosable(true);
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setText("Tratamientos");
@@ -81,9 +84,21 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
             }
         });
 
+        JTPrecioTratamiento.setToolTipText("Utiliza un punto \".\"");
+        JTPrecioTratamiento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                JTPrecioTratamientoKeyTyped(evt);
+            }
+        });
+
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         JBAddMedicina.setText("+");
+        JBAddMedicina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBAddMedicinaActionPerformed(evt);
+            }
+        });
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Precio med:");
@@ -189,6 +204,28 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         edit();
     }//GEN-LAST:event_JBEditTratamientoActionPerformed
 
+    private void JTPrecioTratamientoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTPrecioTratamientoKeyTyped
+        if ((Character.isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_SPACE || !Character.isLetterOrDigit(evt.getKeyChar())) && (evt.getKeyChar() != '.')) {
+            evt.consume();
+        }
+        String regex = "^([^,]*,){0,1}(\\d{0,7}(\\.\\d{0,2})?){0,1}$"; //CHEQUEA QUE SOLO ESTE UNA COMA Y QUE ESTE LIMITADO EL NUMERO A INGRESAR POR 3numeros COMA Y 3 DECIMALES
+
+        if (!(JTPrecioTratamiento.getText() + evt.getKeyChar()).matches(regex)) {
+            evt.consume();
+
+        }    }//GEN-LAST:event_JTPrecioTratamientoKeyTyped
+
+    private void JBAddMedicinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAddMedicinaActionPerformed
+        AddMed add = new AddMed();
+        
+        add.setVisible(true);
+        add.isFocusable();
+        escritorio.repaint();
+        escritorio.add(add);
+        escritorio.moveToFront(add);
+        
+    }//GEN-LAST:event_JBAddMedicinaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBAddMedicina;
@@ -210,20 +247,20 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 
-private void edit(){
-    try{
-        if(save != null){
-           Tratamiento match = Menu.tratamientoData.buscarTratamiento(save.getIdTratamiento());
-           match.setDescripcion(JTDescripcionTratamiento.getText());
-           match.setPrecio(Double.parseDouble(JTPrecioTratamiento.getText()));
-           match.setTipoDeTratamiento(JTTituloTratamiento.getText());
-           match.setIdTratamiento(save.getIdTratamiento());
-           Menu.tratamientoData.editarTratamiento(match);
-           
+    private void edit() {
+        try {
+            if (save != null) {
+                Tratamiento match = Menu.tratamientoData.buscarTratamiento(save.getIdTratamiento());
+                match.setDescripcion(JTDescripcionTratamiento.getText());
+                match.setPrecio(Double.parseDouble(JTPrecioTratamiento.getText()));
+                match.setTipoDeTratamiento(JTTituloTratamiento.getText());
+                match.setIdTratamiento(save.getIdTratamiento());
+                Menu.tratamientoData.editarTratamiento(match);
+
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
-    }catch(Exception ex){
-        System.out.println(ex);
     }
-}
 
 }

@@ -7,6 +7,12 @@ import Entidades.Visita;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
@@ -49,6 +55,7 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jcbTratamiento = new javax.swing.JComboBox<>();
         jlCliente = new javax.swing.JLabel();
+        jbListaClientes = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -139,6 +146,13 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
         jlCliente.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jlCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        jbListaClientes.setText("Clientes");
+        jbListaClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbListaClientesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,15 +163,16 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 23, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                                .addComponent(jbListaClientes)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel2)
-                                .addGap(28, 28, 28)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jcbListaMascotas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
                                 .addComponent(jcbTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -190,8 +205,9 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
                     .addComponent(jcbListaMascotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(9, 9, 9)
+                    .addComponent(jLabel1)
+                    .addComponent(jbListaClientes))
+                .addGap(8, 8, 8)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
                 .addGap(30, 30, 30)
                 .addComponent(jbSalir)
@@ -242,6 +258,10 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jtDniKeyTyped
 
+    private void jbListaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbListaClientesActionPerformed
+        listaClientes();
+    }//GEN-LAST:event_jbListaClientesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -251,6 +271,7 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbListaClientes;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<String> jcbListaMascotas;
     private javax.swing.JComboBox<String> jcbTratamiento;
@@ -301,30 +322,37 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
         }
         // Busca segun la opciones seleccionada y completadas para llenar la tabla
 
-        if (jtDni.getText().isEmpty() && jcbTratamiento.getSelectedIndex() == 0 || nulo) {
+        if (jtDni.getText().isEmpty() && jcbTratamiento.getSelectedIndex() == 0 || nulo && jcbTratamiento.getSelectedIndex() == 0) {
             // Caso 1: DNI vacío y Tratamiento no seleccionado            
             for (Visita visita : Menu.visitaData.listarVisita()) {
                 forRepetido(visita);
             }
         } else if (jcbListaMascotas.getSelectedIndex() == 0 && jcbTratamiento.getSelectedIndex() == 0) {
-            // Caso 2: Lista de Mascotas y Tratamiento no seleccionados
+            // Caso 2: Lista Mascotas y Tratamiento no seleccionados
             for (Visita visita : Menu.visitaData.buscarVisitaPorCliente(Menu.clienteData.buscarClientePorDni(Integer.parseInt(jtDni.getText())).getIdCliente())) {
                 forRepetido(visita);
             }
-        } else if (jcbListaMascotas.getSelectedIndex() != 0 && jcbTratamiento.getSelectedIndex() == 0) {
+        } else if (jcbListaMascotas.getSelectedIndex() == 0 && jcbTratamiento.getSelectedIndex() != 0) {
+            // Caso 3: Lista de Mascotas seleccionada, Tratamiento no seleccionado
+            for (Visita visita : Menu.visitaData.buscarVisitaPorCliente(Menu.clienteData.buscarClientePorDni(Integer.parseInt(jtDni.getText())).getIdCliente())) {
+                if (visita.getTratamiento().getIdTratamiento() == idTratamiento) {
+                    forRepetido(visita);
+                }
+            }
+        } else if (jcbListaMascotas.getSelectedIndex() != -1 && jcbTratamiento.getSelectedIndex() == 0) {
             // Caso 3: Lista de Mascotas seleccionada, Tratamiento no seleccionado
             for (Visita visita : Menu.visitaData.buscarVisitaPorMascota(idMascota)) {
                 forRepetido(visita);
             }
-        } else if (jcbListaMascotas.getSelectedIndex() != 0 && jcbTratamiento.getSelectedIndex() != 0) {
+        } else if (jcbListaMascotas.getSelectedIndex() != -1 && jcbTratamiento.getSelectedIndex() != 0) {
             // Caso 4: Lista de Mascotas seleccionada y Tratamiento seleccionado
             for (Visita visita : Menu.visitaData.buscarVisitaPorMascota(idMascota)) {
                 if (visita.getTratamiento().getIdTratamiento() == idTratamiento) {
                     forRepetido(visita);
                 }
             }
-        } else {
-            // Caso 5: Tratamiento seleccionado, otras opciones no seleccionadas
+        } else if (jcbTratamiento.getSelectedIndex() > 0) {
+            // Caso 5: Tratamiento seleccionado, otras opciones no seleccionadas         
             for (Visita visita : Menu.visitaData.buscarVisitaPorTratamiento(idTratamiento)) {
                 forRepetido(visita);
             }
@@ -392,5 +420,59 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
         // Iniciar el temporizador
         timer.setRepeats(false); // Para que solo se ejecute una vez
         timer.start();
+    }
+
+    public void listaClientes() {
+        JFrame frame = new JFrame("Lista de Clientes");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(400, 300);
+
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int f, int c) {
+                return false;
+            }
+        };
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+
+        model.addColumn("ID");
+        model.addColumn("Apellido");
+        model.addColumn("Nombre");
+        model.addColumn("DNI");
+        model.addColumn("Nombre Alternativo");
+
+        JTable table = new JTable(model);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
+        table.getColumnModel().getColumn(0).setPreferredWidth(30);
+
+        for (Cliente cliente : Menu.clienteData.listarClientes()) {
+            model.addRow(new Object[]{cliente.getIdCliente(),
+                cliente.getApellido(),
+                cliente.getNombre(),
+                cliente.getDni(),
+                cliente.getNombreAlterno()});
+        }
+
+        frame.add(new JScrollPane(table));
+        table.addMouseListener(new MouseAdapter() {
+
+            public void mouseClicked(MouseEvent e) {
+                int filaSeleccionada = table.getSelectedRow();
+                if (filaSeleccionada >= 0) {
+                    int idCliente = (int) table.getValueAt(filaSeleccionada, 0);
+                    for (Cliente cliente : Menu.clienteData.listarClientes()) {
+                        if (cliente.getIdCliente() == idCliente) {
+                            jtDni.setText(cliente.getDni() + "");
+                            buscarDni();
+                            frame.setVisible(false);
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+        frame.setVisible(true);
     }
 }

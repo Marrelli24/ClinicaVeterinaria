@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZoneId;
+import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -28,12 +30,14 @@ public class GestionMascota extends javax.swing.JInternalFrame {
         initComponents();
         activarCampos();
         desactivarCampos();
+        cargarCombo();
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bGrupo = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLnombreYapellido = new javax.swing.JLabel();
@@ -112,6 +116,7 @@ public class GestionMascota extends javax.swing.JInternalFrame {
             }
         });
 
+        bGrupo.add(jRBmacho);
         jRBmacho.setText("Macho");
         jRBmacho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,6 +124,7 @@ public class GestionMascota extends javax.swing.JInternalFrame {
             }
         });
 
+        bGrupo.add(jRBhembra);
         jRBhembra.setText("Hembra");
 
         jBbuscar.setText("Buscar");
@@ -293,19 +299,14 @@ public class GestionMascota extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBbuscarActionPerformed
 
     private void jcbListaMascotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListaMascotasActionPerformed
-        try {
-            Mascota mascota = (Mascota) jcbListaMascotas.getSelectedItem();
-            jTalias.setText(mascota.getAlias());
-
-            System.out.println(mascota);
-
-        } catch (Exception e) {
-
+        if (jcbListaMascotas.getSelectedIndex() != 0) {
+            cargarDatos();
         }
     }//GEN-LAST:event_jcbListaMascotasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup bGrupo;
     private javax.swing.JButton jBbuscar;
     private javax.swing.JButton jBeliminar;
     private javax.swing.JButton jBguardar;
@@ -344,11 +345,10 @@ public class GestionMascota extends javax.swing.JInternalFrame {
                 cliente = Menu.clienteData.buscarClientePorDni(Integer.parseInt(jTdni.getText()));
                 jLnombreYapellido.setText("Dueño: " + cliente.getNombre() + " " + cliente.getApellido());
                 if (cliente != null) {
+                    cargarCombo();
                     for (Mascota mascota : Menu.mascotaData.buscarMascotaPorCliente(cliente.getIdCliente())) {
-                        //jcbListaMascotas.addItem(mascota.getIdMascota() + ", " + mascota.getAlias());
-                        modelo.addElement(mascota);
+                        jcbListaMascotas.addItem(mascota.getIdMascota() + ", " + mascota.getAlias());
                     }
-                   // jcbListaMascotas.setModel(modelo);
                     activarCampos();
                 }
             } else {
@@ -358,6 +358,33 @@ public class GestionMascota extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "DNI no encontrado");
         }
     }
+
+    private void cargarDatos() {
+        try {
+            String[] partesM = jcbListaMascotas.getSelectedItem().toString().split(",");
+            int codigoM = Integer.parseInt(partesM[0]);
+            Mascota mascota = new Mascota();
+            mascota = Menu.mascotaData.buscarMascotaPorId(codigoM);
+            
+            jTalias.setText(mascota.getAlias());
+            jTespecie.setText(mascota.getEspecie());
+            jTcolorPelo.setText(mascota.getColorPelo());
+            jTraza.setText(mascota.getRaza());
+            jTpeso.setText(mascota.getPesoActual() + "");
+            jTpesoPromedio.setText(mascota.getPesoPromedio() + "");
+            jDCfechaNacimiento.setDate(Date.from(mascota.getFechaNac().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            //CAMBIAR A MACHO Y HEMBRA
+            bGrupo.clearSelection();
+            if (mascota.getSexo().equalsIgnoreCase("masculino")){
+                jRBmacho.setSelected(true);
+            }else{
+                jRBhembra.setSelected(true);
+            }
+        } catch (Exception e) {
+            System.out.println("No");
+        }}
+
+    
 
     public void listaClientes() {
         JFrame frame = new JFrame("Lista de Clientes");
@@ -421,6 +448,7 @@ public class GestionMascota extends javax.swing.JInternalFrame {
         jTespecie.setEnabled(false);
         jTraza.setEnabled(false);
         jTpeso.setEnabled(false);
+        jTcolorPelo.setEnabled(false);
         jTpesoPromedio.setEnabled(false);
         jDCfechaNacimiento.setEnabled(false);
         jRBmacho.setEnabled(false);
@@ -434,6 +462,7 @@ public class GestionMascota extends javax.swing.JInternalFrame {
         jTraza.setText("");
         jTpeso.setText("");
         jTpesoPromedio.setText("");
+        jTcolorPelo.setText("");
         jDCfechaNacimiento.setDate(null);
         jRBmacho.setSelected(false);
         jRBmacho.setText("");
@@ -449,22 +478,13 @@ public class GestionMascota extends javax.swing.JInternalFrame {
         jTalias.setEnabled(true);
         jTespecie.setEnabled(true);
         jTraza.setEnabled(true);
-        jTpeso.setEnabled(true);
-        jTpesoPromedio.setEnabled(true);
+        jTcolorPelo.setEnabled(true);
         jDCfechaNacimiento.setEnabled(true);
         jRBmacho.setEnabled(true);
         jRBhembra.setEnabled(true);
-
     }
 
     public void cargarCombo() {
-        Cliente cliente = Menu.clienteData.buscarClientePorDni(Integer.parseInt(jTdni.getText()));
-        if (cliente != null) {
-            activarCampos();
-            for (Mascota mascota : Menu.mascotaData.buscarMascotaPorCliente(cliente.getIdCliente())) {
-                modelo.addElement(mascota);
-                //jcbListaMascotas.add(new mascota(mascota()));
-            }
-        }
+        jcbListaMascotas.addItem("NUEVA MASCOTA");
     }
 }

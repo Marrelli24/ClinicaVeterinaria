@@ -96,7 +96,7 @@ public class AddMed extends javax.swing.JInternalFrame {
 
     private void JBOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBOkActionPerformed
        try{
-       String nombre = JTNombreMed.getName();
+       String nombre = JTNombreMed.getText(); 
        double precio = Double.parseDouble(JTPrecioMed.getText());
        Medicamento m = new Medicamento(nombre, precio);
        Menu.medicamentoData.nuevoMedicamento(m);

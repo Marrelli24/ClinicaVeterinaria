@@ -47,9 +47,9 @@ public class MedicamentoData {
             int rs = ps.executeUpdate();
 
             if (rs == 1) {
-                JOptionPane.showMessageDialog(null, "Se guardo el tratamiento correctamente");
+                JOptionPane.showMessageDialog(null, "Se guardo el medicamento correctamente");
             } else {
-                JOptionPane.showMessageDialog(null, "No se guardo el tratamiento");
+                JOptionPane.showMessageDialog(null, "No se guardo el medicamento");
             }
             ps.close();
 
@@ -99,7 +99,7 @@ public class MedicamentoData {
         ArrayList<Medicamento> lista = new ArrayList<>();
         Medicamento m = null;
 
-        String sql = "SELECT idMedicamento, nombre, precio, FROM medicamento";
+        String sql = "SELECT idMedicamento, nombre, precio FROM medicamento";
         PreparedStatement ps;
 
         try {

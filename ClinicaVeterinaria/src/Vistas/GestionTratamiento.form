@@ -134,11 +134,13 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="JBAddTratamiento" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="JBEditTratamiento" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="JBExitTratamiento" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="JBReset" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="JBAddTratamiento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="JBEditTratamiento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="JBExitTratamiento" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           </Group>

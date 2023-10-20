@@ -5,8 +5,11 @@ import AccesoADatos.MascotaData;
 import AccesoADatos.MedicamentoData;
 import AccesoADatos.TratamientoData;
 import AccesoADatos.VisitaData;
-import java.util.Locale;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 
 public class Menu extends javax.swing.JFrame {
 
@@ -15,9 +18,10 @@ public class Menu extends javax.swing.JFrame {
     public static TratamientoData tratamientoData;
     public static VisitaData visitaData;
     public static MedicamentoData medicamentoData;
-
+   
     public Menu() {
         initComponents();
+//        iconfondo();
         this.clienteData = new ClienteData();
         this.mascotaData = new MascotaData();
         this.tratamientoData = new TratamientoData();
@@ -30,7 +34,12 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
-        escritorio = new javax.swing.JDesktopPane();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/IMG/menuFondo.png")); Image image = icon.getImage();
+        escritorio = new javax.swing.JDesktopPane(){
+            public void paintComponent(Graphics g){
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        };
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         JMIGestCliente = new javax.swing.JMenuItem();
@@ -51,8 +60,9 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(933, 700));
 
-        escritorio.setPreferredSize(new java.awt.Dimension(900, 700));
+        escritorio.setPreferredSize(new java.awt.Dimension(933, 700));
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
@@ -171,7 +181,7 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,5 +300,14 @@ public class Menu extends javax.swing.JFrame {
         panel.setVisible(true);
         escritorio.add(panel);
         escritorio.moveToFront(panel);
+//        iconfondo();
+    }
+    public void iconfondo() {        
+        JLabel backgroundLabel = new JLabel();
+        ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/IMG/2edit.png")); 
+        backgroundLabel.setIcon(backgroundIcon);
+        backgroundLabel.setBounds(0, 0, backgroundIcon.getIconWidth(), backgroundIcon.getIconHeight());
+        escritorio.add(backgroundLabel, Integer.valueOf(Integer.MIN_VALUE));
+        
     }
 }

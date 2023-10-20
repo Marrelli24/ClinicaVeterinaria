@@ -3,6 +3,7 @@ package Vistas;
 import AccesoADatos.ClienteData;
 import Entidades.Cliente;
 import java.awt.HeadlessException;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 public class GestionCliente extends javax.swing.JInternalFrame {
@@ -60,6 +61,18 @@ public class GestionCliente extends javax.swing.JInternalFrame {
         jLabel7.setText("Contacto alternativo");
 
         jLabel8.setText("Tel Contacto");
+
+        JTDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                JTDNIKeyTyped(evt);
+            }
+        });
+
+        JTNombreCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                JTNombreClienteKeyTyped(evt);
+            }
+        });
 
         JBBuscarClienteDNI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Lupa.png"))); // NOI18N
         JBBuscarClienteDNI.addActionListener(new java.awt.event.ActionListener() {
@@ -304,6 +317,16 @@ public class GestionCliente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_JBSaveClienteActionPerformed
 
+    private void JTDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTDNIKeyTyped
+           if (Character.isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_SPACE || !Character.isLetterOrDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_JTDNIKeyTyped
+
+    private void JTNombreClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTNombreClienteKeyTyped
+        
+    }//GEN-LAST:event_JTNombreClienteKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBBuscarClienteDNI;
@@ -364,5 +387,10 @@ public class GestionCliente extends javax.swing.JInternalFrame {
     public void botonesOn() {
         JBSaveCliente.setVisible(true);
         JBEliminarCliente.setVisible(true);
+    }
+    
+    
+    public void cargaCombo(){
+        
     }
 }

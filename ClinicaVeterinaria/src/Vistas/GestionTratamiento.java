@@ -5,6 +5,7 @@ import Entidades.Tratamiento;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,18 +20,19 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
 
     Tratamiento save;
     private JDesktopPane escritorio;
+    ArrayList<String> listaID = new ArrayList<>();
 
     public GestionTratamiento(JDesktopPane escritorio) {
         initComponents();
         this.escritorio = escritorio;
-        cargarCombo();
+        //cargarCombo();
     }
 
     public GestionTratamiento(Tratamiento trat, JDesktopPane escritorio) {
         initComponents();
         this.save = trat;
         this.escritorio = escritorio;
-        cargarCombo();
+        //cargarCombo();
 
         //Falta agregar medicina al comboBox
         double precioFinal = trat.getMedicamento().getPrecio() + trat.getPrecio();
@@ -238,11 +240,12 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(JLABELLISTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JBAddTratamiento)
-                    .addComponent(JBEditTratamiento)
-                    .addComponent(JBExitTratamiento)
-                    .addComponent(JBReset))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JBReset)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(JBAddTratamiento)
+                        .addComponent(JBEditTratamiento)
+                        .addComponent(JBExitTratamiento)))
                 .addGap(15, 15, 15))
         );
 
@@ -280,7 +283,13 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBAddMedicinaActionPerformed
 
     private void JBListaMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBListaMedActionPerformed
-        listaMedicamento();
+        if (listaID.isEmpty()) {
+            listaMedicamento();
+        } else {
+            listaMedicamento();
+            comboMedicamentos();
+        }
+
     }//GEN-LAST:event_JBListaMedActionPerformed
 
     private void JBResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBResetActionPerformed
@@ -328,6 +337,22 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         }
     }
 
+    public void comboMedicamentos() {
+        try {
+            System.out.println("tamanio lista: " + listaID.size());
+            int tamanio = listaID.size() + 1;
+            for (int i = 0; i < tamanio; i++) {
+                String partes = listaID.get(i);
+                System.out.println("partes: " + partes);
+                int id = Integer.parseInt(partes);
+                System.out.println("Este es medicamento " + Menu.medicamentoData.buscarMedicamento(id) + "");
+                jComboBox1.addItem(Menu.medicamentoData.buscarMedicamento(id) + "");
+            }
+        } catch (Exception e) {
+            System.out.println("error " + e);
+        }
+    }
+
     public void cargarCombo() {
         for (Medicamento m : Menu.medicamentoData.listarMedicamento()) {
             jComboBox1.addItem(m.getNombre());
@@ -335,10 +360,12 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
     }
 
     public void listaMedicamento() {
-        JFrame frame = new JFrame("Lista de Clientes");
+
+        //Se crea la ventana
+        JFrame frame = new JFrame("Lista de medicamentos");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(400, 300);
-
+        //Configuraciones de tabla
         DefaultTableModel model = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int f, int c) {
@@ -366,25 +393,28 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         }
 
         frame.add(new JScrollPane(table));
+
+        // Se agrega evento de click en el item de la fila seleccionada
         table.addMouseListener(new MouseAdapter() {
 
             public void mouseClicked(MouseEvent e) {
                 boolean repeat = false;
+
                 int filaSeleccionada = table.getSelectedRow();
+
                 if (filaSeleccionada >= 0) {
                     int id = (int) table.getValueAt(filaSeleccionada, 0);
                     for (Medicamento m : Menu.medicamentoData.listarMedicamento()) {
                         if (m.getId() == id) {
-                            if (JLABELLISTA.getText().isEmpty()) {
-                                JLABELLISTA.setText(m.getId() + "");
-
-                            } else {                              
-                                String[] partes = JLABELLISTA.getText().split(",");
-
+                            //SI la lista esta vacia, ingreso el primer id
+                            if (listaID.isEmpty()) {
+                                listaID.add(m.getId() + "");
+                            } else {
+                                // Si ingreso un medicamento repetido doy error
                                 // Itera a través de las subcadenas y muestra los IDs
-                                for (String parte : partes) {
+                                for (String parte : listaID) {
                                     int idM = Integer.parseInt(parte);
-                                    
+
                                     if (m.getId() == idM) {
                                         repeat = true;
                                         JOptionPane.showMessageDialog(null, "Ya hay un medicamento del mismo tipo");
@@ -392,8 +422,9 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                                     }
 
                                 }
+                                //Si ingreso un medicamento que no esta repetido, lo agrego a mi lista
                                 if (!repeat) {
-                                    JLABELLISTA.setText(JLABELLISTA.getText() + "," + m.getId());
+                                    listaID.add(m.getId() + "");
                                 }
                             }
                             frame.setVisible(false);

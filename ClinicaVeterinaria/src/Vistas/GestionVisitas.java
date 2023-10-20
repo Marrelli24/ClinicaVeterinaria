@@ -295,25 +295,27 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
 
     private void jtDniKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDniKeyPressed
         char c = evt.getKeyChar();
-        if (Character.isDigit(c) || evt.isActionKey()) {
-            jtDni.getDocument().addDocumentListener(new DocumentListener() {
-                @Override
-                public void insertUpdate(DocumentEvent e) {
-                    buscarDni();
-                }
+        if (evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            if (Character.isDigit(c) || evt.isActionKey()) {
+                jtDni.getDocument().addDocumentListener(new DocumentListener() {
+                    @Override
+                    public void insertUpdate(DocumentEvent e) {
+                        buscarDni();
+                    }
 
-                @Override
-                public void removeUpdate(DocumentEvent e) {
-                    buscarDni();
-                }
+                    @Override
+                    public void removeUpdate(DocumentEvent e) {
+                        buscarDni();
+                    }
 
-                @Override
-                public void changedUpdate(DocumentEvent e) {
-                    buscarDni();
-                }
-            });
-        } else {
-            desactivarCampos();
+                    @Override
+                    public void changedUpdate(DocumentEvent e) {
+                        buscarDni();
+                    }
+                });
+            } else {
+                desactivarCampos();
+            }
         }
     }//GEN-LAST:event_jtDniKeyPressed
 
@@ -340,7 +342,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                 mascota = Menu.mascotaData.buscarMascotaPorId(idMascota);
                 String[] comboBoxT = jcbTratamiento.getSelectedItem().toString().split(",");
                 int idTratamiento = Integer.parseInt(comboBoxT[0].trim());
-                Tratamiento tratamiento = new Tratamiento();               
+                Tratamiento tratamiento = new Tratamiento();
                 tratamiento = Menu.tratamientoData.buscarTratamiento(idTratamiento);
                 Visita visita = new Visita(mascota, fechaV, detalles, peso, tratamiento);
                 if (idVisita == 0) {
@@ -351,7 +353,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                     Menu.visitaData.editarVisita(visita);
                     limpiar();
                 }
-            } catch (NumberFormatException ex) {            
+            } catch (NumberFormatException ex) {
             }
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
@@ -638,6 +640,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         jcbListaMascotas.setEnabled(true);
         jbHistorialDeVisitas.setEnabled(true);
         jdcFecha.setEnabled(true);
+        jdcFecha.getDateEditor().setEnabled(false);
         jtDetalles.setEnabled(true);
         jtPeso.setEnabled(true);
         jcbTratamiento.setEnabled(true);

@@ -31,15 +31,15 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         initComponents();
         this.save = trat;
         this.escritorio = escritorio;
+        guardarId(trat);
 
-        //Falta agregar medicina al comboBox
-        double precioFinal = trat.getMedicamento().getPrecio() + trat.getPrecio();
-
+        //double precioFinal = trat.getMedicamento().getPrecio() + trat.getPrecio();
         JTDescripcionTratamiento.setText(trat.getDescripcion());
         JTPrecioTratamiento.setText(String.format("%.2f", trat.getPrecio()));
         JTTituloTratamiento.setText(trat.getTipoDeTratamiento());
-        JLPrecioMed.setText(String.format("%.2f", trat.getMedicamento().getPrecio()));
-        JLPrecioTotal.setText(String.format("%.2f", precioFinal));
+        // JLPrecioMed.setText(String.format("%.2f", trat.getMedicamento().getPrecio()));
+        //JLPrecioTotal.setText(String.format("%.2f", precioFinal));
+        calculoTotal();
 
     }
 
@@ -85,6 +85,11 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         jLabel5.setText("Medicamento:");
 
         JBAddTratamiento.setText("Nuevo");
+        JBAddTratamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBAddTratamientoActionPerformed(evt);
+            }
+        });
 
         JBEditTratamiento.setText("Guardar");
         JBEditTratamiento.addActionListener(new java.awt.event.ActionListener() {
@@ -102,14 +107,11 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
 
         JTPrecioTratamiento.setToolTipText("Utiliza un punto \".\"");
         JTPrecioTratamiento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                JTPrecioTratamientoKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 JTPrecioTratamientoKeyTyped(evt);
-            }
-        });
-
-        JTDescripcionTratamiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JTDescripcionTratamientoActionPerformed(evt);
             }
         });
 
@@ -124,13 +126,11 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         jLabel6.setText("Precio med:");
 
         JLPrecioMed.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        JLPrecioMed.setText("$");
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Precio final:");
 
         JLPrecioTotal.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        JLPrecioTotal.setText("$");
 
         JBListaMed.setText("List");
         JBListaMed.addActionListener(new java.awt.event.ActionListener() {
@@ -240,6 +240,7 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
 
     private void JBEditTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEditTratamientoActionPerformed
         edit();
+        limpiar();
     }//GEN-LAST:event_JBEditTratamientoActionPerformed
 
     private void JTPrecioTratamientoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTPrecioTratamientoKeyTyped
@@ -264,7 +265,6 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
 
     private void JBListaMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBListaMedActionPerformed
         listaMedicamento();
-
     }//GEN-LAST:event_JBListaMedActionPerformed
 
     private void JBResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBResetActionPerformed
@@ -278,18 +278,22 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
             int response = JOptionPane.showConfirmDialog(null, "Confirme para eliminar: " + jComboBox1.getSelectedItem().toString(), "Aviso!", JOptionPane.YES_NO_OPTION);
 
             if (response == JOptionPane.YES_OPTION) {
-                jComboBox1.setSelectedIndex(0);
-                jComboBox1.remove(indice);
                 listaID.remove(idToRemove);
+                comboMedicamentos();
+                calculoTotal();
             }
         }
 
 
     }//GEN-LAST:event_JBResetActionPerformed
 
-    private void JTDescripcionTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTDescripcionTratamientoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JTDescripcionTratamientoActionPerformed
+    private void JTPrecioTratamientoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTPrecioTratamientoKeyReleased
+        calculoTotal();
+    }//GEN-LAST:event_JTPrecioTratamientoKeyReleased
+
+    private void JBAddTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAddTratamientoActionPerformed
+        limpiar();
+    }//GEN-LAST:event_JBAddTratamientoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -315,15 +319,32 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void edit() {
+        ArrayList<Medicamento> medi = new ArrayList<>();
         try {
             if (save != null) {
-                Tratamiento match = Menu.tratamientoData.buscarTratamiento(save.getIdTratamiento());
-                match.setDescripcion(JTDescripcionTratamiento.getText());
-                match.setPrecio(Double.parseDouble(JTPrecioTratamiento.getText()));
-                match.setTipoDeTratamiento(JTTituloTratamiento.getText());
-                match.setIdTratamiento(save.getIdTratamiento());
-                Menu.tratamientoData.editarTratamiento(match);
 
+                save.setDescripcion(JTDescripcionTratamiento.getText());
+                save.setPrecio(Double.parseDouble(JTPrecioTratamiento.getText()));
+                save.setTipoDeTratamiento(JTTituloTratamiento.getText());
+                 for (String parte : listaID) {
+                    int id = Integer.parseInt(parte);
+                    medi.add(Menu.medicamentoData.buscarMedicamento(id));
+                }
+                save.setMedicamento(medi);
+                Menu.tratamientoData.editarTratamiento(save);
+
+            } else {
+
+                Tratamiento t = new Tratamiento();
+                t.setDescripcion(JTDescripcionTratamiento.getText());
+                t.setPrecio(Double.parseDouble(JTPrecioTratamiento.getText()));
+                t.setTipoDeTratamiento(JTTituloTratamiento.getText());
+                for (String parte : listaID) {
+                    int id = Integer.parseInt(parte);
+                    medi.add(Menu.medicamentoData.buscarMedicamento(id));
+                }
+                t.setMedicamento(medi);
+                Menu.tratamientoData.guardarTratamiento(t);
             }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -366,10 +387,8 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
 
         model.addColumn("ID");
-        model.addColumn("Apellido");
         model.addColumn("Nombre");
-        model.addColumn("DNI");
-        model.addColumn("Nombre Alternativo");
+        model.addColumn("Precio");
 
         JTable table = new JTable(model);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -401,11 +420,56 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
 
                     frame.setVisible(false);
                     comboMedicamentos();
+                    calculoTotal();
 
                 }
             }
         });
         frame.setVisible(true);
+
+    }
+
+    public void calculoTotal() {
+        try {
+            double totalM = 0;
+            double total = 0;
+
+            for (String parte : listaID) {
+                int id = Integer.parseInt(parte);
+                totalM = totalM + Menu.medicamentoData.buscarMedicamento(id).getPrecio();
+            }
+            if (!JTPrecioTratamiento.getText().isEmpty()) {
+                total = Double.parseDouble(JTPrecioTratamiento.getText()) + totalM;
+                JLPrecioTotal.setText("$" + total);
+            }
+            JLPrecioMed.setText("$" + totalM);
+
+        } catch (Exception e) {
+            System.out.println("error " + e);
+        }
+    }
+
+    public void guardarId(Tratamiento trat) {
+        for (Medicamento m : trat.getMedicamento()) {
+            listaID.add(m.getId() + "");
+        }
+        comboMedicamentos();
+    }
+    
+    public void limpiar(){
+        
+        try{
+            jComboBox1.removeAllItems();
+            JTDescripcionTratamiento.setText("");
+            JTPrecioTratamiento.setText("");
+            JTTituloTratamiento.setText("");
+            JLPrecioTotal.setText("");
+            JLPrecioMed.setText("");
+            
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        
     }
 
 }

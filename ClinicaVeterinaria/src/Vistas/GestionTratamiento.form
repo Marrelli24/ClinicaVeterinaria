@@ -158,6 +158,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Nuevo"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBAddTratamientoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="JBEditTratamiento">
       <Properties>
@@ -182,13 +185,11 @@
         <Property name="toolTipText" type="java.lang.String" value="Utiliza un punto &quot;.&quot;"/>
       </Properties>
       <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="JTPrecioTratamientoKeyReleased"/>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="JTPrecioTratamientoKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="JTDescripcionTratamiento">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JTDescripcionTratamientoActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBox1">
       <Properties>
@@ -219,7 +220,6 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="sansserif" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="$"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
@@ -233,7 +233,6 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="sansserif" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="$"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="JBListaMed">

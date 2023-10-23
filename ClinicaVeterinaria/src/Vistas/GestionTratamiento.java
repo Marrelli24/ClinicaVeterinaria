@@ -25,14 +25,12 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
     public GestionTratamiento(JDesktopPane escritorio) {
         initComponents();
         this.escritorio = escritorio;
-        //cargarCombo();
     }
 
     public GestionTratamiento(Tratamiento trat, JDesktopPane escritorio) {
         initComponents();
         this.save = trat;
         this.escritorio = escritorio;
-        //cargarCombo();
 
         //Falta agregar medicina al comboBox
         double precioFinal = trat.getMedicamento().getPrecio() + trat.getPrecio();
@@ -67,8 +65,6 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         JLPrecioTotal = new javax.swing.JLabel();
         JBListaMed = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        JLABELLISTA = new javax.swing.JLabel();
         JBReset = new javax.swing.JButton();
 
         setClosable(true);
@@ -111,6 +107,12 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
             }
         });
 
+        JTDescripcionTratamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTDescripcionTratamientoActionPerformed(evt);
+            }
+        });
+
         JBAddMedicina.setText("+");
         JBAddMedicina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,11 +139,7 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel8.setText("Lista de medicamentos:");
-
-        JLABELLISTA.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-
-        JBReset.setText("Reset medicamentos");
+        JBReset.setText("-");
         JBReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBResetActionPerformed(evt);
@@ -152,54 +150,50 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(JBAddTratamiento)
+                        .addGap(59, 59, 59)
+                        .addComponent(JBEditTratamiento)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(JBExitTratamiento))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JTDescripcionTratamiento)
-                            .addComponent(JTTituloTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JTPrecioTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(35, 35, 35)
                                 .addComponent(JBAddMedicina)
                                 .addGap(18, 18, 18)
-                                .addComponent(JBListaMed))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(JLPrecioTotal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(JLPrecioMed, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(jLabel1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(jLabel8))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(JBAddTratamiento)
-                                .addGap(18, 18, 18)
-                                .addComponent(JBEditTratamiento)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(78, 78, 78)
                                 .addComponent(JBReset)
-                                .addGap(114, 114, 114)
-                                .addComponent(JBExitTratamiento))
-                            .addComponent(JLABELLISTA, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(13, 13, 13)))
-                .addGap(19, 19, 19))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                                .addComponent(JBListaMed))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(JTTituloTratamiento)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(JTPrecioTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JTDescripcionTratamiento)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(JLPrecioMed, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(JLPrecioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(40, 40, 40))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(253, 253, 253)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,44 +203,32 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(JTTituloTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JTTituloTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(JTPrecioTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(JTDescripcionTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                    .addComponent(JTDescripcionTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JBAddMedicina)
+                    .addComponent(JBReset)
                     .addComponent(JBListaMed))
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
                     .addComponent(JLPrecioMed, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(JLPrecioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(27, 27, 27))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(JLABELLISTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JBReset)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(JBAddTratamiento)
-                        .addComponent(JBEditTratamiento)
-                        .addComponent(JBExitTratamiento)))
-                .addGap(15, 15, 15))
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JBExitTratamiento)
+                    .addComponent(JBEditTratamiento)
+                    .addComponent(JBAddTratamiento))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -273,28 +255,41 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
 
     private void JBAddMedicinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAddMedicinaActionPerformed
         AddMed add = new AddMed();
-
         add.setVisible(true);
         add.isFocusable();
         escritorio.repaint();
         escritorio.add(add);
         escritorio.moveToFront(add);
-
     }//GEN-LAST:event_JBAddMedicinaActionPerformed
 
     private void JBListaMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBListaMedActionPerformed
-        if (listaID.isEmpty()) {
-            listaMedicamento();
-        } else {
-            listaMedicamento();
-            comboMedicamentos();
-        }
+        listaMedicamento();
 
     }//GEN-LAST:event_JBListaMedActionPerformed
 
     private void JBResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBResetActionPerformed
-        JLABELLISTA.setText("");
+        int indice = jComboBox1.getSelectedIndex();
+
+        if (indice >= 0) {
+            String mItem = jComboBox1.getSelectedItem().toString();
+            String[] mId = mItem.split(","); // Divide el texto en subcadenas basadas en la coma
+            String idToRemove = mId[0].trim();
+
+            int response = JOptionPane.showConfirmDialog(null, "Confirme para eliminar: " + jComboBox1.getSelectedItem().toString(), "Aviso!", JOptionPane.YES_NO_OPTION);
+
+            if (response == JOptionPane.YES_OPTION) {
+                jComboBox1.setSelectedIndex(0);
+                jComboBox1.remove(indice);
+                listaID.remove(idToRemove);
+            }
+        }
+
+
     }//GEN-LAST:event_JBResetActionPerformed
+
+    private void JTDescripcionTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTDescripcionTratamientoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTDescripcionTratamientoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -304,7 +299,6 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
     private javax.swing.JButton JBExitTratamiento;
     private javax.swing.JButton JBListaMed;
     private javax.swing.JButton JBReset;
-    private javax.swing.JLabel JLABELLISTA;
     private javax.swing.JLabel JLPrecioMed;
     private javax.swing.JLabel JLPrecioTotal;
     private javax.swing.JTextField JTDescripcionTratamiento;
@@ -318,7 +312,6 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     // End of variables declaration//GEN-END:variables
 
     private void edit() {
@@ -339,13 +332,10 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
 
     public void comboMedicamentos() {
         try {
-            System.out.println("tamanio lista: " + listaID.size());
-            int tamanio = listaID.size() + 1;
-            for (int i = 0; i < tamanio; i++) {
-                String partes = listaID.get(i);
-                System.out.println("partes: " + partes);
-                int id = Integer.parseInt(partes);
-                System.out.println("Este es medicamento " + Menu.medicamentoData.buscarMedicamento(id) + "");
+            jComboBox1.removeAllItems();
+            //VAriable para el precio medicamento JLPrecioMed
+            for (String parte : listaID) {
+                int id = Integer.parseInt(parte);
                 jComboBox1.addItem(Menu.medicamentoData.buscarMedicamento(id) + "");
             }
         } catch (Exception e) {
@@ -398,39 +388,20 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         table.addMouseListener(new MouseAdapter() {
 
             public void mouseClicked(MouseEvent e) {
-                boolean repeat = false;
-
                 int filaSeleccionada = table.getSelectedRow();
 
                 if (filaSeleccionada >= 0) {
                     int id = (int) table.getValueAt(filaSeleccionada, 0);
-                    for (Medicamento m : Menu.medicamentoData.listarMedicamento()) {
-                        if (m.getId() == id) {
-                            //SI la lista esta vacia, ingreso el primer id
-                            if (listaID.isEmpty()) {
-                                listaID.add(m.getId() + "");
-                            } else {
-                                // Si ingreso un medicamento repetido doy error
-                                // Itera a través de las subcadenas y muestra los IDs
-                                for (String parte : listaID) {
-                                    int idM = Integer.parseInt(parte);
 
-                                    if (m.getId() == idM) {
-                                        repeat = true;
-                                        JOptionPane.showMessageDialog(null, "Ya hay un medicamento del mismo tipo");
-                                        break;
-                                    }
-
-                                }
-                                //Si ingreso un medicamento que no esta repetido, lo agrego a mi lista
-                                if (!repeat) {
-                                    listaID.add(m.getId() + "");
-                                }
-                            }
-                            frame.setVisible(false);
-                            break;
-                        }
+                    if (!listaID.contains(id + "")) {
+                        listaID.add(id + "");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ya hay un medicamento del mismo tipo");
                     }
+
+                    frame.setVisible(false);
+                    comboMedicamentos();
+
                 }
             }
         });

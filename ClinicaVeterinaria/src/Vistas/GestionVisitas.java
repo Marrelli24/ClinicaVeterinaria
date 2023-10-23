@@ -4,6 +4,8 @@ import Entidades.Cliente;
 import Entidades.Mascota;
 import Entidades.Tratamiento;
 import Entidades.Visita;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,6 +14,7 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -28,12 +31,20 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
 
     private JDesktopPane escritorio;
     private int idVisita = 0;
+    private Image backgroundImage = new ImageIcon(getClass().getResource("/IMG/1.png")).getImage();
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Dibuja la imagen de fondo
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+    }
     public GestionVisitas() {
         initComponents();
         fechaHoy();
         cargarComboTratamiento();
         desactivarCampos();
+
     }
 
     public GestionVisitas(JDesktopPane escritorio) {
@@ -82,6 +93,10 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         jbLimpiar = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setClosable(true);
+        setMaximizable(true);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText("Dni Cliente:");

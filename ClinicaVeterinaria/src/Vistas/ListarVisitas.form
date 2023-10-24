@@ -79,6 +79,9 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Component id="JFondo" alignment="0" pref="689" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -103,6 +106,9 @@
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="jbSalir" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Component id="JFondo" alignment="0" pref="562" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -243,6 +249,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbListaClientesActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="JFondo">
     </Component>
   </SubComponents>
 </Form>

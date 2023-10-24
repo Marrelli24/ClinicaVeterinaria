@@ -3,6 +3,7 @@ package Vistas;
 import AccesoADatos.Conexion;
 import Entidades.Cliente;
 import Entidades.Mascota;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
@@ -14,7 +15,10 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -30,6 +34,7 @@ public class GestionMascota extends javax.swing.JInternalFrame {
 
     public GestionMascota() {
         initComponents();
+        wallpaper();
         activarCampos();
         desactivarCampos();
         cargarCombo();
@@ -71,6 +76,7 @@ public class GestionMascota extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jLidMascota = new javax.swing.JLabel();
         jBlistarClientes = new javax.swing.JButton();
+        JFondo = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel1.setText("Gestión Mascota");
@@ -257,6 +263,8 @@ public class GestionMascota extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                                 .addComponent(jBnuevoCliente)))
                         .addGap(21, 21, 21))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(JFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,6 +321,8 @@ public class GestionMascota extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jDCfechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(JFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))
         );
 
         pack();
@@ -424,6 +434,7 @@ public class GestionMascota extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JFondo;
     private javax.swing.ButtonGroup bGrupo;
     private javax.swing.JButton jBbuscar;
     private javax.swing.JButton jBeliminar;
@@ -619,5 +630,18 @@ public class GestionMascota extends javax.swing.JInternalFrame {
             validado = nombre;
         }
         return validado;
+    }
+    
+    public void wallpaper() {
+        ImageIcon wallpaper = new ImageIcon("src/IMG/G.png");
+        Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(
+                this.getWidth(),
+                this.getHeight(),
+                Image.SCALE_DEFAULT));
+        JFondo.setIcon(i);
+        JFondo.setVerticalAlignment(JLabel.CENTER);
+        JFondo.setHorizontalAlignment(JLabel.CENTER);
+        JFondo.setVerticalTextPosition(JLabel.CENTER);
+        JFondo.setHorizontalTextPosition(JLabel.CENTER);
     }
 }

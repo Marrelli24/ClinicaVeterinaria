@@ -687,7 +687,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
     
     
   public void wallpaper() {
-        ImageIcon wallpaper = new ImageIcon("src/IMG/3.png");
+        ImageIcon wallpaper = new ImageIcon("src/IMG/G.png");
         Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(
                 this.getWidth(),
                 this.getHeight(),

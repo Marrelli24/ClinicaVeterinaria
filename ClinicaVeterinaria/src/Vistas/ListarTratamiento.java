@@ -194,7 +194,7 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
    }
    
      public void wallpaper() {
-        ImageIcon wallpaper = new ImageIcon("src/IMG/1.png");
+        ImageIcon wallpaper = new ImageIcon("src/IMG/L.png");
         Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(
                 this.getWidth(),
                 this.getHeight(),

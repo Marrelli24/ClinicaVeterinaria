@@ -1,6 +1,10 @@
 package Vistas;
 
 import Entidades.Cliente;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -17,6 +21,7 @@ public class ListarClientes extends javax.swing.JInternalFrame {
 
     public ListarClientes() {
         initComponents();
+        wallpaper();
         armarCabecera();
         cargarTabla();
     }
@@ -31,6 +36,7 @@ public class ListarClientes extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jTFApellidoCliente = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        JFondo = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -86,6 +92,8 @@ public class ListarClientes extends javax.swing.JInternalFrame {
                         .addGap(291, 291, 291)
                         .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(JFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,6 +109,8 @@ public class ListarClientes extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addContainerGap(16, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(JFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
         );
 
         pack();
@@ -131,6 +141,7 @@ public class ListarClientes extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JFondo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -196,5 +207,19 @@ public class ListarClientes extends javax.swing.JInternalFrame {
             cargarTabla();
 
         }
+    }
+    
+    
+            public void wallpaper() {
+        ImageIcon wallpaper = new ImageIcon("src/IMG/L.png");
+        Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(
+                this.getWidth(),
+                this.getHeight(),
+                Image.SCALE_DEFAULT));
+        JFondo.setIcon(i);
+        JFondo.setVerticalAlignment(JLabel.CENTER);
+        JFondo.setHorizontalAlignment(JLabel.CENTER);
+        JFondo.setVerticalTextPosition(JLabel.CENTER);
+        JFondo.setHorizontalTextPosition(JLabel.CENTER);
     }
 }

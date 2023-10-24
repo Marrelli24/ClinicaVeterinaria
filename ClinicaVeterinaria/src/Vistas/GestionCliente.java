@@ -3,7 +3,11 @@ package Vistas;
 import AccesoADatos.ClienteData;
 import Entidades.Cliente;
 import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class GestionCliente extends javax.swing.JInternalFrame {
@@ -13,6 +17,7 @@ public class GestionCliente extends javax.swing.JInternalFrame {
 
     public GestionCliente() {
         initComponents();
+        wallpaper();
         desactivarCampos();
         botonesOff();
 
@@ -42,6 +47,7 @@ public class GestionCliente extends javax.swing.JInternalFrame {
         JBExitCliente = new javax.swing.JButton();
         JBNuevoCliente = new javax.swing.JButton();
         JBEliminarCliente = new javax.swing.JButton();
+        JFondo = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -198,6 +204,8 @@ public class GestionCliente extends javax.swing.JInternalFrame {
                 .addGap(253, 253, 253)
                 .addComponent(jLabel1)
                 .addGap(0, 284, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(JFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,6 +243,8 @@ public class GestionCliente extends javax.swing.JInternalFrame {
                     .addComponent(JBEliminarCliente)
                     .addComponent(JBExitCliente))
                 .addGap(39, 39, 39))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(JFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE))
         );
 
         pack();
@@ -376,6 +386,7 @@ public class GestionCliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton JBExitCliente;
     private javax.swing.JButton JBNuevoCliente;
     private javax.swing.JButton JBSaveCliente;
+    private javax.swing.JLabel JFondo;
     private javax.swing.JTextField JTApellidoCliente;
     private javax.swing.JTextField JTContactoAltCliente;
     private javax.swing.JTextField JTDNI;
@@ -432,7 +443,16 @@ public class GestionCliente extends javax.swing.JInternalFrame {
     }
     
     
-    public void cargaCombo(){
-        
+    public void wallpaper() {
+        ImageIcon wallpaper = new ImageIcon("src/IMG/G.png");
+        Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(
+                this.getWidth(),
+                this.getHeight(),
+                Image.SCALE_DEFAULT));
+        JFondo.setIcon(i);
+        JFondo.setVerticalAlignment(JLabel.CENTER);
+        JFondo.setHorizontalAlignment(JLabel.CENTER);
+        JFondo.setVerticalTextPosition(JLabel.CENTER);
+        JFondo.setHorizontalTextPosition(JLabel.CENTER);
     }
 }

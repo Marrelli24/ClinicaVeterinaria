@@ -4,12 +4,16 @@ import Entidades.Cliente;
 import Entidades.Mascota;
 import Entidades.Tratamiento;
 import Entidades.Visita;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -32,6 +36,7 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
 
     public ListarVisitas() {
         initComponents();
+        wallpaper();
         armarCabecera();
         cargarComboTratamiento();
         cargarVisitas();
@@ -56,6 +61,7 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
         jcbTratamiento = new javax.swing.JComboBox<>();
         jlCliente = new javax.swing.JLabel();
         jbListaClientes = new javax.swing.JButton();
+        JFondo = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -190,6 +196,8 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
                                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(JFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,6 +220,8 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jbSalir)
                 .addGap(8, 8, 8))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(JFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE))
         );
 
         pack();
@@ -264,6 +274,7 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JFondo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -474,5 +485,20 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
             }
         });
         frame.setVisible(true);
+    }
+    
+    
+    
+            public void wallpaper() {
+        ImageIcon wallpaper = new ImageIcon("src/IMG/L.png");
+        Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(
+                this.getWidth(),
+                this.getHeight(),
+                Image.SCALE_DEFAULT));
+        JFondo.setIcon(i);
+        JFondo.setVerticalAlignment(JLabel.CENTER);
+        JFondo.setHorizontalAlignment(JLabel.CENTER);
+        JFondo.setVerticalTextPosition(JLabel.CENTER);
+        JFondo.setHorizontalTextPosition(JLabel.CENTER);
     }
 }

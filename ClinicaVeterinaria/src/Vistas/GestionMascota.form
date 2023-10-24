@@ -133,6 +133,9 @@
                   </Group>
               </Group>
           </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Component id="JFondo" alignment="0" pref="608" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -201,6 +204,9 @@
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Component id="JFondo" alignment="0" pref="454" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -372,6 +378,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBlistarClientesActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="JFondo">
     </Component>
   </SubComponents>
 </Form>

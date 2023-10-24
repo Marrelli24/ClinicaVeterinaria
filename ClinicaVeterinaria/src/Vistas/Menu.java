@@ -22,8 +22,6 @@ public class Menu extends javax.swing.JFrame {
    
     public Menu() {
         initComponents();
-//        iconfondo();
-       // wallpaper();
         this.clienteData = new ClienteData();
         this.mascotaData = new MascotaData();
         this.tratamientoData = new TratamientoData();
@@ -36,7 +34,7 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
-        ImageIcon icon = new ImageIcon("src/IMG/menuFondo.png"); Image image = icon.getImage();
+        ImageIcon icon = new ImageIcon("src/IMG/testing.png"); Image image = icon.getImage();
         escritorio = new javax.swing.JDesktopPane(){
             public void paintComponent(Graphics g){
                 g.drawImage(image,0,0,getWidth(),getHeight(),this);
@@ -306,27 +304,5 @@ public class Menu extends javax.swing.JFrame {
         panel.setVisible(true);
         escritorio.add(panel);
         escritorio.moveToFront(panel);
-//        iconfondo();
     }
-    public void iconfondo() {        
-        JLabel backgroundLabel = new JLabel();
-        ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/IMG/2edit.png")); 
-        backgroundLabel.setIcon(backgroundIcon);
-        backgroundLabel.setBounds(0, 0, backgroundIcon.getIconWidth(), backgroundIcon.getIconHeight());
-        escritorio.add(backgroundLabel, Integer.valueOf(Integer.MIN_VALUE));   
-    }
-    
-    public void wallpaper(){
-        ImageIcon wallpaper = new ImageIcon("src/IMG/Heart.png");
-        Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(
-                escritorio.getWidth(),
-                escritorio.getHeight(),
-                Image.SCALE_DEFAULT));
-        jLabelFondo.setIcon(i);
-        jLabelFondo.setVerticalAlignment(JLabel.CENTER);
-        jLabelFondo.setHorizontalAlignment(JLabel.CENTER);
-        jLabelFondo.setVerticalTextPosition(JLabel.CENTER);
-        jLabelFondo.setHorizontalTextPosition(JLabel.CENTER);
-        escritorio.repaint();   
-        }  
 }   

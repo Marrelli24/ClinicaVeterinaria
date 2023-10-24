@@ -7,6 +7,7 @@ import AccesoADatos.TratamientoData;
 import AccesoADatos.VisitaData;
 import java.awt.Graphics;
 import java.awt.Image;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -22,6 +23,7 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         initComponents();
 //        iconfondo();
+       // wallpaper();
         this.clienteData = new ClienteData();
         this.mascotaData = new MascotaData();
         this.tratamientoData = new TratamientoData();
@@ -34,12 +36,13 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
-        ImageIcon icon = new ImageIcon(getClass().getResource("/IMG/menuFondo.png")); Image image = icon.getImage();
+        ImageIcon icon = new ImageIcon("src/IMG/menuFondo.png"); Image image = icon.getImage();
         escritorio = new javax.swing.JDesktopPane(){
             public void paintComponent(Graphics g){
                 g.drawImage(image,0,0,getWidth(),getHeight(),this);
             }
         };
+        jLabelFondo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         JMIGestCliente = new javax.swing.JMenuItem();
@@ -64,15 +67,17 @@ public class Menu extends javax.swing.JFrame {
 
         escritorio.setPreferredSize(new java.awt.Dimension(933, 700));
 
+        escritorio.setLayer(jLabelFondo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addComponent(jLabelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addComponent(jLabelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Clientes");
@@ -286,6 +291,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem JMIManual;
     private javax.swing.JMenu JMenuTratamiento;
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JLabel jLabelFondo;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -307,7 +313,20 @@ public class Menu extends javax.swing.JFrame {
         ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/IMG/2edit.png")); 
         backgroundLabel.setIcon(backgroundIcon);
         backgroundLabel.setBounds(0, 0, backgroundIcon.getIconWidth(), backgroundIcon.getIconHeight());
-        escritorio.add(backgroundLabel, Integer.valueOf(Integer.MIN_VALUE));
-        
+        escritorio.add(backgroundLabel, Integer.valueOf(Integer.MIN_VALUE));   
     }
-}
+    
+    public void wallpaper(){
+        ImageIcon wallpaper = new ImageIcon("src/IMG/Heart.png");
+        Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(
+                escritorio.getWidth(),
+                escritorio.getHeight(),
+                Image.SCALE_DEFAULT));
+        jLabelFondo.setIcon(i);
+        jLabelFondo.setVerticalAlignment(JLabel.CENTER);
+        jLabelFondo.setHorizontalAlignment(JLabel.CENTER);
+        jLabelFondo.setVerticalTextPosition(JLabel.CENTER);
+        jLabelFondo.setHorizontalTextPosition(JLabel.CENTER);
+        escritorio.repaint();   
+        }  
+}   

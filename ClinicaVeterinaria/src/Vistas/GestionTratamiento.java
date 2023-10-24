@@ -2,12 +2,17 @@ package Vistas;
 
 import Entidades.Medicamento;
 import Entidades.Tratamiento;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -24,11 +29,13 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
 
     public GestionTratamiento(JDesktopPane escritorio) {
         initComponents();
+        wallpaper();
         this.escritorio = escritorio;
     }
 
     public GestionTratamiento(Tratamiento trat, JDesktopPane escritorio) {
         initComponents();
+        wallpaper();
         this.save = trat;
         this.escritorio = escritorio;
         guardarId(trat);
@@ -66,10 +73,11 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         JLPrecioTotal = new javax.swing.JLabel();
         JBListaMed = new javax.swing.JButton();
         JBReset = new javax.swing.JButton();
+        JFondo = new javax.swing.JLabel();
 
         setClosable(true);
 
-        jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel1.setText("Tratamientos");
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -194,6 +202,8 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                 .addGap(253, 253, 253)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(JFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,7 +238,9 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                     .addComponent(JBExitTratamiento)
                     .addComponent(JBEditTratamiento)
                     .addComponent(JBAddTratamiento))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(JFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE))
         );
 
         pack();
@@ -303,6 +315,7 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
     private javax.swing.JButton JBExitTratamiento;
     private javax.swing.JButton JBListaMed;
     private javax.swing.JButton JBReset;
+    private javax.swing.JLabel JFondo;
     private javax.swing.JLabel JLPrecioMed;
     private javax.swing.JLabel JLPrecioTotal;
     private javax.swing.JTextField JTDescripcionTratamiento;
@@ -326,7 +339,7 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                 save.setDescripcion(JTDescripcionTratamiento.getText());
                 save.setPrecio(Double.parseDouble(JTPrecioTratamiento.getText()));
                 save.setTipoDeTratamiento(JTTituloTratamiento.getText());
-                 for (String parte : listaID) {
+                for (String parte : listaID) {
                     int id = Integer.parseInt(parte);
                     medi.add(Menu.medicamentoData.buscarMedicamento(id));
                 }
@@ -455,21 +468,33 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         }
         comboMedicamentos();
     }
-    
-    public void limpiar(){
-        
-        try{
+
+    public void limpiar() {
+
+        try {
             jComboBox1.removeAllItems();
             JTDescripcionTratamiento.setText("");
             JTPrecioTratamiento.setText("");
             JTTituloTratamiento.setText("");
             JLPrecioTotal.setText("");
             JLPrecioMed.setText("");
-            
-        }catch (Exception e){
+
+        } catch (Exception e) {
             System.out.println(e);
         }
-        
+
     }
 
+    public void wallpaper() {
+        ImageIcon wallpaper = new ImageIcon("src/IMG/3.png");
+        Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(
+                this.getWidth(),
+                this.getHeight(),
+                Image.SCALE_DEFAULT));
+        JFondo.setIcon(i);
+        JFondo.setVerticalAlignment(JLabel.CENTER);
+        JFondo.setHorizontalAlignment(JLabel.CENTER);
+        JFondo.setVerticalTextPosition(JLabel.CENTER);
+        JFondo.setHorizontalTextPosition(JLabel.CENTER);
+    }
 }

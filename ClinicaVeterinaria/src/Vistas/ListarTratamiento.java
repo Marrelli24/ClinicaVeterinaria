@@ -1,6 +1,7 @@
 package Vistas;
 
 import Entidades.Tratamiento;
+import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -19,7 +20,15 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
         }
     };
     private JDesktopPane escritorio;
-    
+    private Image backgroundImage = new ImageIcon(getClass().getResource("/IMG/Borde.png")).getImage();
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Dibuja la imagen de fondo
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+    }
+
     public ListarTratamiento(JDesktopPane escritorio) {
         initComponents();
         wallpaper();
@@ -27,14 +36,13 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
         cargarTabla();
         this.escritorio = escritorio;
     }
+
     public ListarTratamiento() {
         initComponents();
         wallpaper();
         armarCabecera();
         cargarTabla();
     }
-
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -145,9 +153,7 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTableTratamientos;
     // End of variables declaration//GEN-END:variables
 
-
-
-   private void armarCabecera() {
+    private void armarCabecera() {
         modelo.addColumn("ID");
         modelo.addColumn("Tipo de tratamiento");
         modelo.addColumn("Precio");
@@ -157,43 +163,42 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
         jTableTratamientos.setModel(modelo);
     }
 
-   
-   private void cargarTabla(){
-       for(Tratamiento trat : Menu.tratamientoData.listarTratamiento()){
-           modelo.addRow(new Object[]{
-               trat.getIdTratamiento(),
-               trat.getTipoDeTratamiento(),
-               trat.getPrecio(),
-               trat.getMedicamento(),
-               trat.getDescripcion(),
-               trat.isActivo()
-           });
-       }
-   }
-   
-   private void seleccion(){
-       try{
-       //Selecciono el tratamiento
-       int filaSeleccionada = jTableTratamientos.getSelectedRow();
-       int columnaId = 0;
-       int idTratamiento = (int) jTableTratamientos.getValueAt(filaSeleccionada, columnaId);
-       
-       Tratamiento tratamiento = Menu.tratamientoData.buscarTratamiento(idTratamiento);
-       
-       //Genero la ventana de gestion pasandole el tratamiento
-       GestionTratamiento trata = new GestionTratamiento(tratamiento, escritorio);
-        escritorio.repaint();
-        trata.setVisible(true);
-        trata.isFocusable();
-        escritorio.add(trata);
-        escritorio.moveToFront(trata);
-        
-       }catch(Exception ex){
-           JOptionPane.showMessageDialog(null, "Debes seleccionar un tratamiento primero");
-       }  
-   }
-   
-     public void wallpaper() {
+    private void cargarTabla() {
+        for (Tratamiento trat : Menu.tratamientoData.listarTratamiento()) {
+            modelo.addRow(new Object[]{
+                trat.getIdTratamiento(),
+                trat.getTipoDeTratamiento(),
+                trat.getPrecio(),
+                trat.getMedicamento(),
+                trat.getDescripcion(),
+                trat.isActivo()
+            });
+        }
+    }
+
+    private void seleccion() {
+        try {
+            //Selecciono el tratamiento
+            int filaSeleccionada = jTableTratamientos.getSelectedRow();
+            int columnaId = 0;
+            int idTratamiento = (int) jTableTratamientos.getValueAt(filaSeleccionada, columnaId);
+
+            Tratamiento tratamiento = Menu.tratamientoData.buscarTratamiento(idTratamiento);
+
+            //Genero la ventana de gestion pasandole el tratamiento
+            GestionTratamiento trata = new GestionTratamiento(tratamiento, escritorio);
+            escritorio.repaint();
+            trata.setVisible(true);
+            trata.isFocusable();
+            escritorio.add(trata);
+            escritorio.moveToFront(trata);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un tratamiento primero");
+        }
+    }
+
+    public void wallpaper() {
         ImageIcon wallpaper = new ImageIcon("src/IMG/L.png");
         Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(
                 this.getWidth(),
@@ -205,6 +210,5 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
         JFondo.setVerticalTextPosition(JLabel.CENTER);
         JFondo.setHorizontalTextPosition(JLabel.CENTER);
     }
-   
-   
+
 }

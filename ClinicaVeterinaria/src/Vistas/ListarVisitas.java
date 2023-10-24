@@ -4,6 +4,7 @@ import Entidades.Cliente;
 import Entidades.Mascota;
 import Entidades.Tratamiento;
 import Entidades.Visita;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,6 +34,14 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
         }
     };
     DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+    private Image backgroundImage = new ImageIcon(getClass().getResource("/IMG/Borde.png")).getImage();
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Dibuja la imagen de fondo
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+    }
 
     public ListarVisitas() {
         initComponents();
@@ -486,10 +495,8 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
         });
         frame.setVisible(true);
     }
-    
-    
-    
-            public void wallpaper() {
+
+    public void wallpaper() {
         ImageIcon wallpaper = new ImageIcon("src/IMG/L.png");
         Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(
                 this.getWidth(),

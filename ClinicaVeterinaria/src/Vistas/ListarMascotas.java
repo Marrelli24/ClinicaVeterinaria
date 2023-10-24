@@ -2,6 +2,7 @@ package Vistas;
 
 import Entidades.Cliente;
 import Entidades.Mascota;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.List;
 import java.util.ArrayList;
@@ -20,6 +21,14 @@ public class ListarMascotas extends javax.swing.JInternalFrame {
             return false;
         }
     };
+    private Image backgroundImage = new ImageIcon(getClass().getResource("/IMG/Borde.png")).getImage();
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Dibuja la imagen de fondo
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+    }
 
     public ListarMascotas() {
         initComponents();
@@ -178,18 +187,18 @@ public class ListarMascotas extends javax.swing.JInternalFrame {
                 mascota.getAlias(),
                 mascota.getEspecie(),
                 mascota.getRaza(),
-                mascota.getSexo(),
-            });
+                mascota.getSexo(),});
         }
     }
-    
-     private void borrarFilas() {
+
+    private void borrarFilas() {
         int f = jTable1.getRowCount() - 1;
         for (; f >= 0; f--) {
             modelo.removeRow(f);
         }
     }
-        public void wallpaper() {
+
+    public void wallpaper() {
         ImageIcon wallpaper = new ImageIcon("src/IMG/L.png");
         Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(
                 this.getWidth(),

@@ -19,6 +19,7 @@ public class Menu extends javax.swing.JFrame {
     public static TratamientoData tratamientoData;
     public static VisitaData visitaData;
     public static MedicamentoData medicamentoData;
+    
    
     public Menu() {
         initComponents();
@@ -75,10 +76,14 @@ public class Menu extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            .addComponent(jLabelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
         );
 
+        jMenuBar1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jMenuBar1.setPreferredSize(new java.awt.Dimension(409, 35));
+
         jMenu1.setText("Clientes");
+        jMenu1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
 
         JMIGestCliente.setText("Gestion de Clientes");
         JMIGestCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -99,6 +104,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Mascotas");
+        jMenu2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
 
         JMIGestMascota.setText("Gestion de Mascotas");
         JMIGestMascota.addActionListener(new java.awt.event.ActionListener() {
@@ -119,6 +125,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         JMenuTratamiento.setText("Tratamientos");
+        JMenuTratamiento.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
 
         JMIGestTratamiento.setText("Gestion de Tratamientos");
         JMIGestTratamiento.addActionListener(new java.awt.event.ActionListener() {
@@ -139,6 +146,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.add(JMenuTratamiento);
 
         jMenu4.setText("Visita");
+        jMenu4.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
 
         JMIGestVisita.setText("Gestion de Visitas");
         JMIGestVisita.addActionListener(new java.awt.event.ActionListener() {
@@ -159,6 +167,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu3.setText("Ayuda");
+        jMenu3.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
 
         JMIAboutUs.setText("Sobre nosotros");
         JMIAboutUs.addActionListener(new java.awt.event.ActionListener() {
@@ -188,7 +197,7 @@ public class Menu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
         );
 
         pack();

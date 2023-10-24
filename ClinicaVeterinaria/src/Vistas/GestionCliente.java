@@ -2,6 +2,7 @@ package Vistas;
 
 import AccesoADatos.ClienteData;
 import Entidades.Cliente;
+import java.awt.Graphics;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -14,6 +15,14 @@ public class GestionCliente extends javax.swing.JInternalFrame {
 
     private ClienteData clienteD = new ClienteData();
     private Cliente cliente = new Cliente();
+    private Image backgroundImage = new ImageIcon(getClass().getResource("/IMG/Borde.png")).getImage();
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Dibuja la imagen de fondo
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+    }
 
     public GestionCliente() {
         initComponents();
@@ -253,12 +262,12 @@ public class GestionCliente extends javax.swing.JInternalFrame {
     private void JBExitClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBExitClienteActionPerformed
         dispose();
     }//GEN-LAST:event_JBExitClienteActionPerformed
-  
+
     private void JBBuscarClienteDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarClienteDNIActionPerformed
         try {
             int dni = Integer.parseInt(JTDNI.getText());
             cliente = clienteD.buscarClientePorDni(dni);
-            
+
             if (cliente != null) {
                 botonesOn();
                 activarCampos();
@@ -270,7 +279,7 @@ public class GestionCliente extends javax.swing.JInternalFrame {
                 JTNumAltCliente.setText(String.valueOf(cliente.getContactoAlter()));
             } else {
                 JOptionPane.showMessageDialog(null, "No hay coincidencias con el dni ingresado\nIntente nuevamente");
-                limpiarCampos();     
+                limpiarCampos();
                 desactivarCampos();
             }
         } catch (HeadlessException | NumberFormatException ex) {
@@ -285,31 +294,31 @@ public class GestionCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBNuevoClienteActionPerformed
 
     private void JBEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEliminarClienteActionPerformed
-            try {
-                int dni = Integer.parseInt(JTDNI.getText());
-                Cliente c = clienteD.buscarClientePorDni(dni);
-                int response = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar al cliente "+ c.getApellido()+ " " +c.getNombre() + "?", "Eliminar cliente", JOptionPane.YES_NO_OPTION);
-                
-                if (response == JOptionPane.YES_OPTION) {
+        try {
+            int dni = Integer.parseInt(JTDNI.getText());
+            Cliente c = clienteD.buscarClientePorDni(dni);
+            int response = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar al cliente " + c.getApellido() + " " + c.getNombre() + "?", "Eliminar cliente", JOptionPane.YES_NO_OPTION);
+
+            if (response == JOptionPane.YES_OPTION) {
                 clienteD.eliminarCliente(c.getIdCliente());
-                }
-                
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Hubo un error al obtener los datos");
             }
-            
-            limpiarCampos();
-            desactivarCampos();
-        
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al obtener los datos");
+        }
+
+        limpiarCampos();
+        desactivarCampos();
+
     }//GEN-LAST:event_JBEliminarClienteActionPerformed
 
     private void JBSaveClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSaveClienteActionPerformed
-        try{
+        try {
             int dni = Integer.parseInt(JTDNI.getText());
             Cliente match = clienteD.buscarClientePorDni(dni);
-           
-            if(match == null){
-            
+
+            if (match == null) {
+
                 String nombre = JTNombreCliente.getText();
                 String apellido = JTApellidoCliente.getText();
                 int tel = Integer.parseInt(JTTelefonoCliente.getText());
@@ -322,8 +331,8 @@ public class GestionCliente extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Ya hay un cliente con este DNI!");
                 int response = JOptionPane.showConfirmDialog(null, "Desea editar el cliente?", "ATENCION!", JOptionPane.YES_NO_OPTION);
-                
-                if(response == JOptionPane.YES_OPTION){
+
+                if (response == JOptionPane.YES_OPTION) {
                     match.setDni(dni);
                     match.setNombre(JTNombreCliente.getText());
                     match.setApellido(JTApellidoCliente.getText());
@@ -331,50 +340,50 @@ public class GestionCliente extends javax.swing.JInternalFrame {
                     match.setDireccion(JTDireccionCliente.getText());
                     match.setNombreAlterno(JTContactoAltCliente.getText());
                     match.setContactoAlter(Integer.parseInt(JTNumAltCliente.getText()));
-               
-                    clienteD.editarCliente(match);                
+
+                    clienteD.editarCliente(match);
                 }
             }
-            
+
             limpiarCampos();
             desactivarCampos();
-        }catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error en la introduccion de datos");
         }
     }//GEN-LAST:event_JBSaveClienteActionPerformed
 
     private void JTDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTDNIKeyTyped
-           if (Character.isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_SPACE || !Character.isLetterOrDigit(evt.getKeyChar())) {
+        if (Character.isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_SPACE || !Character.isLetterOrDigit(evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_JTDNIKeyTyped
 
     private void JTNombreClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTNombreClienteKeyTyped
         if (!Character.isLetter(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_SPACE) {
-    evt.consume();
-}
+            evt.consume();
+        }
     }//GEN-LAST:event_JTNombreClienteKeyTyped
 
     private void JTNumAltClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTNumAltClienteKeyTyped
-         if (Character.isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_SPACE || !Character.isLetterOrDigit(evt.getKeyChar())) {
+        if (Character.isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_SPACE || !Character.isLetterOrDigit(evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_JTNumAltClienteKeyTyped
 
     private void JTApellidoClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTApellidoClienteKeyTyped
-                if (!Character.isLetter(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_SPACE) {
-    evt.consume();
-}
+        if (!Character.isLetter(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_SPACE) {
+            evt.consume();
+        }
     }//GEN-LAST:event_JTApellidoClienteKeyTyped
 
     private void JTContactoAltClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTContactoAltClienteKeyTyped
-                if (!Character.isLetter(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_SPACE) {
-    evt.consume();
-}
+        if (!Character.isLetter(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_SPACE) {
+            evt.consume();
+        }
     }//GEN-LAST:event_JTContactoAltClienteKeyTyped
 
     private void JTTelefonoClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTTelefonoClienteKeyTyped
-          if (Character.isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_SPACE || !Character.isLetterOrDigit(evt.getKeyChar())) {
+        if (Character.isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_SPACE || !Character.isLetterOrDigit(evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_JTTelefonoClienteKeyTyped
@@ -441,8 +450,7 @@ public class GestionCliente extends javax.swing.JInternalFrame {
         JBSaveCliente.setVisible(true);
         JBEliminarCliente.setVisible(true);
     }
-    
-    
+
     public void wallpaper() {
         ImageIcon wallpaper = new ImageIcon("src/IMG/G.png");
         Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(

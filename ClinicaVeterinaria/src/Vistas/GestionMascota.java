@@ -3,6 +3,7 @@ package Vistas;
 import AccesoADatos.Conexion;
 import Entidades.Cliente;
 import Entidades.Mascota;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -31,6 +32,14 @@ import javax.swing.table.DefaultTableModel;
 public class GestionMascota extends javax.swing.JInternalFrame {
 
     DefaultComboBoxModel<Mascota> modelo = new DefaultComboBoxModel<>();
+    private Image backgroundImage = new ImageIcon(getClass().getResource("/IMG/Borde.png")).getImage();
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Dibuja la imagen de fondo
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+    }
 
     public GestionMascota() {
         initComponents();
@@ -425,7 +434,7 @@ public class GestionMascota extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBeliminarActionPerformed
 
     private void jBnuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBnuevoClienteActionPerformed
-        
+
     }//GEN-LAST:event_jBnuevoClienteActionPerformed
 
     private void jBlistarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBlistarClientesActionPerformed
@@ -616,7 +625,6 @@ public class GestionMascota extends javax.swing.JInternalFrame {
         jRBhembra.setEnabled(true);
         jBguardar.setEnabled(true);
     }
- 
 
     public void cargarCombo() {
         jcbListaMascotas.addItem("NUEVA MASCOTA");
@@ -631,7 +639,7 @@ public class GestionMascota extends javax.swing.JInternalFrame {
         }
         return validado;
     }
-    
+
     public void wallpaper() {
         ImageIcon wallpaper = new ImageIcon("src/IMG/G.png");
         Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(

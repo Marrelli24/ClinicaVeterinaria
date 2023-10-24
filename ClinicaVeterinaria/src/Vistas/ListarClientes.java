@@ -1,6 +1,7 @@
 package Vistas;
 
 import Entidades.Cliente;
+import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -18,6 +19,14 @@ public class ListarClientes extends javax.swing.JInternalFrame {
             return false;
         }
     };
+    private Image backgroundImage = new ImageIcon(getClass().getResource("/IMG/Borde.png")).getImage();
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Dibuja la imagen de fondo
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+    }
 
     public ListarClientes() {
         initComponents();
@@ -208,9 +217,8 @@ public class ListarClientes extends javax.swing.JInternalFrame {
 
         }
     }
-    
-    
-            public void wallpaper() {
+
+    public void wallpaper() {
         ImageIcon wallpaper = new ImageIcon("src/IMG/L.png");
         Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(
                 this.getWidth(),

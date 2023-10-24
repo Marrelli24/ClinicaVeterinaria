@@ -2,6 +2,7 @@ package Vistas;
 
 import Entidades.Medicamento;
 import Entidades.Tratamiento;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -26,6 +27,14 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
     Tratamiento save;
     private JDesktopPane escritorio;
     ArrayList<String> listaID = new ArrayList<>();
+    private Image backgroundImage = new ImageIcon(getClass().getResource("/IMG/Borde.png")).getImage();
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Dibuja la imagen de fondo
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+    }
 
     public GestionTratamiento(JDesktopPane escritorio) {
         initComponents();

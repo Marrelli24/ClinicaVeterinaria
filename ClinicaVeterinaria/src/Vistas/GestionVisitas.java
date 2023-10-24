@@ -34,7 +34,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
 
     private JDesktopPane escritorio;
     private int idVisita = 0;
-    private Image backgroundImage = new ImageIcon(getClass().getResource("/IMG/1.png")).getImage();
+    private Image backgroundImage = new ImageIcon(getClass().getResource("/IMG/Borde.png")).getImage();
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -455,17 +455,13 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JFondoVistas;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;

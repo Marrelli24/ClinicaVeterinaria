@@ -143,7 +143,6 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
         modelo.addColumn("Tipo de tratamiento");
         modelo.addColumn("Precio");
         modelo.addColumn("Medicamento");
-        modelo.addColumn("Precio Med");
         modelo.addColumn("Descripcion");
         modelo.addColumn("Activo");
         jTableTratamientos.setModel(modelo);
@@ -156,8 +155,7 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
                trat.getIdTratamiento(),
                trat.getTipoDeTratamiento(),
                trat.getPrecio(),
-               trat.getMedicamento().getNombre(),
-               trat.getMedicamento().getPrecio(),
+               trat.getMedicamento(),
                trat.getDescripcion(),
                trat.isActivo()
            });

@@ -1,5 +1,6 @@
 package AccesoADatos;
 
+import Entidades.Medicamento;
 import Entidades.Tratamiento;
 import Vistas.Menu;
 import java.sql.Connection;
@@ -18,6 +19,7 @@ public class TratamientoData {
     }
 
     public Tratamiento buscarTratamiento(int id) {
+        ArrayList<Medicamento> medicamento = new ArrayList<>();
         String sql = "SELECT idTratamiento, tipoDeTratamiento, descripcion, idMedicamento, importe, activo FROM tratamiento WHERE idTratamiento = ?";
         PreparedStatement ps;
         Tratamiento tratamiento = null;
@@ -30,7 +32,15 @@ public class TratamientoData {
                 tratamiento.setIdTratamiento(rs.getInt("idTratamiento"));
                 tratamiento.setTipoDeTratamiento(rs.getString("tipoDeTratamiento"));
                 tratamiento.setDescripcion(rs.getString("descripcion"));
-                tratamiento.setMedicamento(Menu.medicamentoData.buscarMedicamento(rs.getInt("idMedicamento")));
+                
+                String[] idMedicina = rs.getString("idMedicamento").split(",");
+                for(String medis: idMedicina){
+                    int medicinas = Integer.parseInt(medis);
+                    medicamento.add(Menu.medicamentoData.buscarMedicamento(medicinas));
+                }
+                tratamiento.setMedicamento(medicamento);
+                
+                
                 tratamiento.setPrecio(rs.getDouble("importe"));
                 tratamiento.setActivo(rs.getBoolean("activo"));
             }
@@ -42,13 +52,21 @@ public class TratamientoData {
     }
 
     public void guardarTratamiento(Tratamiento trat) {
+        String medis = "";
         PreparedStatement ps;
-        String sql = "INSERT INTO tratamiento(tipoDeTratamiento, descripcion, medicamento, importe, activo) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO tratamiento(tipoDeTratamiento, descripcion, idMedicamento, importe, activo) VALUES (?,?,?,?,?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, trat.getTipoDeTratamiento());
             ps.setString(2, trat.getDescripcion());
-            ps.setInt(3, trat.getMedicamento().getId());
+            for(Medicamento m : trat.getMedicamento()){
+                if(medis.equals("")){
+                    medis = m.getId() + ""; 
+                }else{
+                    medis = medis + "," + m.getId();
+                } 
+            }
+            ps.setString(3, medis);
             ps.setDouble(4, trat.getPrecio());
             ps.setBoolean(5, true);
             int rs = ps.executeUpdate();
@@ -65,13 +83,22 @@ public class TratamientoData {
     }
 
     public void editarTratamiento(Tratamiento trat) {
+        String medis = "";
         PreparedStatement ps;
         String sql = "UPDATE tratamiento SET tipoDeTratamiento = ?, descripcion = ?, idMedicamento = ?, importe = ? WHERE idTratamiento=?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, trat.getTipoDeTratamiento());
             ps.setString(2, trat.getDescripcion());
-            ps.setInt(3, trat.getMedicamento().getId());
+            
+            for(Medicamento m : trat.getMedicamento()){
+                if(medis.equals("")){
+                    medis = m.getId() + ""; 
+                }else{
+                    medis = medis + "," + m.getId();
+                } 
+            }
+            ps.setString(3, medis);
             ps.setDouble(4, trat.getPrecio());
             ps.setInt(5, trat.getIdTratamiento());
 
@@ -117,7 +144,8 @@ public class TratamientoData {
     public ArrayList<Tratamiento> listarTratamiento() {
         ArrayList<Tratamiento> lista = new ArrayList<>();
         Tratamiento tratamiento = null;
-
+        ArrayList<Medicamento> medicamento = new ArrayList<>();
+        
         String sql = "SELECT idTratamiento, tipoDeTratamiento, descripcion, idMedicamento, importe, activo FROM tratamiento";
         PreparedStatement ps;
 
@@ -130,7 +158,14 @@ public class TratamientoData {
                 tratamiento.setIdTratamiento(rs.getInt("idTratamiento"));
                 tratamiento.setTipoDeTratamiento(rs.getString("tipoDeTratamiento"));
                 tratamiento.setDescripcion(rs.getString("descripcion"));
-                tratamiento.setMedicamento(Menu.medicamentoData.buscarMedicamento(rs.getInt("idMedicamento")));
+                
+                String[] idMedicina = rs.getString("idMedicamento").split(",");
+                for(String medis: idMedicina){
+                    int medicinas = Integer.parseInt(medis);
+                    medicamento.add(Menu.medicamentoData.buscarMedicamento(medicinas));
+                }
+                tratamiento.setMedicamento(medicamento);
+               
                 tratamiento.setPrecio(rs.getDouble("importe"));
                 tratamiento.setActivo(rs.getBoolean("activo"));
 

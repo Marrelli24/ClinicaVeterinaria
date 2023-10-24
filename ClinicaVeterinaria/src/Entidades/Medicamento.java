@@ -49,7 +49,7 @@ public class Medicamento {
 
     @Override
     public String toString() {
-        return "nombre = " + nombre;
+        return idMedicamento + ", " + nombre;
     }
     
     

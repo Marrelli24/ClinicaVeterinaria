@@ -10,22 +10,25 @@ public class Visita {
     private String detalle;
     private double peso;
     private Tratamiento tratamiento;
+    private boolean pago;
 
-    public Visita(int idVisita, Mascota mascota, LocalDate fechaVisita, String detalle, double peso, Tratamiento tratamiento) {
+    public Visita(int idVisita, Mascota mascota, LocalDate fechaVisita, String detalle, double peso, Tratamiento tratamiento, boolean pago) {
         this.idVisita = idVisita;
         this.mascota = mascota;
         this.fechaVisita = fechaVisita;
         this.detalle = detalle;
         this.peso = peso;
         this.tratamiento = tratamiento;
+        this.pago = pago;
     }
 
-    public Visita(Mascota mascota, LocalDate fechaVisita, String detalle, double peso, Tratamiento tratamiento) {
+    public Visita(Mascota mascota, LocalDate fechaVisita, String detalle, double peso, Tratamiento tratamiento, boolean pago) {
         this.mascota = mascota;
         this.fechaVisita = fechaVisita;
         this.detalle = detalle;
         this.peso = peso;
         this.tratamiento = tratamiento;
+        this.pago = pago;
     }
 
     public Visita() {
@@ -77,6 +80,14 @@ public class Visita {
 
     public void setTratamiento(Tratamiento tratamiento) {
         this.tratamiento = tratamiento;
+    }
+
+    public boolean isPago() {
+        return pago;
+    }
+
+    public void setPago(boolean pago) {
+        this.pago = pago;
     }
 
     @Override

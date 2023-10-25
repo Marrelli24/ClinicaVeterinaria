@@ -28,8 +28,6 @@ public class GestionCliente extends javax.swing.JInternalFrame {
         initComponents();
         wallpaper();
         desactivarCampos();
-        botonesOff();
-
     }
 
     @SuppressWarnings("unchecked")
@@ -269,7 +267,6 @@ public class GestionCliente extends javax.swing.JInternalFrame {
             cliente = clienteD.buscarClientePorDni(dni);
 
             if (cliente != null) {
-                botonesOn();
                 activarCampos();
                 JTApellidoCliente.setText(cliente.getApellido());
                 JTNombreCliente.setText(cliente.getNombre());
@@ -277,6 +274,7 @@ public class GestionCliente extends javax.swing.JInternalFrame {
                 JTDireccionCliente.setText(cliente.getDireccion());
                 JTContactoAltCliente.setText(cliente.getNombreAlterno());
                 JTNumAltCliente.setText(String.valueOf(cliente.getContactoAlter()));
+                JBEliminarCliente.setEnabled(true);
             } else {
                 JOptionPane.showMessageDialog(null, "No hay coincidencias con el dni ingresado\nIntente nuevamente");
                 limpiarCampos();
@@ -291,6 +289,7 @@ public class GestionCliente extends javax.swing.JInternalFrame {
     private void JBNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBNuevoClienteActionPerformed
         limpiarCampos();
         activarCampos();
+        JBEliminarCliente.setEnabled(false);
     }//GEN-LAST:event_JBNuevoClienteActionPerformed
 
     private void JBEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEliminarClienteActionPerformed
@@ -420,6 +419,7 @@ public class GestionCliente extends javax.swing.JInternalFrame {
         JTDireccionCliente.setEnabled(true);
         JTContactoAltCliente.setEnabled(true);
         JTNumAltCliente.setEnabled(true);
+        JBSaveCliente.setEnabled(true);       
     }
 
     public void desactivarCampos() {
@@ -429,6 +429,8 @@ public class GestionCliente extends javax.swing.JInternalFrame {
         JTDireccionCliente.setEnabled(false);
         JTContactoAltCliente.setEnabled(false);
         JTNumAltCliente.setEnabled(false);
+        JBSaveCliente.setEnabled(false);
+        JBEliminarCliente.setEnabled(false);
     }
 
     public void limpiarCampos() {
@@ -439,16 +441,6 @@ public class GestionCliente extends javax.swing.JInternalFrame {
         JTDireccionCliente.setText("");
         JTContactoAltCliente.setText("");
         JTNumAltCliente.setText("");
-    }
-
-    public void botonesOff() {
-        JBSaveCliente.setVisible(false);
-        JBEliminarCliente.setVisible(false);
-    }
-
-    public void botonesOn() {
-        JBSaveCliente.setVisible(true);
-        JBEliminarCliente.setVisible(true);
     }
 
     public void wallpaper() {

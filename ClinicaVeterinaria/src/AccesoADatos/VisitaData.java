@@ -26,7 +26,7 @@ public class VisitaData {
     }
 
     public void guardarVisita(Visita visita) {
-        String sql = "INSERT INTO visita(idMascota, fechaVisita, detalle, peso, idTratamiento) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO visita(idMascota, fechaVisita, detalle, peso, idTratamiento, pago) VALUES (?,?,?,?,?,?)";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -35,6 +35,7 @@ public class VisitaData {
             ps.setString(3, visita.getDetalle());
             ps.setDouble(4, visita.getPeso());
             ps.setInt(5, visita.getTratamiento().getIdTratamiento());
+            ps.setBoolean(6, visita.isPago());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -51,7 +52,7 @@ public class VisitaData {
     }
 
     public void editarVisita(Visita visita) {
-        String sql = "UPDATE visita SET idMascota = ?, fechaVisita = ?, detalle = ?, peso = ?, idTratamiento = ? WHERE idVisita = ?";
+        String sql = "UPDATE visita SET idMascota = ?, fechaVisita = ?, detalle = ?, peso = ?, idTratamiento = ?, pago = ? WHERE idVisita = ?";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -60,7 +61,8 @@ public class VisitaData {
             ps.setString(3, visita.getDetalle());
             ps.setDouble(4, visita.getPeso());
             ps.setInt(5, visita.getTratamiento().getIdTratamiento());
-            ps.setInt(6, visita.getIdVisita());
+            ps.setBoolean(6, visita.isPago());
+            ps.setInt(7, visita.getIdVisita());
             int rs = ps.executeUpdate();
             if (rs == 1) {
                 JOptionPane.showMessageDialog(null, "Se actualizo los datos de la Visita correctamente");
@@ -96,7 +98,7 @@ public class VisitaData {
     public ArrayList<Visita> listarVisita() {
         ArrayList<Visita> lista = new ArrayList<>();
         Visita visita = null;
-        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita ORDER BY fechaVisita DESC;";
+        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento, pago FROM visita ORDER BY fechaVisita DESC;";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -109,6 +111,7 @@ public class VisitaData {
                 visita.setDetalle(rs.getString("detalle"));
                 visita.setPeso(rs.getDouble("peso"));
                 visita.setTratamiento(tratamientoData.buscarTratamiento(rs.getInt("idTratamiento")));
+                visita.setPago(rs.getBoolean("pago"));
                 lista.add(visita);
             }
             ps.close();
@@ -120,7 +123,7 @@ public class VisitaData {
 
     public Visita buscarVisitaPorId(int id) {
         Visita visita = null;
-        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita WHERE idVisita = ?";
+        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento, pago FROM visita WHERE idVisita = ?";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -134,6 +137,7 @@ public class VisitaData {
                 visita.setDetalle(rs.getString("detalle"));
                 visita.setPeso(rs.getDouble("peso"));
                 visita.setTratamiento(tratamientoData.buscarTratamiento(rs.getInt("idTratamiento")));
+                visita.setPago(rs.getBoolean("pago"));
             }
             ps.close();
         } catch (SQLException ex) {
@@ -146,7 +150,7 @@ public class VisitaData {
     public ArrayList<Visita> buscarVisitaPorCliente(int id) {
         ArrayList<Visita> lista = new ArrayList<>();
         Visita visita = null;
-        String sql = "SELECT idVisita, visita.idMascota, fechaVisita, detalle, visita.peso, idTratamiento FROM visita, mascota WHERE visita.idMascota=mascota.idMascota and mascota.idCliente=?  ORDER BY fechaVisita DESC";
+        String sql = "SELECT idVisita, visita.idMascota, fechaVisita, detalle, visita.peso, idTratamiento, pago FROM visita, mascota WHERE visita.idMascota=mascota.idMascota and mascota.idCliente=?  ORDER BY fechaVisita DESC";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -160,6 +164,7 @@ public class VisitaData {
                 visita.setDetalle(rs.getString("detalle"));
                 visita.setPeso(rs.getDouble("peso"));
                 visita.setTratamiento(tratamientoData.buscarTratamiento(rs.getInt("idTratamiento")));
+                visita.setPago(rs.getBoolean("pago"));
                 lista.add(visita);
             }
             ps.close();
@@ -173,7 +178,7 @@ public class VisitaData {
     public ArrayList<Visita> buscarVisitaPorMascota(int id) {
         ArrayList<Visita> lista = new ArrayList<>();
         Visita visita = null;
-        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita WHERE idMascota = ?  ORDER BY fechaVisita DESC";
+        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento, pago FROM visita WHERE idMascota = ?  ORDER BY fechaVisita DESC";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -187,6 +192,7 @@ public class VisitaData {
                 visita.setDetalle(rs.getString("detalle"));
                 visita.setPeso(rs.getDouble("peso"));
                 visita.setTratamiento(tratamientoData.buscarTratamiento(rs.getInt("idTratamiento")));
+                visita.setPago(rs.getBoolean("pago"));
                 lista.add(visita);
             }
             ps.close();
@@ -200,7 +206,7 @@ public class VisitaData {
     public ArrayList<Visita> buscarVisitaPorTratamiento(int id) {
         ArrayList<Visita> lista = new ArrayList<>();
         Visita visita = null;
-        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento FROM visita WHERE idTratamiento = ? ORDER BY fechaVisita DESC";
+        String sql = "SELECT idVisita, idMascota, fechaVisita, detalle, peso, idTratamiento, pago FROM visita WHERE idTratamiento = ? ORDER BY fechaVisita DESC";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -214,6 +220,7 @@ public class VisitaData {
                 visita.setDetalle(rs.getString("detalle"));
                 visita.setPeso(rs.getDouble("peso"));
                 visita.setTratamiento(tratamientoData.buscarTratamiento(rs.getInt("idTratamiento")));
+                visita.setPago(rs.getBoolean("pago"));
                 lista.add(visita);
             }
             ps.close();
@@ -223,6 +230,7 @@ public class VisitaData {
 
         return lista;
     }
+
 
     public double pesoPromedio(int id) {
         double pesoPromedio = 0;
@@ -239,7 +247,7 @@ public class VisitaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en base de datos");          
+            JOptionPane.showMessageDialog(null, "Error en base de datos");
         }
         return pesoPromedio;
     }

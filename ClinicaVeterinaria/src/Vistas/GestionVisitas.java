@@ -19,7 +19,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -42,6 +41,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         // Dibuja la imagen de fondo
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
+
     public GestionVisitas() {
         initComponents();
         wallpaper();
@@ -97,6 +97,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         jbNuevaMascota = new javax.swing.JButton();
         jbLimpiar = new javax.swing.JButton();
         JFondoVistas = new javax.swing.JLabel();
+        jcbPago = new javax.swing.JCheckBox();
 
         jButton1.setText("jButton1");
 
@@ -218,6 +219,8 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
             }
         });
 
+        jcbPago.setText("Pago Saldado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -246,27 +249,28 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                             .addComponent(jbNuevaMascota, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                             .addComponent(jbNuevoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jbHistorialDeVisitas)
-                            .addComponent(jbListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jbHistorialDeVisitas)
+                                .addComponent(jbListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jcbPago)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbLimpiar)
                         .addGap(26, 26, 26)
                         .addComponent(jbNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(jbGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jbEliminar)
                         .addGap(18, 18, 18)
                         .addComponent(jbSalir)))
-                .addContainerGap())
+                .addContainerGap(17, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(137, 137, 137))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(JFondoVistas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE))
+                .addComponent(JFondoVistas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,9 +291,11 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                         .addComponent(jbHistorialDeVisitas)
                         .addComponent(jbNuevaMascota)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel4)
+                        .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbPago))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -309,7 +315,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                     .addComponent(jbEliminar)
                     .addComponent(jbSalir)
                     .addComponent(jbLimpiar))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(JFondoVistas, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE))
         );
@@ -367,7 +373,13 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                 int idTratamiento = Integer.parseInt(comboBoxT[0].trim());
                 Tratamiento tratamiento = new Tratamiento();
                 tratamiento = Menu.tratamientoData.buscarTratamiento(idTratamiento);
-                Visita visita = new Visita(mascota, fechaV, detalles, peso, tratamiento);
+                boolean pago;
+                if (jcbPago.isSelected()) {
+                    pago = true;
+                } else {
+                    pago = false;
+                }
+                Visita visita = new Visita(mascota, fechaV, detalles, peso, tratamiento, pago);
                 if (idVisita == 0) {
                     Menu.visitaData.guardarVisita(visita);
                     limpiar();
@@ -473,6 +485,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbNuevoCliente;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<String> jcbListaMascotas;
+    private javax.swing.JCheckBox jcbPago;
     private javax.swing.JComboBox<String> jcbTratamiento;
     private com.toedter.calendar.JDateChooser jdcFecha;
     private javax.swing.JTextField jtDetalles;
@@ -517,6 +530,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
             }
         };
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
 
         model.addColumn("ID");
@@ -616,6 +630,11 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                             jdcFecha.setDate(Date.from(visita.getFechaVisita().atStartOfDay(ZoneId.systemDefault()).toInstant()));
                             jtDetalles.setText(visita.getDetalle());
                             jtPeso.setText(visita.getPeso() + "");
+                            if (visita.isPago()) {
+                                jcbPago.setSelected(true);
+                            } else {
+                                jcbPago.setSelected(false);
+                            }
                             jbEliminar.setEnabled(true);
                             for (int i = 0; i < jcbTratamiento.getItemCount(); i++) {
                                 String[] partesT = jcbTratamiento.getItemAt(i).toString().split(",");
@@ -657,6 +676,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         jcbTratamiento.setEnabled(false);
         jbNuevaMascota.setEnabled(false);
         jbEliminar.setEnabled(false);
+        jcbPago.setEnabled(false);
     }
 
     public void activarCampos() {
@@ -668,6 +688,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         jtPeso.setEnabled(true);
         jcbTratamiento.setEnabled(true);
         jbNuevaMascota.setEnabled(true);
+        jcbPago.setEnabled(true);
     }
 
     public void limpiar() {
@@ -678,11 +699,11 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         jtPeso.setText("");
         fechaHoy();
         jcbTratamiento.setSelectedIndex(0);
+        jcbPago.setSelected(false);
         desactivarCampos();
     }
-    
-    
-  public void wallpaper() {
+
+    public void wallpaper() {
         ImageIcon wallpaper = new ImageIcon("src/IMG/G.png");
         Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(
                 this.getWidth(),

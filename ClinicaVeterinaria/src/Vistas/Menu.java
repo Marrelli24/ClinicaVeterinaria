@@ -7,10 +7,8 @@ import AccesoADatos.TratamientoData;
 import AccesoADatos.VisitaData;
 import java.awt.Graphics;
 import java.awt.Image;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
 
 public class Menu extends javax.swing.JFrame {
 
@@ -19,15 +17,14 @@ public class Menu extends javax.swing.JFrame {
     public static TratamientoData tratamientoData;
     public static VisitaData visitaData;
     public static MedicamentoData medicamentoData;
-    
-   
+
     public Menu() {
         initComponents();
         this.clienteData = new ClienteData();
         this.mascotaData = new MascotaData();
         this.tratamientoData = new TratamientoData();
         this.visitaData = new VisitaData();
-        this.medicamentoData= new MedicamentoData();
+        this.medicamentoData = new MedicamentoData();
     }
 
     @SuppressWarnings("unchecked")
@@ -55,6 +52,7 @@ public class Menu extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         JMIGestVisita = new javax.swing.JMenuItem();
         JMIListVisita = new javax.swing.JMenuItem();
+        JMIListaCobros = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         JMIAboutUs = new javax.swing.JMenuItem();
         JMIManual = new javax.swing.JMenuItem();
@@ -164,6 +162,14 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu4.add(JMIListVisita);
 
+        JMIListaCobros.setText("Listar Cobros");
+        JMIListaCobros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIListaCobrosActionPerformed(evt);
+            }
+        });
+        jMenu4.add(JMIListaCobros);
+
         jMenuBar1.add(jMenu4);
 
         jMenu3.setText("Ayuda");
@@ -214,7 +220,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_JMIListClienteActionPerformed
 
     private void JMIGestMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIGestMascotaActionPerformed
-        GestionMascota gest = new GestionMascota();
+        GestionMascota gest = new GestionMascota(escritorio);
         generarVentana(gest);
     }//GEN-LAST:event_JMIGestMascotaActionPerformed
 
@@ -252,6 +258,12 @@ public class Menu extends javax.swing.JFrame {
         Help help = new Help();
         generarVentana(help);
     }//GEN-LAST:event_JMIManualActionPerformed
+
+    private void JMIListaCobrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIListaCobrosActionPerformed
+        ListarCobros list = new ListarCobros();
+        generarVentana(list);
+
+    }//GEN-LAST:event_JMIListaCobrosActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -295,6 +307,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem JMIListMascota;
     private javax.swing.JMenuItem JMIListTratamiento;
     private javax.swing.JMenuItem JMIListVisita;
+    private javax.swing.JMenuItem JMIListaCobros;
     private javax.swing.JMenuItem JMIManual;
     private javax.swing.JMenu JMenuTratamiento;
     private javax.swing.JDesktopPane escritorio;
@@ -306,7 +319,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
- 
+
     public void generarVentana(JInternalFrame panel) {
         escritorio.removeAll();
         escritorio.repaint();
@@ -314,4 +327,4 @@ public class Menu extends javax.swing.JFrame {
         escritorio.add(panel);
         escritorio.moveToFront(panel);
     }
-}   
+}

@@ -1,6 +1,7 @@
 package Vistas;
 
 import AccesoADatos.ClienteData;
+import AccesoADatos.FacturaData;
 import AccesoADatos.MascotaData;
 import AccesoADatos.MedicamentoData;
 import AccesoADatos.TratamientoData;
@@ -17,6 +18,7 @@ public class Menu extends javax.swing.JFrame {
     public static TratamientoData tratamientoData;
     public static VisitaData visitaData;
     public static MedicamentoData medicamentoData;
+    public static FacturaData facturaData;
 
     public Menu() {
         initComponents();
@@ -25,6 +27,7 @@ public class Menu extends javax.swing.JFrame {
         this.tratamientoData = new TratamientoData();
         this.visitaData = new VisitaData();
         this.medicamentoData = new MedicamentoData();
+        this.facturaData = new FacturaData();
     }
 
     @SuppressWarnings("unchecked")

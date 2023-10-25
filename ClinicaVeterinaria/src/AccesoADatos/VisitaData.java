@@ -1,7 +1,9 @@
 package AccesoADatos;
 
+import Entidades.Factura;
 import Entidades.Mascota;
 import Entidades.Visita;
+import Vistas.Menu;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -42,6 +44,9 @@ public class VisitaData {
                 visita.setIdVisita(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Registro Guardado");
                 chequeoUVisita(visita.getMascota().getIdMascota());
+                Factura factura = new Factura();
+                factura.setVisita(visita);
+                Menu.facturaData.guardarFactura(factura);
             } else {
                 JOptionPane.showConfirmDialog(null, "No se pudo guardar el registro");
             }
@@ -67,6 +72,12 @@ public class VisitaData {
             if (rs == 1) {
                 JOptionPane.showMessageDialog(null, "Se actualizo los datos de la Visita correctamente");
                 chequeoUVisita(visita.getMascota().getIdMascota());
+                Factura factura;
+                factura = Menu.facturaData.buscarFacturaPorIDVisita(visita.getIdVisita());
+                if (factura == null) {
+                    factura= new Factura(visita);                 
+                    Menu.facturaData.guardarFactura(factura);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "No se actualizo los datos de la Visita");
             }
@@ -230,7 +241,6 @@ public class VisitaData {
 
         return lista;
     }
-
 
     public double pesoPromedio(int id) {
         double pesoPromedio = 0;

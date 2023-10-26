@@ -263,7 +263,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_JMIManualActionPerformed
 
     private void JMIListaCobrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIListaCobrosActionPerformed
-        ListarCobros list = new ListarCobros();
+        ListarCobros list = new ListarCobros(escritorio);
         generarVentana(list);
 
     }//GEN-LAST:event_JMIListaCobrosActionPerformed

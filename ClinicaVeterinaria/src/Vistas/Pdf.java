@@ -71,7 +71,7 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
         jlDescripcion = new javax.swing.JLabel();
         jlPrecio = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        jbImprimir = new javax.swing.JButton();
 
         jpPDF.setBackground(new java.awt.Color(255, 255, 255));
         jpPDF.setForeground(new java.awt.Color(255, 255, 255));
@@ -79,14 +79,14 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
         jLabel2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel2.setText("Veterinaria");
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel3.setText("Av.ArgentinaPrograma 42023");
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel3.setText("Av. Universitaria s/n");
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel4.setText("Cel: 1111111111");
+        jLabel4.setText("Cel: 02664452000");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel5.setText("ARGENTINA");
+        jLabel5.setText("La Punta, San Luis");
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -179,22 +179,17 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPDFLayout.createSequentialGroup()
                 .addGroup(jpPDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpPDFLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jpPDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
                             .addGroup(jpPDFLayout.createSequentialGroup()
-                                .addGap(153, 153, 153)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPDFLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jpPDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPDFLayout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(100, 100, 100))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPDFLayout.createSequentialGroup()
-                                        .addGroup(jpPDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel4))
-                                        .addGap(105, 105, 105)))))
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel2))
+                            .addComponent(jLabel4)
+                            .addGroup(jpPDFLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel5)))
+                        .addGap(73, 73, 73)
                         .addComponent(jlLOGO, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpPDFLayout.createSequentialGroup()
                         .addGroup(jpPDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -208,7 +203,7 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
                                         .addComponent(jLabel9)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jlDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 94, Short.MAX_VALUE))
                             .addGroup(jpPDFLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel6)))
@@ -316,10 +311,10 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
 
         jlLOGO.getAccessibleContext().setAccessibleDescription("");
 
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbImprimir.setText("Imprimir");
+        jbImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbImprimirActionPerformed(evt);
             }
         });
 
@@ -330,7 +325,7 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
             .addComponent(jpPDF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jbImprimir)
                 .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
@@ -338,14 +333,14 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpPDF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jbImprimir)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jbImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbImprimirActionPerformed
         try {
             PrinterJob pj = PrinterJob.getPrinterJob();
             pj.setPrintable(this);
@@ -359,12 +354,11 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
         } catch (PrinterException pe) {
             JOptionPane.showMessageDialog(null, "Error de Impresion" + pe + JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jbImprimirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel iva;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -382,6 +376,7 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JButton jbImprimir;
     private javax.swing.JLabel jlCliente;
     private javax.swing.JLabel jlDescripcion;
     private javax.swing.JLabel jlDireccion;

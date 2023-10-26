@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -25,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class ListarCobros extends javax.swing.JInternalFrame {
 
+    private JDesktopPane escritorio;
     DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int f, int c) {
@@ -48,6 +50,14 @@ public class ListarCobros extends javax.swing.JInternalFrame {
         llenarTabla();
     }
 
+    public ListarCobros(JDesktopPane escritorio) {
+        initComponents();
+        wallpaper();
+        armarCabecera();
+        llenarTabla();
+        this.escritorio = escritorio;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -61,7 +71,7 @@ public class ListarCobros extends javax.swing.JInternalFrame {
         JFondo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        jbGenerarPdf = new javax.swing.JButton();
 
         bgPagos.add(jrbArancelado);
         jrbArancelado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -108,10 +118,10 @@ public class ListarCobros extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Generar PDF");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbGenerarPdf.setText("Generar PDF");
+        jbGenerarPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbGenerarPdfActionPerformed(evt);
             }
         });
 
@@ -123,7 +133,7 @@ public class ListarCobros extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(125, 125, 125)
-                        .addComponent(jButton1)
+                        .addComponent(jbGenerarPdf)
                         .addGap(155, 155, 155)
                         .addComponent(jbSalir))
                     .addGroup(layout.createSequentialGroup()
@@ -160,7 +170,7 @@ public class ListarCobros extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbSalir)
-                    .addComponent(jButton1))
+                    .addComponent(jbGenerarPdf))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(JFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE))
@@ -181,18 +191,18 @@ public class ListarCobros extends javax.swing.JInternalFrame {
         llenarTabla();
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        generarPDF();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jbGenerarPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGenerarPdfActionPerformed
+        select();
+    }//GEN-LAST:event_jbGenerarPdfActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JFondo;
     private javax.swing.ButtonGroup bgPagos;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbGenerarPdf;
     private javax.swing.JButton jbSalir;
     private javax.swing.JRadioButton jrbArancelado;
     private javax.swing.JRadioButton jrbNoArancelado;
@@ -279,52 +289,56 @@ public class ListarCobros extends javax.swing.JInternalFrame {
         return precioTotal;
     }
 
-    public void generarPDF() {
+    public void select() {
         Factura factura = new Factura();
         if (jtLista.getSelectedRow() > -1) {
             int fila = jtLista.getSelectedRow();
             int idVisita = Integer.parseInt(jtLista.getValueAt(fila, 0).toString());
             factura = Menu.facturaData.buscarFacturaPorIDVisita(idVisita);
-
-            String codigoFactura = String.format("%0" + 11 + "d", factura.getNroFactura());
-
-            Document document = new Document();
-
-            try {
-                PdfWriter.getInstance(document, new FileOutputStream("Factura " + codigoFactura + ".pdf"));
-                document.open();
-
-                // Agregar los datos de facturación al PDF.
-                document.add(new Paragraph("Factura"));
-                document.add(new Paragraph("Cliente: " + factura.getVisita().getMascota().getCliente().getApellido() + " " + factura.getVisita().getMascota().getCliente().getNombre()));
-                document.add(new Paragraph("Dirección: " + factura.getVisita().getMascota().getCliente().getDireccion()));
-
-                // Agregar detalles de productos y precios.
-                for (Medicamento medicamento : factura.getVisita().getTratamiento().getMedicamento()) {
-                    document.add(new Paragraph("Medicamento: " + medicamento.getNombre()));
-                    document.add(new Paragraph("Precio: " + medicamento.getPrecio()));
-                }
-
-                document.add(new Paragraph("Tratamiento: " + factura.getVisita().getTratamiento().getTipoDeTratamiento()));
-                document.add(new Paragraph("Precio: " + factura.getVisita().getTratamiento().getPrecio()));
-
-                // Calcular el total y agregarlo al PDF.               
-                document.add(new Paragraph("Total: " + precioTotal(factura.getVisita().getTratamiento())));
-
-                document.close();
-                JOptionPane.showMessageDialog(null, "El documento PDF de la factura ha sido generado con éxito.");
-            } catch (DocumentException | FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            Pdf pdf = new Pdf(factura);
+            escritorio.repaint();
+            pdf.setVisible(true);
+            escritorio.add(pdf);
+            escritorio.moveToFront(pdf);
         }
     }
-
-    private static void abrirPDFEnVisor(String nombreArchivo) {
-        try {
-            File archivoPDF = new File(nombreArchivo);
-            Desktop.getDesktop().open(archivoPDF);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void generarPDF() {
+//        Factura factura = new Factura();
+//        if (jtLista.getSelectedRow() > -1) {
+//            int fila = jtLista.getSelectedRow();
+//            int idVisita = Integer.parseInt(jtLista.getValueAt(fila, 0).toString());
+//            factura = Menu.facturaData.buscarFacturaPorIDVisita(idVisita);
+//
+//            String codigoFactura = String.format("%0" + 11 + "d", factura.getNroFactura());
+//
+//            Document document = new Document();
+//
+//            try {
+//                PdfWriter.getInstance(document, new FileOutputStream("Factura " + codigoFactura + ".pdf"));
+//                document.open();
+//
+//                // Agregar los datos de facturación al PDF.
+//                document.add(new Paragraph("Factura"));
+//                document.add(new Paragraph("Cliente: " + factura.getVisita().getMascota().getCliente().getApellido() + " " + factura.getVisita().getMascota().getCliente().getNombre()));
+//                document.add(new Paragraph("Dirección: " + factura.getVisita().getMascota().getCliente().getDireccion()));
+//
+//                // Agregar detalles de productos y precios.
+//                for (Medicamento medicamento : factura.getVisita().getTratamiento().getMedicamento()) {
+//                    document.add(new Paragraph("Medicamento: " + medicamento.getNombre()));
+//                    document.add(new Paragraph("Precio: " + medicamento.getPrecio()));
+//                }
+//
+//                document.add(new Paragraph("Tratamiento: " + factura.getVisita().getTratamiento().getTipoDeTratamiento()));
+//                document.add(new Paragraph("Precio: " + factura.getVisita().getTratamiento().getPrecio()));
+//
+//                // Calcular el total y agregarlo al PDF.               
+//                document.add(new Paragraph("Total: " + precioTotal(factura.getVisita().getTratamiento())));
+//
+//                document.close();
+//                JOptionPane.showMessageDialog(null, "El documento PDF de la factura ha sido generado con éxito.");
+//            } catch (DocumentException | FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    } 
 }

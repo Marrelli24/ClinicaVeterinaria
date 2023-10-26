@@ -68,7 +68,9 @@ public class ListarMascotas extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jBnuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/chico1.png"))); // NOI18N
         jBnuevo.setText("Nuevo");
+        jBnuevo.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jBnuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBnuevoActionPerformed(evt);
@@ -81,7 +83,9 @@ public class ListarMascotas extends javax.swing.JInternalFrame {
             }
         });
 
+        jBsalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/logout.png"))); // NOI18N
         jBsalir.setText("Salir");
+        jBsalir.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jBsalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBsalirActionPerformed(evt);
@@ -123,7 +127,7 @@ public class ListarMascotas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTdniCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBnuevo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBsalir)

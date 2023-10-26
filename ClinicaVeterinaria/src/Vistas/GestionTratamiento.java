@@ -101,21 +101,27 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Medicamento:");
 
+        JBAddTratamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/tratamiento1.png"))); // NOI18N
         JBAddTratamiento.setText("Nuevo");
+        JBAddTratamiento.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         JBAddTratamiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBAddTratamientoActionPerformed(evt);
             }
         });
 
+        JBEditTratamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/disk.png"))); // NOI18N
         JBEditTratamiento.setText("Guardar");
+        JBEditTratamiento.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         JBEditTratamiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBEditTratamientoActionPerformed(evt);
             }
         });
 
+        JBExitTratamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/logout.png"))); // NOI18N
         JBExitTratamiento.setText("Salir");
+        JBExitTratamiento.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         JBExitTratamiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBExitTratamientoActionPerformed(evt);
@@ -132,7 +138,7 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
             }
         });
 
-        JBAddMedicina.setText("+");
+        JBAddMedicina.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/anadir1.png"))); // NOI18N
         JBAddMedicina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBAddMedicinaActionPerformed(evt);
@@ -149,14 +155,15 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
 
         JLPrecioTotal.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
 
-        JBListaMed.setText("List");
+        JBListaMed.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/lista-de-verificacion1.png"))); // NOI18N
+        JBListaMed.setText("Lista");
         JBListaMed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBListaMedActionPerformed(evt);
             }
         });
 
-        JBReset.setText("-");
+        JBReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/menos1.png"))); // NOI18N
         JBReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBResetActionPerformed(evt);
@@ -171,8 +178,7 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(JBAddTratamiento)
-                        .addGap(59, 59, 59)
+                        .addGap(147, 147, 147)
                         .addComponent(JBEditTratamiento)
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(JBExitTratamiento))
@@ -181,7 +187,9 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(JBAddTratamiento)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -190,7 +198,7 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                                 .addComponent(JBAddMedicina)
                                 .addGap(18, 18, 18)
                                 .addComponent(JBReset)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                                 .addComponent(JBListaMed))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(JTTituloTratamiento)
@@ -212,7 +220,7 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(JFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE))
+                .addComponent(JFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,14 +250,16 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                     .addComponent(JLPrecioMed, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(JLPrecioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JBExitTratamiento)
                     .addComponent(JBEditTratamiento)
                     .addComponent(JBAddTratamiento))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(JFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(JFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();

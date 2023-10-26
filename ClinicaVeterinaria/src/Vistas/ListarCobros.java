@@ -74,7 +74,7 @@ public class ListarCobros extends javax.swing.JInternalFrame {
         jbGenerarPdf = new javax.swing.JButton();
 
         bgPagos.add(jrbArancelado);
-        jrbArancelado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jrbArancelado.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jrbArancelado.setText("Arancelado");
         jrbArancelado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,7 +83,7 @@ public class ListarCobros extends javax.swing.JInternalFrame {
         });
 
         bgPagos.add(jrbNoArancelado);
-        jrbNoArancelado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jrbNoArancelado.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jrbNoArancelado.setText("No arancelado");
         jrbNoArancelado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,13 +104,20 @@ public class ListarCobros extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtLista);
 
+        jbSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/logout.png"))); // NOI18N
         jbSalir.setText("Salir");
+        jbSalir.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        jLabel1.setText("Cobros");
+        jLabel1.setText("Lista de cobros");
 
         bgPagos.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jRadioButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jRadioButton1.setText("Todos");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,7 +125,9 @@ public class ListarCobros extends javax.swing.JInternalFrame {
             }
         });
 
+        jbGenerarPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/archivo-pdf1.png"))); // NOI18N
         jbGenerarPdf.setText("Generar PDF");
+        jbGenerarPdf.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jbGenerarPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbGenerarPdfActionPerformed(evt);
@@ -132,23 +141,26 @@ public class ListarCobros extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
-                        .addComponent(jbGenerarPdf)
-                        .addGap(155, 155, 155)
-                        .addComponent(jbSalir))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(265, 265, 265)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(176, 176, 176)
+                                .addComponent(jRadioButton1)
+                                .addGap(36, 36, 36)
+                                .addComponent(jrbArancelado)))
+                        .addGap(16, 16, 16)
+                        .addComponent(jrbNoArancelado))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jrbArancelado)
-                        .addGap(18, 18, 18)
-                        .addComponent(jrbNoArancelado)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jbGenerarPdf)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jbSalir))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(15, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -157,15 +169,13 @@ public class ListarCobros extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jrbNoArancelado)
-                            .addComponent(jrbArancelado)
-                            .addComponent(jRadioButton1)))
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jrbArancelado)
+                    .addComponent(jrbNoArancelado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -173,7 +183,9 @@ public class ListarCobros extends javax.swing.JInternalFrame {
                     .addComponent(jbGenerarPdf))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(JFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGap(0, 441, Short.MAX_VALUE)
+                    .addComponent(JFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
@@ -194,6 +206,10 @@ public class ListarCobros extends javax.swing.JInternalFrame {
     private void jbGenerarPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGenerarPdfActionPerformed
         select();
     }//GEN-LAST:event_jbGenerarPdfActionPerformed
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -78,14 +78,18 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTableTratamientos);
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/logout.png"))); // NOI18N
         jButton1.setText("Salir");
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
+        JBEditTratamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/pen.png"))); // NOI18N
         JBEditTratamiento.setText("Editar");
+        JBEditTratamiento.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         JBEditTratamiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBEditTratamientoActionPerformed(evt);
@@ -102,7 +106,7 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
                 .addContainerGap(255, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(86, 86, 86)
-                .addComponent(JBEditTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JBEditTratamiento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(94, 94, 94))
@@ -117,7 +121,7 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(62, 62, 62)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JBEditTratamiento)
                     .addComponent(jButton1))

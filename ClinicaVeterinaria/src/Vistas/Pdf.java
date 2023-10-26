@@ -72,12 +72,13 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
         jlPrecio = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jbImprimir = new javax.swing.JButton();
+        jBsalir = new javax.swing.JButton();
 
         jpPDF.setBackground(new java.awt.Color(255, 255, 255));
         jpPDF.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel2.setText("Veterinaria");
+        jLabel2.setText("Clínica Veterinaria");
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Av. Universitaria s/n");
@@ -101,7 +102,7 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
         jlCliente.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel9.setText("Direccion:");
+        jLabel9.setText("Dirección:");
 
         jlDireccion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
@@ -111,7 +112,7 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
         jlFecha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel13.setText("Condicion:");
+        jLabel13.setText("Condición:");
 
         jLabel14.setText("Efectivo");
 
@@ -154,7 +155,7 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
         jlItem.setText("Item");
 
         jlDescripcion.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jlDescripcion.setText("Descripcion");
+        jlDescripcion.setText("Descripción");
 
         jlPrecio.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jlPrecio.setText("Precio");
@@ -181,15 +182,17 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpPDFLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jpPDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(jpPDFLayout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(jLabel2))
-                            .addComponent(jLabel4)
-                            .addGroup(jpPDFLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel5)))
-                        .addGap(73, 73, 73)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPDFLayout.createSequentialGroup()
+                                .addGroup(jpPDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addGroup(jpPDFLayout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel5)))
+                                .addGap(73, 73, 73))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPDFLayout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(51, 51, 51)))
                         .addComponent(jlLOGO, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpPDFLayout.createSequentialGroup()
                         .addGroup(jpPDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -311,10 +314,21 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
 
         jlLOGO.getAccessibleContext().setAccessibleDescription("");
 
+        jbImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/impresora1.png"))); // NOI18N
         jbImprimir.setText("Imprimir");
+        jbImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jbImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbImprimirActionPerformed(evt);
+            }
+        });
+
+        jBsalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/logout.png"))); // NOI18N
+        jBsalir.setText("Salir");
+        jBsalir.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jBsalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBsalirActionPerformed(evt);
             }
         });
 
@@ -326,14 +340,18 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbImprimir)
-                .addGap(32, 32, 32))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBsalir)
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpPDF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbImprimir)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbImprimir)
+                    .addComponent(jBsalir))
                 .addContainerGap())
         );
 
@@ -356,9 +374,14 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
         }
     }//GEN-LAST:event_jbImprimirActionPerformed
 
+    private void jBsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBsalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel iva;
+    private javax.swing.JButton jBsalir;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -422,7 +445,6 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
         int i = 1;
         int j = 0;
         for (Medicamento medicamento : tratamiento.getMedicamento()) {
-            System.out.println(jlPrecio.getHeight()+"");
             JLabel item = new JLabel(i + "");
             medicamentoentry.add(item);
             item.setBounds(jlItem.getX() + 15, jlItem.getY() + jlItem.getHeight()+j, item.getPreferredSize().width, item.getPreferredSize().height);

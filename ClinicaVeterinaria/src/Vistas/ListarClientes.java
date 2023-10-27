@@ -66,7 +66,7 @@ public class ListarClientes extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTableCliente);
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Apellido:");
 
         jTFApellidoCliente.addKeyListener(new java.awt.event.KeyAdapter() {

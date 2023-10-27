@@ -74,7 +74,7 @@ public class ListarCobros extends javax.swing.JInternalFrame {
         jbGenerarPdf = new javax.swing.JButton();
 
         bgPagos.add(jrbArancelado);
-        jrbArancelado.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jrbArancelado.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jrbArancelado.setText("Arancelado");
         jrbArancelado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,7 +83,7 @@ public class ListarCobros extends javax.swing.JInternalFrame {
         });
 
         bgPagos.add(jrbNoArancelado);
-        jrbNoArancelado.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jrbNoArancelado.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jrbNoArancelado.setText("No arancelado");
         jrbNoArancelado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,7 +117,7 @@ public class ListarCobros extends javax.swing.JInternalFrame {
         jLabel1.setText("Lista de cobros");
 
         bgPagos.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jRadioButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jRadioButton1.setText("Todos");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

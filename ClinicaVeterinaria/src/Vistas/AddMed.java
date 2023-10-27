@@ -26,8 +26,10 @@ public class AddMed extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Agregar Medicamento");
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Nombre:");
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Precio:");
 
         JTPrecioMed.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -36,14 +38,18 @@ public class AddMed extends javax.swing.JInternalFrame {
             }
         });
 
+        JBOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/disk.png"))); // NOI18N
         JBOk.setText("Guardar");
+        JBOk.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         JBOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBOkActionPerformed(evt);
             }
         });
 
+        JBCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/logout.png"))); // NOI18N
         JBCancel.setText("Salir");
+        JBCancel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         JBCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBCancelActionPerformed(evt);
@@ -65,7 +71,7 @@ public class AddMed extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JTNombreMed, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(JBOk)
@@ -88,7 +94,7 @@ public class AddMed extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JBOk)
                     .addComponent(JBCancel))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         pack();

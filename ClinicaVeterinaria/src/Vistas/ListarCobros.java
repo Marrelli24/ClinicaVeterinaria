@@ -4,22 +4,12 @@ import Entidades.Factura;
 import Entidades.Medicamento;
 import Entidades.Tratamiento;
 import Entidades.Visita;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
-import java.awt.Desktop;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -181,11 +171,9 @@ public class ListarCobros extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbSalir)
                     .addComponent(jbGenerarPdf))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(0, 441, Short.MAX_VALUE)
-                    .addComponent(JFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(JFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE))
         );
 
         pack();
@@ -318,43 +306,4 @@ public class ListarCobros extends javax.swing.JInternalFrame {
             escritorio.moveToFront(pdf);
         }
     }
-//    public void generarPDF() {
-//        Factura factura = new Factura();
-//        if (jtLista.getSelectedRow() > -1) {
-//            int fila = jtLista.getSelectedRow();
-//            int idVisita = Integer.parseInt(jtLista.getValueAt(fila, 0).toString());
-//            factura = Menu.facturaData.buscarFacturaPorIDVisita(idVisita);
-//
-//            String codigoFactura = String.format("%0" + 11 + "d", factura.getNroFactura());
-//
-//            Document document = new Document();
-//
-//            try {
-//                PdfWriter.getInstance(document, new FileOutputStream("Factura " + codigoFactura + ".pdf"));
-//                document.open();
-//
-//                // Agregar los datos de facturación al PDF.
-//                document.add(new Paragraph("Factura"));
-//                document.add(new Paragraph("Cliente: " + factura.getVisita().getMascota().getCliente().getApellido() + " " + factura.getVisita().getMascota().getCliente().getNombre()));
-//                document.add(new Paragraph("Dirección: " + factura.getVisita().getMascota().getCliente().getDireccion()));
-//
-//                // Agregar detalles de productos y precios.
-//                for (Medicamento medicamento : factura.getVisita().getTratamiento().getMedicamento()) {
-//                    document.add(new Paragraph("Medicamento: " + medicamento.getNombre()));
-//                    document.add(new Paragraph("Precio: " + medicamento.getPrecio()));
-//                }
-//
-//                document.add(new Paragraph("Tratamiento: " + factura.getVisita().getTratamiento().getTipoDeTratamiento()));
-//                document.add(new Paragraph("Precio: " + factura.getVisita().getTratamiento().getPrecio()));
-//
-//                // Calcular el total y agregarlo al PDF.               
-//                document.add(new Paragraph("Total: " + precioTotal(factura.getVisita().getTratamiento())));
-//
-//                document.close();
-//                JOptionPane.showMessageDialog(null, "El documento PDF de la factura ha sido generado con éxito.");
-//            } catch (DocumentException | FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    } 
 }

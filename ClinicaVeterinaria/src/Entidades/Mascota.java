@@ -14,11 +14,12 @@ public class Mascota {
     private double pesoPromedio;
     private LocalDate fechaNac;
     private Cliente cliente;
+    private boolean estado;
 
     public Mascota() {
     }
 
-    public Mascota(String alias, String sexo, String especie, String raza, String colorPelo, double pesoActual, double pesoPromedio, LocalDate fechaNac, Cliente cliente) {
+    public Mascota(String alias, String sexo, String especie, String raza, String colorPelo, double pesoActual, double pesoPromedio, LocalDate fechaNac, Cliente cliente, boolean estado) {
         this.alias = alias;
         this.sexo = sexo;
         this.especie = especie;
@@ -30,7 +31,7 @@ public class Mascota {
         this.cliente = cliente;
     }
 
-    public Mascota(int idMascota, String alias, String sexo, String especie, String raza, String colorPelo, double pesoActual, double pesoPromedio, LocalDate fechaNac, Cliente cliente) {
+    public Mascota(int idMascota, String alias, String sexo, String especie, String raza, String colorPelo, double pesoActual, double pesoPromedio, LocalDate fechaNac, Cliente cliente, boolean estado) {
         this.idMascota = idMascota;
         this.alias = alias;
         this.sexo = sexo;
@@ -41,6 +42,7 @@ public class Mascota {
         this.pesoPromedio = pesoPromedio;
         this.fechaNac = fechaNac;
         this.cliente = cliente;
+        this.estado = estado;
     }
 
     public Mascota(String alias, String sexo, String especie, String raza, String colorPelo, LocalDate fechaNac, Cliente cliente) {
@@ -51,6 +53,7 @@ public class Mascota {
         this.colorPelo = colorPelo;
         this.fechaNac = fechaNac;
         this.cliente = cliente;
+        this.estado = estado;
     }
 
     public int getIdMascota() {
@@ -100,13 +103,15 @@ public class Mascota {
     public void setColorPelo(String colorPelo) {
         this.colorPelo = colorPelo;
     }
-   public double getPesoActual() {
+
+    public double getPesoActual() {
         return pesoActual;
     }
 
-    public void setPesoActual (double pesoActual) {
+    public void setPesoActual(double pesoActual) {
         this.pesoActual = pesoActual;
     }
+
     public double getPesoPromedio() {
         return pesoPromedio;
     }
@@ -129,6 +134,14 @@ public class Mascota {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @Override

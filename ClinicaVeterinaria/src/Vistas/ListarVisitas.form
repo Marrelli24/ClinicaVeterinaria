@@ -78,7 +78,7 @@
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Component id="JFondo" alignment="0" pref="709" max="32767" attributes="0"/>
+              <Component id="jLabel3" alignment="0" pref="705" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -106,7 +106,7 @@
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Component id="JFondo" alignment="1" pref="508" max="32767" attributes="0"/>
+              <Component id="jLabel3" alignment="0" pref="490" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -217,8 +217,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbListaClientesActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="JFondo">
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -226,6 +224,8 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Lista de visitas"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
     </Component>
   </SubComponents>
 </Form>

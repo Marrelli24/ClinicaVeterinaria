@@ -245,7 +245,7 @@ public class VisitaData {
     public double pesoPromedio(int id) {
         double pesoPromedio = 0;
         int x = 0;
-        String sql = "SELECT COUNT(fechaVisita) AS cantidad, SUM(peso) AS total FROM ( SELECT fechaVisita, peso FROM visita WHERE idMascota = ? ORDER BY fechaVisita DESC LIMIT 3 ) subquery;";
+        String sql = "SELECT COUNT(fechaVisita) AS cantidad, SUM(peso) AS total FROM ( SELECT fechaVisita, peso FROM visita WHERE idMascota = ? ORDER BY fechaVisita DESC LIMIT 10 ) subquery;";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);

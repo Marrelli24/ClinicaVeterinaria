@@ -10,8 +10,9 @@ public class Cliente {
     private String direccion;
     private String nombreAlterno;
     private int contactoAlter;
+    private boolean estado;
 
-    public Cliente(int idCliente, int dni, String nombre, String apellido, int telefono, String direccion,String nombreAlterno, int contactoAlter) {
+    public Cliente(int idCliente, int dni, String nombre, String apellido, int telefono, String direccion,String nombreAlterno, int contactoAlter,boolean estado) {
         this.idCliente = idCliente;
         this.dni = dni;
         this.nombre = nombre;
@@ -20,9 +21,10 @@ public class Cliente {
         this.direccion = direccion;
         this.nombreAlterno = nombreAlterno;
         this.contactoAlter = contactoAlter;
+        this.estado = estado;
     }
 
-    public Cliente(int dni, String nombre, String apellido, int telefono, String direccion,String nombreAlterno, int contactoAlter) {
+    public Cliente(int dni, String nombre, String apellido, int telefono, String direccion,String nombreAlterno, int contactoAlter,boolean estado) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -30,6 +32,7 @@ public class Cliente {
         this.direccion = direccion;
         this.nombreAlterno = nombreAlterno;
         this.contactoAlter = contactoAlter;
+         this.estado = estado;
     }
 
     public Cliente() {
@@ -97,6 +100,14 @@ public class Cliente {
 
     public void setContactoAlter(int contactoAlter) {
         this.contactoAlter = contactoAlter;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @Override

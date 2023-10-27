@@ -4,6 +4,7 @@ import Entidades.Cliente;
 import Entidades.Mascota;
 import Entidades.Tratamiento;
 import Entidades.Visita;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -118,6 +119,12 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setText("Mascotas:");
 
+        jcbListaMascotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbListaMascotasActionPerformed(evt);
+            }
+        });
+
         jbListaClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/lista-de-verificacion1.png"))); // NOI18N
         jbListaClientes.setText("Lista Clientes");
         jbListaClientes.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -161,6 +168,12 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel7.setText("Tratamiento:");
+
+        jcbTratamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbTratamientoActionPerformed(evt);
+            }
+        });
 
         jbNueva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/nuevo.png"))); // NOI18N
         jbNueva.setText("Nueva");
@@ -461,6 +474,30 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
         limpiar();
     }//GEN-LAST:event_jbLimpiarActionPerformed
+
+    private void jcbTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTratamientoActionPerformed
+        String[] comboBoxT = jcbTratamiento.getSelectedItem().toString().split(",");
+        int idTratamiento = Integer.parseInt(comboBoxT[0].trim());
+        Tratamiento tratamiento = new Tratamiento();
+        tratamiento = Menu.tratamientoData.buscarTratamiento(idTratamiento);
+        if (tratamiento.isActivo()) {
+            jcbTratamiento.setBackground(Color.GREEN);
+        } else {
+            jcbTratamiento.setBackground(Color.RED);
+        }
+    }//GEN-LAST:event_jcbTratamientoActionPerformed
+
+    private void jcbListaMascotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListaMascotasActionPerformed
+        String[] comboBoxM = jcbListaMascotas.getSelectedItem().toString().split(",");
+        int idMascota = Integer.parseInt(comboBoxM[0].trim());
+        Mascota mascota = new Mascota();
+        mascota = Menu.mascotaData.buscarMascotaPorId(idMascota);
+        if (mascota.isEstado()) {
+            jcbListaMascotas.setBackground(Color.GREEN);
+        } else {
+            jcbListaMascotas.setBackground(Color.RED);
+        }
+    }//GEN-LAST:event_jcbListaMascotasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

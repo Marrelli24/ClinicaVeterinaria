@@ -2,6 +2,7 @@ package Vistas;
 
 import Entidades.Medicamento;
 import Entidades.Tratamiento;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -13,7 +14,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -40,6 +40,9 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         initComponents();
         wallpaper();
         this.escritorio = escritorio;
+        jrbEstado.setSelected(true);
+        jrbEstado.setEnabled(false);
+        botonIcon(true);
     }
 
     public GestionTratamiento(Tratamiento trat, JDesktopPane escritorio) {
@@ -48,11 +51,14 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         this.save = trat;
         this.escritorio = escritorio;
         guardarId(trat);
-
+        jrbEstado.setEnabled(false);
         //double precioFinal = trat.getMedicamento().getPrecio() + trat.getPrecio();
         JTDescripcionTratamiento.setText(trat.getDescripcion());
         JTPrecioTratamiento.setText(String.format("%.2f", trat.getPrecio()));
         JTTituloTratamiento.setText(trat.getTipoDeTratamiento());
+        jrbEstado.setSelected(trat.isActivo());
+        botonIcon(trat.isActivo());
+        jBBajaAlta.setEnabled(true);
         // JLPrecioMed.setText(String.format("%.2f", trat.getMedicamento().getPrecio()));
         //JLPrecioTotal.setText(String.format("%.2f", precioFinal));
         calculoTotal();
@@ -83,6 +89,10 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         JBListaMed = new javax.swing.JButton();
         JBReset = new javax.swing.JButton();
         JFondo = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jpEstado = new javax.swing.JPanel();
+        jrbEstado = new javax.swing.JRadioButton();
+        jBBajaAlta = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -98,11 +108,9 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         jLabel3.setText("Precio:");
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Descripcion:");
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Medicamento:");
 
         JBAddTratamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/tratamiento1.png"))); // NOI18N
@@ -176,6 +184,34 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel12.setText("Estado:");
+
+        jrbEstado.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+
+        javax.swing.GroupLayout jpEstadoLayout = new javax.swing.GroupLayout(jpEstado);
+        jpEstado.setLayout(jpEstadoLayout);
+        jpEstadoLayout.setHorizontalGroup(
+            jpEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpEstadoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jrbEstado)
+                .addContainerGap(91, Short.MAX_VALUE))
+        );
+        jpEstadoLayout.setVerticalGroup(
+            jpEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jrbEstado)
+        );
+
+        jBBajaAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/download.png"))); // NOI18N
+        jBBajaAlta.setText("Baja");
+        jBBajaAlta.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jBBajaAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBajaAltaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -184,13 +220,20 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(JTTituloTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(JTPrecioTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(42, 42, 42)
+                                .addComponent(jpEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(JTTituloTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(JTPrecioTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -200,7 +243,8 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(JBAddTratamiento, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -209,31 +253,32 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                                 .addComponent(JBAddMedicina)
                                 .addGap(18, 18, 18)
                                 .addComponent(JBReset)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                                 .addComponent(JBListaMed))
                             .addComponent(JTDescripcionTratamiento)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
                                 .addComponent(JLPrecioMed, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(JLPrecioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JBAddTratamiento)
-                        .addGap(70, 70, 70)
-                        .addComponent(JBEditTratamiento)
-                        .addGap(65, 65, 65)
-                        .addComponent(JBExitTratamiento)
-                        .addGap(117, 117, 117)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(63, 63, 63)
+                                .addComponent(JBEditTratamiento)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBBajaAlta)
+                                .addGap(82, 82, 82)
+                                .addComponent(JBExitTratamiento)
+                                .addGap(38, 38, 38)))))
                 .addGap(40, 40, 40))
             .addGroup(layout.createSequentialGroup()
                 .addGap(253, 253, 253)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(JFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE))
+                .addComponent(JFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,16 +286,19 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(JTTituloTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(JTPrecioTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(JTTituloTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(JTPrecioTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(JTDescripcionTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4))
+                    .addComponent(jpEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JTDescripcionTratamiento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -272,13 +320,11 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JBExitTratamiento)
                     .addComponent(JBEditTratamiento)
-                    .addComponent(JBAddTratamiento))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addComponent(JBAddTratamiento)
+                    .addComponent(jBBajaAlta))
+                .addContainerGap(53, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(JFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(JFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
         );
 
         pack();
@@ -345,6 +391,31 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         limpiar();
     }//GEN-LAST:event_JBAddTratamientoActionPerformed
 
+    private void jBBajaAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBajaAltaActionPerformed
+        if (save != null) {
+            int response;
+            if (jrbEstado.isSelected()) {
+
+                response = JOptionPane.showConfirmDialog(null, "Esta seguro de dar de baja al tratamiento?", "Dar de baja", JOptionPane.YES_NO_OPTION);
+
+                if (response == JOptionPane.YES_OPTION) {
+                    Menu.tratamientoData.altaOBajaTratamiento(save);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo dar de baja al tratamiento");
+                }
+            } else {
+                response = JOptionPane.showConfirmDialog(null, "Esta seguro de dar de alta al tratamiento?", "Dar de Alta", JOptionPane.YES_NO_OPTION);
+
+                if (response == JOptionPane.YES_OPTION) {
+                    Menu.tratamientoData.altaOBajaTratamiento(save);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo dar de alta al tratamiento");
+                }
+            }
+            limpiar();
+        }
+    }//GEN-LAST:event_jBBajaAltaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBAddMedicina;
@@ -359,14 +430,18 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
     private javax.swing.JTextField JTDescripcionTratamiento;
     private javax.swing.JTextField JTPrecioTratamiento;
     private javax.swing.JTextField JTTituloTratamiento;
+    private javax.swing.JButton jBBajaAlta;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jpEstado;
+    private javax.swing.JRadioButton jrbEstado;
     // End of variables declaration//GEN-END:variables
 
     private void edit() {
@@ -516,7 +591,9 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
             JTTituloTratamiento.setText("");
             JLPrecioTotal.setText("");
             JLPrecioMed.setText("");
-
+            botonIcon(true);
+            jBBajaAlta.setEnabled(false);
+            jrbEstado.setSelected(true);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -534,5 +611,19 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         JFondo.setHorizontalAlignment(JLabel.CENTER);
         JFondo.setVerticalTextPosition(JLabel.CENTER);
         JFondo.setHorizontalTextPosition(JLabel.CENTER);
+    }
+
+    private void botonIcon(boolean estado) {
+        if (estado) {
+            jBBajaAlta.setIcon(new ImageIcon(getClass().getResource("/Img/download.png")));
+            jBBajaAlta.setText("Baja");
+            jrbEstado.setText("Activo");
+            jpEstado.setBackground(Color.GREEN);
+        } else {
+            jBBajaAlta.setIcon(new ImageIcon(getClass().getResource("/Img/active.png")));
+            jBBajaAlta.setText("Alta");
+            jrbEstado.setText("Inactivo");
+            jpEstado.setBackground(Color.RED);
+        }
     }
 }

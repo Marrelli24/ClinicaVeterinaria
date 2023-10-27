@@ -21,7 +21,7 @@ public class MascotaData {
     }
 
     public void guardarMascota(Mascota mascota) {
-        String sql = "INSERT INTO Mascota (alias, sexo, especie, raza, colorPelo, fechaNac, idCliente) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Mascota (alias, sexo, especie, raza, colorPelo, fechaNac, idCliente, estado) VALUES (?,?,?,?,?,?,?,?)";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -32,7 +32,7 @@ public class MascotaData {
             ps.setString(5, mascota.getColorPelo());
             ps.setDate(6, Date.valueOf(mascota.getFechaNac()));
             ps.setInt(7, mascota.getCliente().getIdCliente());
-
+            ps.setBoolean(8, true);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
 
@@ -61,7 +61,7 @@ public class MascotaData {
             ps.setDouble(7, mascota.getPesoPromedio());
             ps.setDate(8, Date.valueOf(mascota.getFechaNac()));
             ps.setInt(9, mascota.getCliente().getIdCliente());
-            ps.setInt(10, mascota.getIdMascota());
+            ps.setBoolean(10, mascota.isEstado());            
 
             int rs = ps.executeUpdate();
             if (rs == 1) {
@@ -93,10 +93,47 @@ public class MascotaData {
         }
     }
 
+    public void baja(int id) {
+        String sql = "UPDATE mascota SET estado = false WHERE idMascota = ?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int rs = ps.executeUpdate();
+            if (rs == 1) {
+                JOptionPane.showMessageDialog(null, "Se dio de baja la mascota");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo dar de baja la mascota");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar la baja en la base de datos");
+        }
+    }
+
+    public void reActivarAlumno(int id) {
+        String sql = "UPDATE mascota SET estado = true WHERE idMascota = ?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int rs = ps.executeUpdate();
+            if (rs == 1) {
+                JOptionPane.showMessageDialog(null, "Se dio de alta la mascota");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo reactivar la mascota");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error el alta al alumno la base de datos");
+        }
+    }
     public ArrayList<Mascota> listarMascotas() {
         ArrayList<Mascota> lista = new ArrayList<>();
         Mascota mascota = null;
-        String sql = "SELECT idMascota, alias, sexo, especie, raza, colorPelo, peso, pesoPromedio, fechaNac, idCliente FROM mascota";
+        String sql = "SELECT idMascota, alias, sexo, especie, raza, colorPelo, peso, pesoPromedio, fechaNac, idCliente, estado FROM mascota";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -113,6 +150,7 @@ public class MascotaData {
                 mascota.setPesoPromedio(rs.getDouble("pesoPromedio"));
                 mascota.setFechaNac(rs.getDate("fechaNac").toLocalDate());
                 mascota.setCliente(clienteData.buscarClientePorId(rs.getInt("idCliente")));
+                mascota.setEstado(rs.getBoolean("estado"));
                 lista.add(mascota);
             }
             ps.close();
@@ -125,7 +163,7 @@ public class MascotaData {
 
     public Mascota buscarMascotaPorId(int id) {
         Mascota mascota = null;
-        String sql = ("SELECT idMascota, alias, sexo, especie, raza, colorPelo, peso, pesoPromedio, fechaNac, idCliente FROM mascota WHERE idMascota=?");
+        String sql = ("SELECT idMascota, alias, sexo, especie, raza, colorPelo, peso, pesoPromedio, fechaNac, idCliente, estado FROM mascota WHERE idMascota=?");
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -143,6 +181,7 @@ public class MascotaData {
                 mascota.setPesoPromedio(rs.getDouble("pesoPromedio"));
                 mascota.setFechaNac(rs.getDate("fechaNac").toLocalDate());
                 mascota.setCliente(clienteData.buscarClientePorId(rs.getInt("idCliente")));
+                mascota.setEstado(rs.getBoolean("estado"));
             }
 
         } catch (SQLException ex) {
@@ -155,7 +194,7 @@ public class MascotaData {
     public ArrayList<Mascota> buscarMascotaPorCliente(int id) {
         ArrayList<Mascota> lista = new ArrayList<>();
         Mascota mascota = null;
-        String sql = ("SELECT idMascota, alias, sexo, especie, raza, colorPelo, peso, pesoPromedio, fechaNac, idCliente FROM mascota WHERE idCliente=?");
+        String sql = ("SELECT idMascota, alias, sexo, especie, raza, colorPelo, peso, pesoPromedio, fechaNac, idCliente, estado FROM mascota WHERE idCliente=?");
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -173,6 +212,7 @@ public class MascotaData {
                 mascota.setPesoPromedio(rs.getDouble("pesoPromedio"));
                 mascota.setFechaNac(rs.getDate("fechaNac").toLocalDate());
                 mascota.setCliente(clienteData.buscarClientePorId(rs.getInt("idCliente")));
+                mascota.setEstado(rs.getBoolean("estado"));
                 lista.add(mascota);
             }
 
@@ -215,6 +255,7 @@ public class MascotaData {
                 mascota.setPesoPromedio(rs.getDouble("pesoPromedio"));
                 mascota.setFechaNac(rs.getDate("fechaNac").toLocalDate());
                 mascota.setCliente(clienteData.buscarClientePorId(rs.getInt("idCliente")));
+                mascota.setEstado(rs.getBoolean("estado"));
                 lista.add(mascota);
             }
             ps.close();

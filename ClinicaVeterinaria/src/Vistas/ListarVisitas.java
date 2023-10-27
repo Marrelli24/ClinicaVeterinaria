@@ -68,8 +68,8 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
         jcbTratamiento = new javax.swing.JComboBox<>();
         jlCliente = new javax.swing.JLabel();
         jbListaClientes = new javax.swing.JButton();
-        JFondo = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -186,7 +186,7 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
                             .addComponent(jlCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(JFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE))
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +210,7 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
                 .addComponent(jbSalir)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(JFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE))
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
         );
 
         pack();
@@ -263,9 +263,9 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel JFondo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
@@ -480,10 +480,10 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
                 this.getWidth(),
                 this.getHeight(),
                 Image.SCALE_DEFAULT));
-        JFondo.setIcon(i);
-        JFondo.setVerticalAlignment(JLabel.CENTER);
-        JFondo.setHorizontalAlignment(JLabel.CENTER);
-        JFondo.setVerticalTextPosition(JLabel.CENTER);
-        JFondo.setHorizontalTextPosition(JLabel.CENTER);
+        jLabel3.setIcon(i);
+        jLabel3.setVerticalAlignment(JLabel.CENTER);
+        jLabel3.setHorizontalAlignment(JLabel.CENTER);
+        jLabel3.setVerticalTextPosition(JLabel.CENTER);
+        jLabel3.setHorizontalTextPosition(JLabel.CENTER);
     }
 }

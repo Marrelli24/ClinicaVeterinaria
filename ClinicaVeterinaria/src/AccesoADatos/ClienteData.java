@@ -20,7 +20,7 @@ public class ClienteData {
     }
 
     public void guardarCliente(Cliente cliente) {
-        String sql = "INSERT INTO cliente(dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO cliente(dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo, estado) VALUES (?,?,?,?,?,?,?,?)";
         PreparedStatement ps;
 
         try {
@@ -32,6 +32,7 @@ public class ClienteData {
             ps.setString(5, cliente.getDireccion());
             ps.setString(6, cliente.getNombreAlterno());
             ps.setInt(7, cliente.getContactoAlter());
+            ps.setBoolean(8, true);
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -45,7 +46,7 @@ public class ClienteData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en base de datos"+ ex);
+            JOptionPane.showMessageDialog(null, "Error en base de datos" + ex);
         }
 
     }
@@ -93,10 +94,48 @@ public class ClienteData {
         }
     }
 
+    public void baja(int id) {
+        String sql = "UPDATE cliente SET estado = false WHERE idCliente = ?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int rs = ps.executeUpdate();
+            if (rs == 1) {
+                JOptionPane.showMessageDialog(null, "Se dio de baja el cliente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo dar de baja el cliente");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar la baja en la base de datos");
+        }
+    }
+
+    public void reActivarAlumno(int id) {
+        String sql = "UPDATE cliente SET estado = true WHERE idCliente = ?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int rs = ps.executeUpdate();
+            if (rs == 1) {
+                JOptionPane.showMessageDialog(null, "Se dio de alta el cliente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo reactivar el cliente");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error el alta al alumno la base de datos");
+        }
+    }
+
     public ArrayList<Cliente> listarClientes() {
         ArrayList<Cliente> lista = new ArrayList<>();
         Cliente cliente = null;
-        String sql = "SELECT idCliente, dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo FROM cliente ORDER BY apellido, nombre;";
+        String sql = "SELECT idCliente, dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo, estado FROM cliente ORDER BY apellido, nombre;";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -111,6 +150,7 @@ public class ClienteData {
                 cliente.setDireccion(rs.getString("direccion"));
                 cliente.setNombreAlterno(rs.getString("nombreAlterno"));
                 cliente.setContactoAlter(rs.getInt("contactoAlternativo"));
+                cliente.setEstado(rs.getBoolean("estado"));
                 lista.add(cliente);
             }
             ps.close();
@@ -123,7 +163,7 @@ public class ClienteData {
 
     public Cliente buscarClientePorId(int id) {
         Cliente cliente = null;
-        String sql = ("SELECT idCliente, dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo FROM cliente WHERE idCliente=?");
+        String sql = ("SELECT idCliente, dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo, estado FROM cliente WHERE idCliente=?");
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -139,6 +179,7 @@ public class ClienteData {
                 cliente.setDireccion(rs.getString("direccion"));
                 cliente.setNombreAlterno(rs.getString("nombreAlterno"));
                 cliente.setContactoAlter(rs.getInt("contactoAlternativo"));
+                cliente.setEstado(rs.getBoolean("estado"));
             }
 
         } catch (SQLException ex) {
@@ -150,7 +191,7 @@ public class ClienteData {
 
     public Cliente buscarClientePorDni(int dni) {
         Cliente cliente = null;
-        String sql = ("SELECT idCliente, dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo FROM cliente WHERE dni=?");
+        String sql = ("SELECT idCliente, dni, nombre, apellido, telefono, direccion, nombreAlterno, contactoAlternativo, estado FROM cliente WHERE dni=?");
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -166,6 +207,7 @@ public class ClienteData {
                 cliente.setDireccion(rs.getString("direccion"));
                 cliente.setNombreAlterno(rs.getString("nombreAlterno"));
                 cliente.setContactoAlter(rs.getInt("contactoAlternativo"));
+                cliente.setEstado(rs.getBoolean("estado"));
             }
 
         } catch (SQLException ex) {
@@ -174,13 +216,5 @@ public class ClienteData {
 
         return cliente;
     }
-    
-    public void altaBaja(){
-        
-        
-        
-    }
-    
-    
-    
+
 }

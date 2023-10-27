@@ -178,5 +178,41 @@ public class TratamientoData {
 
         return lista;
     }
+ public ArrayList<Tratamiento> listarTratamientoActivos() {
+        ArrayList<Tratamiento> lista = new ArrayList<>();
+        Tratamiento tratamiento = null;
+        ArrayList<Medicamento> medicamento = new ArrayList<>();
+        
+        String sql = "SELECT idTratamiento, tipoDeTratamiento, descripcion, idMedicamento, importe, activo FROM tratamiento WHERE activo = 1";
+        PreparedStatement ps;
 
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                tratamiento = new Tratamiento();
+                tratamiento.setIdTratamiento(rs.getInt("idTratamiento"));
+                tratamiento.setTipoDeTratamiento(rs.getString("tipoDeTratamiento"));
+                tratamiento.setDescripcion(rs.getString("descripcion"));
+                
+                String[] idMedicina = rs.getString("idMedicamento").split(",");
+                for(String medis: idMedicina){
+                    int medicinas = Integer.parseInt(medis);
+                    medicamento.add(Menu.medicamentoData.buscarMedicamento(medicinas));
+                }
+                tratamiento.setMedicamento(medicamento);
+               
+                tratamiento.setPrecio(rs.getDouble("importe"));
+                tratamiento.setActivo(rs.getBoolean("activo"));
+
+                lista.add(tratamiento);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en cargar la lista de tratamientos");
+        }
+
+        return lista;
+    }
 }

@@ -82,7 +82,7 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setPreferredSize(new java.awt.Dimension(660, 510));
+        setPreferredSize(new java.awt.Dimension(725, 545));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Dni del Cliente:");
@@ -208,9 +208,9 @@ public class ListarVisitas extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbSalir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE))
         );
 
         pack();

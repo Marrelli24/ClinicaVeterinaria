@@ -144,7 +144,7 @@ public class TratamientoData {
     public ArrayList<Tratamiento> listarTratamiento() {
         ArrayList<Tratamiento> lista = new ArrayList<>();
         Tratamiento tratamiento = null;
-        ArrayList<Medicamento> medicamento = new ArrayList<>();
+        
         
         String sql = "SELECT idTratamiento, tipoDeTratamiento, descripcion, idMedicamento, importe, activo FROM tratamiento";
         PreparedStatement ps;
@@ -152,17 +152,18 @@ public class TratamientoData {
         try {
             ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
+            
+            while (rs.next()) { 
+                ArrayList<Medicamento> medicamento = new ArrayList<>();
                 tratamiento = new Tratamiento();
                 tratamiento.setIdTratamiento(rs.getInt("idTratamiento"));
                 tratamiento.setTipoDeTratamiento(rs.getString("tipoDeTratamiento"));
                 tratamiento.setDescripcion(rs.getString("descripcion"));
                 
-                String[] idMedicina = rs.getString("idMedicamento").split(",");
+                String[] idMedicina = rs.getString("idMedicamento").split(",");              
                 for(String medis: idMedicina){
                     int medicinas = Integer.parseInt(medis);
-                    medicamento.add(Menu.medicamentoData.buscarMedicamento(medicinas));
+                    medicamento.add(Menu.medicamentoData.buscarMedicamento(medicinas));                
                 }
                 tratamiento.setMedicamento(medicamento);
                
@@ -170,6 +171,7 @@ public class TratamientoData {
                 tratamiento.setActivo(rs.getBoolean("activo"));
 
                 lista.add(tratamiento);
+                
             }
             ps.close();
         } catch (SQLException ex) {

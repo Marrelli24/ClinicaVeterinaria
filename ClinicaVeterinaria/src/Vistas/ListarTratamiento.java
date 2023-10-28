@@ -169,6 +169,7 @@ public class ListarTratamiento extends javax.swing.JInternalFrame {
 
     private void cargarTabla() {
         for (Tratamiento trat : Menu.tratamientoData.listarTratamiento()) {
+            System.out.println(trat.getMedicamento());
             modelo.addRow(new Object[]{
                 trat.getIdTratamiento(),
                 trat.getTipoDeTratamiento(),

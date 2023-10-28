@@ -58,7 +58,7 @@ public class Tratamiento {
     public ArrayList<Medicamento> getMedicamento() {
         return medicamento;
     }
-
+    
     public void setMedicamento(ArrayList<Medicamento> medicamento) {
         this.medicamento = medicamento;
     }

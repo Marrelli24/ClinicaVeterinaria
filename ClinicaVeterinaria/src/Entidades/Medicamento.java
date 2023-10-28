@@ -52,5 +52,9 @@ public class Medicamento {
         return idMedicamento + ", " + nombre;
     }
     
+    public String soloString() {
+        return nombre;
+    }
+    
     
 }

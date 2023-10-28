@@ -447,32 +447,44 @@ public class Pdf extends javax.swing.JInternalFrame implements Printable {
         for (Medicamento medicamento : tratamiento.getMedicamento()) {
             JLabel item = new JLabel(i + "");
             medicamentoentry.add(item);
-            item.setBounds(jlItem.getX() + 15, jlItem.getY() + jlItem.getHeight()+j, item.getPreferredSize().width, item.getPreferredSize().height);
+            item.setBounds(jlItem.getX() + 15, jlItem.getY() + jlItem.getHeight() + j, item.getPreferredSize().width, item.getPreferredSize().height);
 
             JLabel medic = new JLabel(medicamento.getNombre());
             medicamentoentry.add(medic);
-            medic.setBounds(jlDescripcion.getX() + 185, jlDescripcion.getY() + jlDescripcion.getHeight()+j, medic.getPreferredSize().width, medic.getPreferredSize().height);
+            medic.setBounds(jlDescripcion.getX() + 185, jlDescripcion.getY() + jlDescripcion.getHeight() + j, medic.getPreferredSize().width, medic.getPreferredSize().height);
 
             JLabel precio = new JLabel("$ " + medicamento.getPrecio());
             medicamentoentry.add(precio);
-            precio.setBounds(jlPrecio.getX() + 405, jlPrecio.getY() + jlPrecio.getHeight()+j, precio.getPreferredSize().width, precio.getPreferredSize().height);
+            precio.setBounds(jlPrecio.getX() + 405, jlPrecio.getY() + jlPrecio.getHeight() + j, precio.getPreferredSize().width, precio.getPreferredSize().height);
 
             precioM = precioM + medicamento.getPrecio();
-            j=j+20;
+            j = j + 20;
             i++;
         }
+        JLabel item = new JLabel(i + "");
+        medicamentoentry.add(item);
+        item.setBounds(jlItem.getX() + 15, jlItem.getY() + jlItem.getHeight() + j, item.getPreferredSize().width, item.getPreferredSize().height);
+
+        JLabel trat = new JLabel("Servicio: " + tratamiento.getTipoDeTratamiento());
+        medicamentoentry.add(trat);
+        trat.setBounds(jlDescripcion.getX() + 185, jlDescripcion.getY() + jlDescripcion.getHeight() + j, trat.getPreferredSize().width, trat.getPreferredSize().height);
+
+        JLabel precio = new JLabel("$ " + tratamiento.getPrecio());
+        medicamentoentry.add(precio);
+        precio.setBounds(jlPrecio.getX() + 405, jlPrecio.getY() + jlPrecio.getHeight() + j, precio.getPreferredSize().width, precio.getPreferredSize().height);
 
         double precioTotal = tratamiento.getPrecio() + precioM;
         subTotal.setText("$ " + precioTotal);
         double ivad = (precioTotal * 0.21);
         iva.setText("$ " + ivad);
-        total.setText("$ " +(ivad + precioTotal));
+        total.setText("$ " + (ivad + precioTotal));
     }
-         public void wallpaper() {
-        ImageIcon wallpaper = new ImageIcon("src/IMG/LOGO.png");
+
+    public void wallpaper() {
+        ImageIcon wallpaper = new ImageIcon("src/IMG/LOGO.jpg");
         Icon i = new ImageIcon(wallpaper.getImage().getScaledInstance(
-                this.getWidth(),
-                this.getHeight(),
+                jlLOGO.getWidth(),
+                jlLOGO.getHeight(),
                 Image.SCALE_DEFAULT));
         jlLOGO.setIcon(i);
         jlLOGO.setVerticalAlignment(JLabel.CENTER);

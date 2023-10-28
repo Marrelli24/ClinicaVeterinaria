@@ -35,7 +35,14 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         // Dibuja la imagen de fondo
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
-
+ public GestionTratamiento() {
+        initComponents();
+        wallpaper();       
+        jrbEstado.setSelected(true);
+        jrbEstado.setEnabled(false);
+        botonIcon(true);
+    }
+    
     public GestionTratamiento(JDesktopPane escritorio) {
         initComponents();
         wallpaper();
@@ -97,7 +104,7 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
         setClosable(true);
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel1.setText("Tratamientos");
+        jLabel1.setText("Gestion tratamientos");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -278,7 +285,7 @@ public class GestionTratamiento extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(JFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE))
+                .addComponent(JFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

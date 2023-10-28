@@ -100,7 +100,7 @@
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Component id="JFondo" alignment="1" pref="732" max="32767" attributes="0"/>
+              <Component id="JFondo" alignment="0" pref="732" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -169,7 +169,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial Black" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Tratamientos"/>
+        <Property name="text" type="java.lang.String" value="Gestion tratamientos"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

@@ -98,6 +98,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         JFondoVistas = new javax.swing.JLabel();
         jcbPago = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
+        jbNuevaTratamiento = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -232,6 +233,13 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel1.setText("Gestión de visita");
 
+        jbNuevaTratamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/anadir1.png"))); // NOI18N
+        jbNuevaTratamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNuevaTratamientoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -243,12 +251,13 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel9)
-                                    .addComponent(jLabel7))
+                                    .addComponent(jLabel7)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -260,7 +269,8 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jbNuevaMascota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jbNuevoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jbNuevoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jbNuevaTratamiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jbListaClientes)
@@ -279,9 +289,11 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(181, 181, 181)
                         .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(JFondoVistas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(JFondoVistas, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 317, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,9 +329,11 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel9)
                     .addComponent(jtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jcbTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(jcbTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbNuevaTratamiento))
                 .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbNueva)
@@ -327,7 +341,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                     .addComponent(jbEliminar)
                     .addComponent(jbSalir)
                     .addComponent(jbLimpiar))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(JFondoVistas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))
         );
@@ -393,12 +407,17 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                 }
                 Visita visita = new Visita(mascota, fechaV, detalles, peso, tratamiento, pago);
                 if (idVisita == 0) {
-                    Menu.visitaData.guardarVisita(visita);
-                    limpiar();
+                    if (mascota.isEstado() != false && tratamiento.isActivo() != false) {
+                        Menu.visitaData.guardarVisita(visita);
+                        limpiar();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Esta intentado ingrer una mascota o tratamiento inactivo");
+                    }
                 } else {
                     visita.setIdVisita(idVisita);
                     Menu.visitaData.editarVisita(visita);
                     limpiar();
+
                 }
             } catch (NumberFormatException ex) {
             }
@@ -488,16 +507,28 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbTratamientoActionPerformed
 
     private void jcbListaMascotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListaMascotasActionPerformed
-        String[] comboBoxM = jcbListaMascotas.getSelectedItem().toString().split(",");
-        int idMascota = Integer.parseInt(comboBoxM[0].trim());
-        Mascota mascota = new Mascota();
-        mascota = Menu.mascotaData.buscarMascotaPorId(idMascota);
-        if (mascota.isEstado()) {
-            jcbListaMascotas.setBackground(Color.GREEN);
-        } else {
-            jcbListaMascotas.setBackground(Color.RED);
+        try {
+            String[] comboBoxM = jcbListaMascotas.getSelectedItem().toString().split(",");
+            int idMascota = Integer.parseInt(comboBoxM[0].trim());
+            Mascota mascota = new Mascota();
+            mascota = Menu.mascotaData.buscarMascotaPorId(idMascota);
+            if (mascota.isEstado()) {
+                jcbListaMascotas.setBackground(Color.GREEN);
+            } else {
+                jcbListaMascotas.setBackground(Color.RED);
+            }
+        } catch (Exception e) {
         }
     }//GEN-LAST:event_jcbListaMascotasActionPerformed
+
+    private void jbNuevaTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevaTratamientoActionPerformed
+        GestionTratamiento gest = new GestionTratamiento();
+        escritorio.repaint();
+        gest.setVisible(true);
+        gest.isFocusable();
+        escritorio.add(gest);
+        escritorio.moveToFront(gest);
+    }//GEN-LAST:event_jbNuevaTratamientoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -517,6 +548,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbListaClientes;
     private javax.swing.JButton jbNueva;
     private javax.swing.JButton jbNuevaMascota;
+    private javax.swing.JButton jbNuevaTratamiento;
     private javax.swing.JButton jbNuevoCliente;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<String> jcbListaMascotas;
@@ -536,8 +568,13 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                 cliente = Menu.clienteData.buscarClientePorDni(Integer.parseInt(jtDni.getText()));
                 if (cliente != null) {
                     activarCampos();
-                    for (Mascota mascota : Menu.mascotaData.buscarMascotaPorCliente(cliente.getIdCliente())) {
-                        jcbListaMascotas.addItem(mascota.getIdMascota() + ", " + mascota.getAlias());
+                    if (Menu.mascotaData.buscarMascotaPorCliente(cliente.getIdCliente()) != null) {
+                        for (Mascota mascota : Menu.mascotaData.buscarMascotaPorCliente(cliente.getIdCliente())) {
+                            jcbListaMascotas.addItem(mascota.getIdMascota() + ", " + mascota.getAlias());
+                        }
+                    } else {
+                        desactivarCampos();
+                        jbNuevaMascota.setEnabled(true);
                     }
                 } else {
                     desactivarCampos();
@@ -545,10 +582,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
             } else {
                 jcbListaMascotas.removeAllItems();
             }
-            if (jcbListaMascotas.getItemAt(0) == null) {
-                desactivarCampos();
-                jbNuevaMascota.setEnabled(true);
-            }
+
         } catch (NumberFormatException e) {
         }
     }
@@ -596,6 +630,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                     int idCliente = (int) table.getValueAt(filaSeleccionada, 0);
                     for (Cliente cliente : Menu.clienteData.listarClientes()) {
                         if (cliente.getIdCliente() == idCliente) {
+                            jtDni.setText("");
                             jtDni.setText(cliente.getDni() + "");
                             buscarDni();
                             frame.setVisible(false);
@@ -749,5 +784,9 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
         JFondoVistas.setHorizontalAlignment(JLabel.CENTER);
         JFondoVistas.setVerticalTextPosition(JLabel.CENTER);
         JFondoVistas.setHorizontalTextPosition(JLabel.CENTER);
+    }
+
+    public void activo() {
+
     }
 }

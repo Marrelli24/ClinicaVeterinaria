@@ -494,7 +494,7 @@ public class GestionMascota extends javax.swing.JInternalFrame {
                 LocalDate fechaNac = jDCfechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
                 if (jRBmacho.isSelected()) {
-                    sexo = "macho";
+                    sexo = "Macho";
                 } else {
                     sexo = "Hembra";
                 }
@@ -506,7 +506,7 @@ public class GestionMascota extends javax.swing.JInternalFrame {
                     Menu.mascotaData.guardarMascota(mascota);
                 } else if (!jLidMascota.getText().isEmpty()) {
                     int id = Integer.parseInt(jLidMascota.getText());
-                    mascota.setIdMascota(id);
+                    mascota.setIdMascota(id);                   
                     Menu.mascotaData.editarMascota(mascota);
                 } else {
                     JOptionPane.showMessageDialog(null, "Error en la operación");

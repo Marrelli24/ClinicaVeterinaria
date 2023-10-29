@@ -10,19 +10,21 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 public class FacturaData {
-     private Connection con = null;
+
+    private Connection con = null;
 
     public FacturaData() {
-          con = Conexion.getConexion();
+        con = Conexion.getConexion();
     }
-      public void guardarFactura(Factura factura) {
+
+    public void guardarFactura(Factura factura) {
         String sql = "INSERT INTO factura(idVisita) VALUES (?)";
         PreparedStatement ps;
 
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, factura.getVisita().getIdVisita());
-       
+
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
 
@@ -35,11 +37,12 @@ public class FacturaData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en base de datos"+ ex);
+            JOptionPane.showMessageDialog(null, "Error en base de datos" + ex);
         }
 
     }
-       public Factura buscarFacturaPorIDVisita(int id) {
+
+    public Factura buscarFacturaPorIDVisita(int id) {
         Factura factura = null;
         String sql = ("SELECT NroFactura, idVisita FROM factura WHERE idVisita=?");
         PreparedStatement ps;
@@ -50,9 +53,8 @@ public class FacturaData {
             if (rs.next()) {
                 factura = new Factura();
                 factura.setNroFactura(rs.getInt("NroFactura"));
-                factura.setVisita(Menu.visitaData.buscarVisitaPorId(rs.getInt("idVisita")));   
+                factura.setVisita(Menu.visitaData.buscarVisitaPorId(rs.getInt("idVisita")));
             }
-
         } catch (SQLException ex) {
 //            JOptionPane.showMessageDialog(null, "Error en base de datos");
         }

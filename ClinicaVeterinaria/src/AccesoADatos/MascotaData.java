@@ -61,7 +61,7 @@ public class MascotaData {
             ps.setDouble(7, mascota.getPesoPromedio());
             ps.setDate(8, Date.valueOf(mascota.getFechaNac()));
             ps.setInt(9, mascota.getCliente().getIdCliente());
-            ps.setBoolean(10, mascota.isEstado());            
+            ps.setInt(10, mascota.getIdMascota());            
 
             int rs = ps.executeUpdate();
             if (rs == 1) {

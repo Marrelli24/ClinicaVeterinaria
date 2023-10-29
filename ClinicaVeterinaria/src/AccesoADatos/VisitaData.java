@@ -87,12 +87,12 @@ public class VisitaData {
     }
 
     public void eliminarVisita(int id) {
-        int idMascota = buscarVisitaPorId(id).getMascota().getIdMascota();
+        int idMascota = buscarVisitaPorId(id).getMascota().getIdMascota();       
         String sql = "DELETE FROM visita WHERE idVisita=?";
         PreparedStatement ps;
-        try {
+        try {            
             ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, id);            
             int rs = ps.executeUpdate();
             if (rs == 1) {
                 JOptionPane.showMessageDialog(null, "Se elimino el registro de la visita");

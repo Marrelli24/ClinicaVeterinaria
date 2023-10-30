@@ -291,9 +291,7 @@ public class GestionVisitas extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)))
                 .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(JFondoVistas, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 317, Short.MAX_VALUE)))
+                .addComponent(JFondoVistas, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
